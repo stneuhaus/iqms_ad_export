@@ -1,9 +1,9 @@
 """
-CSV Enrichment mit AD User-Daten (Microsoft Graph API)
-Liest AD Security Groups aus CSV, fragt Mitglieder ab und erweitert CSV mit User-Daten.
-Unterstützt Batch-Verarbeitung mehrerer Dateien aus einem Verzeichnis.
+CSV enrichment with AD user data (Microsoft Graph API).
+Reads AD security groups from CSV, retrieves members, and enriches rows with user data.
+Supports batch processing of multiple files from a directory.
 
-MICROSOFT GRAPH API: Verwendet Azure AD / Entra ID statt on-premises PowerShell
+MICROSOFT GRAPH API: Uses Azure AD / Entra ID instead of on-premises PowerShell.
 """
 
 from asyncio.log import logger
@@ -33,7 +33,7 @@ ERROR_GROUP_TEXT = "ERROR: Could not find group"
 
 
 def log_rest_call(logger, method, endpoint, params=None):
-    """Loggt den verwendeten REST Call inkl. Query-Parametern."""
+    """Logs the REST call including query parameters."""
     if not logger:
         return
 
@@ -45,7 +45,7 @@ def log_rest_call(logger, method, endpoint, params=None):
 
 
 def mapping_entry_exists(cn_map, displayname_map, display_name, cn, group_id):
-    """Prüft, ob ein Mapping-Eintrag bereits existiert (Duplikat-Schutz)."""
+    """Checks whether a mapping entry already exists (duplicate protection)."""
     if cn and cn in cn_map and cn_map[cn][1] == group_id:
         return True
 
@@ -59,8 +59,8 @@ def mapping_entry_exists(cn_map, displayname_map, display_name, cn, group_id):
 
 def get_requests_session():
     """
-    Erstellt requests Session mit Proxy-Support.
-    Verwendet System-Proxy-Einstellungen oder NO_PROXY aus .env.
+    Creates a requests session with proxy support.
+    Uses system proxy settings or NO_PROXY from .env.
     """
     session = requests.Session()
     
@@ -85,7 +85,7 @@ def get_requests_session():
 
 def setup_logging():
     """
-    Richtet Logging-System ein mit File und Console Handler.
+    Configures logging with file and console handlers.
     """
     project_root = Path(__file__).parent
     log_dir = project_root / "logs"
@@ -93,15 +93,15 @@ def setup_logging():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_file = log_dir / f"get_users_and_groups_from_ad_{timestamp}.log"
     
-    # Logger konfigurieren
+    # Configure logger
     logger = logging.getLogger('enrichment')
     logger.setLevel(logging.DEBUG)
     
-    # Verhindere doppelte Handler
+    # Prevent duplicate handlers
     if logger.handlers:
         return logger
     
-    # File Handler - detaillierte Logs
+    # File handler - detailed logs
     file_handler = logging.FileHandler(log_file, encoding='utf-8')
     file_handler.setLevel(logging.DEBUG)
     file_formatter = logging.Formatter(
@@ -110,7 +110,7 @@ def setup_logging():
     )
     file_handler.setFormatter(file_formatter)
     
-    # Console Handler - Info, Warnings und Errors
+    # Console handler - info, warnings, and errors
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
     console_formatter = logging.Formatter('%(levelname)s: %(message)s')
@@ -125,7 +125,7 @@ def setup_logging():
 
 def setup_observations_log():
     """
-    Richtet Observations Log ein für Warnungen und besondere Ereignisse.
+    Configures observations log for warnings and notable events.
     """
     project_root = Path(__file__).parent
     reports_dir = project_root / "reports"
@@ -136,9 +136,9 @@ def setup_observations_log():
     # Observations Logger
     obs_logger = logging.getLogger('observations')
     obs_logger.setLevel(logging.INFO)
-    obs_logger.propagate = False  # Nicht an Parent-Logger weitergeben
+    obs_logger.propagate = False  # Do not propagate to parent logger
     
-    # Verhindere doppelte Handler
+    # Prevent duplicate handlers
     if obs_logger.handlers:
         return obs_logger, obs_file
     
@@ -150,7 +150,7 @@ def setup_observations_log():
     
     obs_logger.addHandler(obs_handler)
     
-    # Header schreiben
+    # Write header
     obs_logger.info("="*100)
     obs_logger.info(f"OBSERVATIONS LOG - get_users_and_groups_from_ad.py")
     obs_logger.info(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -162,7 +162,7 @@ def setup_observations_log():
 
 
 def format_duration(delta) -> str:
-    """Formatiert timedelta als lesbarer String."""
+    """Formats timedelta as a readable string."""
     total_seconds = int(delta.total_seconds())
     if total_seconds < 0:
         total_seconds = 0
@@ -182,7 +182,7 @@ def format_duration(delta) -> str:
 
 
 def log_token_validity(token: str, logger=None) -> None:
-    """Prüft und loggt JWT Token Gültigkeit."""
+    """Checks and logs JWT token validity."""
     try:
         parts = token.split(".")
         if len(parts) < 2:
@@ -222,8 +222,8 @@ def log_token_validity(token: str, logger=None) -> None:
 
 def is_technical_group_name(group_name):
     """
-    Prüft, ob ein Gruppenname ein technischer AD-Gruppenname ist.
-    Technische Namen enthalten typischerweise Punkte und/oder Unterstriche.
+    Checks whether a group name is a technical AD group name.
+    Technical names usually contain dots and/or underscores.
     """
     if not group_name:
         return False
@@ -234,20 +234,20 @@ def is_technical_group_name(group_name):
     #starts_with_prefix = any(group_name.lower().startswith(prefix) for prefix in ['ef.', 'ph.', 'bs.', 'md.'])
     
     #return (has_dot and has_underscore) or starts_with_prefix
-    return (has_dot and not has_space)  # Technische Namen haben Punkte und keine Leerzeichen
+    return (has_dot and not has_space)  # Technical names contain dots and no spaces
 
 
 
 def load_group_id_mapping(csv_path='conf/group_id_mapping.csv', logger=None):
     """
-    Lädt Mapping von CN/DisplayName zu Group IDs.
+    Loads mapping from CN/displayName to group IDs.
     
     Returns:
         Tuple: (cn_map, displayname_map, max_no, error_entries)
         - cn_map: {cn: (displayName, id), ...}
         - displayname_map: {displayName: [(cn, id), ...], ...}
-        - max_no: höchste verwendete Nummer
-        - error_entries: Set mit bereits vorhandenen Error-Zeilen
+        - max_no: highest used number
+        - error_entries: set of already existing error rows
     """
     cn_map = {}
     displayname_map = {}
@@ -307,11 +307,11 @@ def load_group_id_mapping(csv_path='conf/group_id_mapping.csv', logger=None):
 
 def append_to_mapping_file(csv_path, entries, logger=None):
     """
-    Fügt neue Einträge zur Mapping-Datei hinzu.
+    Appends new entries to the mapping file.
     
     Args:
-        csv_path: Pfad zur Mapping-Datei
-        entries: Liste von (no, displayName, cn, mailNickname, id) Tupeln
+        csv_path: path to the mapping file
+        entries: list of (no, displayName, cn, mailNickname, id) tuples
     """
     csv_path = Path(csv_path)
     
@@ -331,17 +331,17 @@ def append_to_mapping_file(csv_path, entries, logger=None):
 
 def sanitize_cn_for_mailnickname(cn, logger=None):
     """
-    Konvertiert CN zu mailNickname Format (ersetzt Sonderzeichen).
+    Converts CN to mailNickname format (replaces special characters).
     
-    Microsoft Graph API ersetzt bestimmte Zeichen in mailNickname:
+    Microsoft Graph API replaces specific characters in mailNickname:
     - Parentheses () → underscore _
-    - Andere Sonderzeichen werden ebenfalls ersetzt
+    - Other special characters are also replaced
     
     Args:
-        cn: Original CN string (z.B. ef.u.iqms_qms_rqu_(responsible_quality_unit)_vapi_in01)
+        cn: original CN string (e.g. ef.u.iqms_qms_rqu_(responsible_quality_unit)_vapi_in01)
     
     Returns:
-        Sanitized string für mailNickname Filter
+        Sanitized string for mailNickname filter
     """
     # Replace known special characters that Microsoft converts to underscore
     sanitized = cn
@@ -362,14 +362,14 @@ def sanitize_cn_for_mailnickname(cn, logger=None):
 
 def search_group_by_cn(cn, bearer_token, session=None, logger=None):
     """
-    Sucht Gruppe nach mailNickname (v1.0) oder onPremisesSamAccountName (beta).
+    Searches a group by mailNickname (v1.0) or onPremisesSamAccountName (beta).
     
     Strategy:
     1. Try mailNickname with v1.0 API (sanitized CN)
     2. Fallback: Try onPremisesSamAccountName with beta API (original CN)
     
     Returns:
-        List of (displayName, cn, mailNickname, id) oder []
+        List of (displayName, cn, mailNickname, id) or []
     """
     if session is None:
         session = requests
@@ -468,10 +468,10 @@ def search_group_by_cn(cn, bearer_token, session=None, logger=None):
 
 def search_group_by_displayname(displayName, bearer_token, session=None, logger=None, obs_logger=None):
     """
-    Sucht Gruppe nach displayName.
+    Searches a group by displayName.
     
     Returns:
-        List of (displayName, cn, mailNickname, id) oder []
+        List of (displayName, cn, mailNickname, id) or []
     """
     # Escape single quotes for OData (replace ' with '')
     displayName_escaped = displayName.replace("'", "''")
@@ -511,7 +511,7 @@ def search_group_by_displayname(displayName, bearer_token, session=None, logger=
                 if group_id:
                     results.append((dn, group_cn, mail_nickname, group_id))
             
-            # Observation: Mehrere Gruppen gefunden
+            # Observation: Multiple groups found
             if len(results) > 1 and obs_logger:
                 obs_logger.info(f"{'Multiple groups found for displayName':<60} | {displayName} (Found: {len(results)})")
         
@@ -525,26 +525,26 @@ def search_group_by_displayname(displayName, bearer_token, session=None, logger=
 
 def resolve_group_id(group_cn, cn_map, displayname_map, bearer_token, next_no, mapping_updates, error_entries=None, session=None, logger=None, obs_logger=None):
     """
-    Löst Group ID auf - über Cache oder API.
+    Resolves group ID via cache or API.
     
     Returns:
         Tuple: (group_id or None, updated_next_no)
     """
     is_technical = is_technical_group_name(group_cn)
 
-    # 1. Technische Namen zuerst via CN-Cache auflösen
+    # 1. Resolve technical names via CN cache first
     if is_technical and group_cn in cn_map:
         displayName, group_id = cn_map[group_cn]
         return group_id, next_no
 
-    # 1b. Nicht-technische Namen via displayName-Cache auflösen
+    # 1b. Resolve non-technical names via displayName cache
     if (not is_technical) and group_cn in displayname_map and displayname_map[group_cn]:
         cached_cn, cached_group_id = displayname_map[group_cn][0]
         if logger:
             logger.info(f"Mapping cache hit (displayName): '{group_cn}' -> ID {cached_group_id}")
         return cached_group_id, next_no
 
-    # 2. Suche via API
+    # 2. Search via API
     if is_technical:
         results = search_group_by_cn(group_cn, bearer_token, session, logger)
     else:
@@ -553,12 +553,12 @@ def resolve_group_id(group_cn, cn_map, displayname_map, bearer_token, next_no, m
         results = search_group_by_displayname(group_cn, bearer_token, session, logger, obs_logger)
     
     if results:
-        # Gefunden via API
+        # Found via API
         for displayName, found_cn, mail_nickname, group_id in results:
             mapped_cn = found_cn or group_cn
             mapped_mail_nickname = mail_nickname or sanitize_cn_for_mailnickname(group_cn, logger)
 
-            # Duplikat-Schutz: Nur neue Mapping-Einträge anhängen
+            # Duplicate protection: append only new mapping entries
             if mapping_entry_exists(cn_map, displayname_map, displayName, mapped_cn, group_id):
                 if logger:
                     logger.info(
@@ -576,7 +576,7 @@ def resolve_group_id(group_cn, cn_map, displayname_map, bearer_token, next_no, m
             mapping_updates.append((next_no, displayName, mapped_cn, mapped_mail_nickname, group_id))
             next_no += 1
         
-        # Return first result's ID
+        # Return first result ID
         return results[0][3], next_no
     
     if error_entries is None:
@@ -608,7 +608,7 @@ def resolve_group_id(group_cn, cn_map, displayname_map, bearer_token, next_no, m
 
 def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=None, obs_logger=None):
     """
-    Ruft Gruppenmitglieder über Graph API Batch Endpoint ab.
+    Retrieves group members via Microsoft Graph batch endpoint.
     
     Args:
         group_ids_dict: {group_cn: group_id, ...}
@@ -624,14 +624,14 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
     if session is None:
         session = requests
     
-    # Erstelle Batch-Requests (max 20 pro Batch)
+    # Build batch requests (max 20 per batch)
     group_items = list(group_ids_dict.items())
     batch_size = 20
     
     for batch_start in range(0, len(group_items), batch_size):
         batch_items = group_items[batch_start:batch_start + batch_size]
         
-        # Erstelle Batch Request
+        # Build batch request
         batch_requests = []
         for idx, (group_cn, group_id) in enumerate(batch_items):
             if not group_id:
@@ -655,7 +655,7 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
         if not batch_requests:
             continue
         
-        # Sende Batch Request
+        # Send batch request
         batch_endpoint = "https://graph.microsoft.com/v1.0/$batch"
         headers = {
             'Authorization': f'Bearer {bearer_token}',
@@ -681,7 +681,7 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
             if batch_start == 0 and logger:
                 logger.info(f"Batch response received, processing {len(batch_response.get('responses', []))} responses")
             
-            # Parse Batch Response
+            # Parse batch response
             for resp in batch_response.get('responses', []):
                 request_id = int(resp.get('id', -1))
                 if request_id < 0 or request_id >= len(batch_items):
@@ -703,11 +703,11 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
                             alias = member.get('onPremisesSamAccountName', '')
                             account_enabled = member.get('accountEnabled', None)
 
-                            # Observation: Kein Alias gefunden
+                            # Observation: no alias found
                             if upn and not alias and obs_logger:
                                 obs_logger.info(f"{'No Alias found for user':<60} | {upn}")
 
-                            # Map User Status
+                            # Map user status
                             if account_enabled is True:
                                 user_status = "Enabled"
                             elif account_enabled is False:
@@ -746,7 +746,7 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
                     
                     results[group_cn] = members
                 else:
-                    # Fehler bei diesem Request - log details
+                    # Request-level error - log details
                     error_msg = f"Batch request failed for group {group_cn}: Status {status}"
                     if 'body' in resp:
                         error_body = resp.get('body', {})
@@ -770,17 +770,17 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
 
 def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=None):
     """
-    Liest CSV mit AD Security Groups, fragt Mitglieder ab und erweitert CSV.
+    Reads CSV with AD security groups, retrieves members, and enriches CSV rows.
     
     Args:
-        input_file: Pfad zum Input-CSV (persona, AD Security Group, DocUnit)
-        output_file: Pfad zum Output-CSV (erweitert mit User, Alias, User Status)
-        silent: Wenn True, wird weniger Output erzeugt (für Batch-Verarbeitung)
-        logger: Logger-Instanz für Fehlerprotokollierung
+        input_file: path to input CSV (persona, AD Security Group, DocUnit)
+        output_file: path to output CSV (enriched with User, Alias, User Status)
+        silent: when True, prints less output (for batch processing)
+        logger: logger instance for error logging
         obs_logger: Observations Logger
         
     Returns:
-        Dictionary mit Statistiken
+        Dictionary with statistics
     """
     if not silent:
         print(f"\n{'='*80}")
@@ -789,7 +789,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
         print(f"Input:  {input_file}")
         print(f"Output: {output_file}\n")
     
-    # Bearer Token laden
+    # Load bearer token
     bearer_token = os.getenv('BEARER_TOKEN')
     if not bearer_token:
         error_msg = "BEARER_TOKEN environment variable is not set"
@@ -801,11 +801,11 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     # Create requests session with proxy support
     session = get_requests_session()
     
-    # Token Validität prüfen
+    # Check token validity
     if not silent:
         log_token_validity(bearer_token, logger)
     
-    # CSV lesen
+    # Read CSV
     try:
         with open(input_file, 'r', encoding='utf-8-sig') as f:
             reader = csv.DictReader(f)
@@ -822,10 +822,10 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     if not silent:
         print(f"✓ {len(input_rows)} Zeilen eingelesen")
     
-    # Eindeutige AD Security Groups sammeln
+    # Collect unique AD security groups
     unique_groups = sorted(set(row['AD Security Group'] for row in input_rows))
     
-    # Gruppentypen ermitteln (für Logging/Reporting)
+    # Classify group types (for logging/reporting)
     technical_groups = []
     non_technical_groups = []
     
@@ -847,7 +847,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
                 print(f"    ... und {len(non_technical_groups) - 10} weitere")
         print()
     
-    # Mapping laden
+    # Load mapping
     if not silent:
         print(f"{'='*80}")
         print(f"Lade Group ID Mapping...")
@@ -857,7 +857,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     next_no = max_no + 1
     mapping_updates = []
     
-    # Group IDs auflösen
+    # Resolve group IDs
     if not silent:
         print(f"{'='*80}")
         print(f"Löse Group IDs für {len(unique_groups)} Gruppen auf...")
@@ -880,13 +880,13 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
             groups_not_found.append(group_cn)
             group_ids_dict[group_cn] = None
     
-    # Mapping-Updates speichern
+    # Persist mapping updates
     if mapping_updates:
         if not silent:
             print(f"✓ {len(mapping_updates)} neue Gruppen entdeckt - aktualisiere Mapping-Datei...")
         append_to_mapping_file('conf/group_id_mapping.csv', mapping_updates, logger)
     
-    # Mitglieder abrufen
+    # Retrieve members
     if not silent:
         print(f"\n{'='*80}")
         print(f"⚡ Rufe Mitglieder für {len(group_ids_dict)} Gruppen ab (Graph API Batch)...")
@@ -900,7 +900,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     if not silent:
         print(f"\n⏱ API-Abfrage dauerte: {batch_duration:.1f} Sekunden")
     
-    # Statistiken sammeln
+    # Collect statistics
     groups_found = {}
     timeout_groups = []
     
@@ -922,7 +922,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
         print(f"Erweitere CSV-Daten...")
         print(f"{'='*80}\n")
     
-    # Neue Zeilen mit User-Daten erstellen
+    # Create new rows with user data
     output_rows = []
     total_users = 0
     groups_without_members = 0
@@ -934,7 +934,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
         members = group_members_cache.get(group_name, [])
         
         if members:
-            # Für jedes Mitglied eine neue Zeile erstellen
+            # Create one new row per member
             for member in members:
                 new_row = {
                     'persona': row['persona'],
@@ -947,7 +947,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
                 output_rows.append(new_row)
                 total_users += 1
         else:
-            # Gruppe ohne Mitglieder: Zeile ohne User-Daten eintragen
+            # Group without members: add row without user data
             new_row = {
                 'persona': row['persona'],
                 'AD Security Group': row['AD Security Group'],
@@ -959,7 +959,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
             output_rows.append(new_row)
             groups_without_members += 1
     
-    # Erweiterte CSV schreiben
+    # Write enriched CSV
     try:
         with open(output_file, 'w', newline='', encoding='utf-8-sig') as f:
             fieldnames = ['persona', 'AD Security Group', 'DocUnit', 'User', 'Alias', 'User Status']
@@ -979,7 +979,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
             print(f"  Ausgabe-Zeilen:              {len(output_rows):6d}")
             print(f"{'='*80}\n")
         
-        # Statistiken zurückgeben
+        # Return statistics
         return {
             'total_users': total_users,
             'groups_without_members': groups_without_members,
@@ -999,7 +999,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
 
 def generate_report(processed_files, skipped_files, failed_files, all_groups_found, all_groups_not_found, all_timeout_groups, all_skipped_groups, total_users):
     """
-    Generiert einen Markdown-Report über die Batch-Verarbeitung.
+    Generates a markdown report for batch processing.
     """
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
@@ -1081,12 +1081,12 @@ def generate_report(processed_files, skipped_files, failed_files, all_groups_fou
 
 def batch_process(input_dir, output_dir, report_file):
     """
-    Verarbeitet alle CSV-Dateien aus einem Verzeichnis im Batch-Modus.
+    Processes all CSV files from a directory in batch mode.
     """
     logger = setup_logging()
     obs_logger, obs_file = setup_observations_log()
     
-    # Gesamtzeit messen
+    # Measure total runtime
     total_start = datetime.now()
     
     logger.info("="*80)
@@ -1192,7 +1192,7 @@ def batch_process(input_dir, output_dir, report_file):
     print(f"\n✓ Report gespeichert: {report_file}")
     print(f"✓ Observations Log: {obs_file}")
     
-    # Gesamtzeit berechnen
+    # Calculate total runtime
     total_end = datetime.now()
     total_duration = (total_end - total_start).total_seconds()
     total_minutes = int(total_duration // 60)
@@ -1216,15 +1216,31 @@ def batch_process(input_dir, output_dir, report_file):
 
 
 def main():
-    """Hauptfunktion."""
+    """Main entry point."""
     import argparse
     
     project_root = Path(__file__).parent
     
+    startup_options_text = """
+Startup options:
+  1) Batch mode (default):
+      %(prog)s
+      %(prog)s --batch
+
+  2) Single file mode:
+      %(prog)s -i input.csv -o output.csv
+
+  3) Batch mode with custom folders:
+      %(prog)s --batch --input-dir exports/splitted --output-dir exports/enriched --report exports/enrichment_report_msgraph.md
+
+  4) Show full help:
+      %(prog)s --help
+"""
+
     parser = argparse.ArgumentParser(
         description='Erweitert CSV mit AD Security Group Mitgliedern (MICROSOFT GRAPH API)',
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
+            epilog="""
 ⚡ MICROSOFT GRAPH API:
   Verwendet Azure AD / Entra ID statt on-premises PowerShell.
   Batch-Optimierung für beste Performance!
@@ -1246,6 +1262,8 @@ Beispiele:
     parser.add_argument('--report', help='Report-Datei (Standard: exports/enrichment_report_msgraph.md)')
     
     args = parser.parse_args()
+
+    print(startup_options_text % {'prog': parser.prog})
     
     if not args.input and not args.output and not args.batch:
         print("⚡ MICROSOFT GRAPH API - Batch-Verarbeitung\n")
