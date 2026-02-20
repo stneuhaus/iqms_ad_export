@@ -15,7 +15,7 @@ import os
 import logging
 import base64
 import requests
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import List, Dict, Tuple, Optional
 from dotenv import load_dotenv
@@ -30,6 +30,8 @@ if sys.platform == 'win32':
 load_dotenv()
 
 ERROR_GROUP_TEXT = "ERROR: Could not find group"
+NEAR_EXPIRY_THRESHOLD_SECONDS = 10 * 60
+_near_expiry_user_decision = None
 
 
 def log_rest_call(logger, method, endpoint, params=None):
@@ -83,6 +85,46 @@ def get_requests_session():
     return session
 
 
+def get_user_input(prompt, default_value):
+    """Prompts the user for input with a suggested default value."""
+    print(f"\n{prompt}")
+    print(f"Suggested: {default_value}")
+    user_input = input("Enter full path (or press Enter to use suggested): ").strip()
+
+    if user_input:
+        return user_input
+    return str(default_value)
+
+
+def prompt_for_single_file_paths(project_root, current_input=None, current_output=None):
+    """Prompts for input/output paths in single-file mode with safe defaults."""
+    default_input = Path(current_input) if current_input else project_root / "exports" / "persona_sg_mapping.csv"
+    input_path = Path(get_user_input("[1/2] Input CSV file:", default_input))
+
+    derived_default_output = (
+        Path(current_output)
+        if current_output
+        else input_path.parent / f"{input_path.stem}_enriched{input_path.suffix or '.csv'}"
+    )
+
+    while True:
+        output_path = Path(get_user_input("[2/2] Output CSV file:", derived_default_output))
+
+        if output_path.parent != input_path.parent:
+            print("✗ Output file must be in the same folder as input file.")
+            print(f"  Input folder:  {input_path.parent}")
+            print(f"  Output folder: {output_path.parent}")
+            continue
+
+        if output_path.name == input_path.name:
+            print("✗ Output filename must be different from input filename.")
+            print(f"  Input file:  {input_path.name}")
+            print(f"  Output file: {output_path.name}")
+            continue
+
+        return input_path, output_path
+
+
 def setup_logging():
     """
     Configures logging with file and console handlers.
@@ -119,7 +161,7 @@ def setup_logging():
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
     
-    logger.info(f"Logging initialisiert. Logfile: {log_file}")
+    logger.info(f"Logging initialized. Log file: {log_file}")
     return logger
 
 
@@ -181,14 +223,12 @@ def format_duration(delta) -> str:
     return " ".join(parts)
 
 
-def log_token_validity(token: str, logger=None) -> None:
-    """Checks and logs JWT token validity."""
+def get_token_expiration_utc(token: str) -> Optional[datetime]:
+    """Extracts token expiration timestamp (UTC) from a JWT bearer token."""
     try:
         parts = token.split(".")
         if len(parts) < 2:
-            if logger:
-                logger.warning("Bearer token does not look like a JWT; validity cannot be determined")
-            return
+            return None
 
         payload_b64 = parts[1]
         padding = "=" * (-len(payload_b64) % 4)
@@ -197,11 +237,124 @@ def log_token_validity(token: str, logger=None) -> None:
 
         exp = payload.get("exp")
         if not exp:
+            return None
+
+        return datetime.fromtimestamp(int(exp), tz=timezone.utc)
+    except Exception:
+        return None
+
+
+def print_expired_token_error(exp_time: datetime, explorer_url: str) -> None:
+    """Prints a highlighted console message for expired bearer token errors."""
+    no_color = os.getenv("NO_COLOR", "").lower() in ("1", "true", "yes")
+    use_color = sys.stdout.isatty() and not no_color
+
+    if use_color:
+        red = "\033[91m"
+        yellow = "\033[93m"
+        cyan = "\033[96m"
+        bold = "\033[1m"
+        reset = "\033[0m"
+    else:
+        red = yellow = cyan = bold = reset = ""
+
+    border = f"{red}{bold}{'=' * 90}{reset}"
+    print(border)
+    print(f"{red}{bold}✗ BEARER TOKEN EXPIRED{reset}")
+    print(f"{yellow}Token expired at: {exp_time.isoformat()}{reset}")
+    print(f"Please refresh BEARER_TOKEN in .env and run again.")
+    print(f"{cyan}Link: {explorer_url}{reset}")
+    print(border)
+
+
+def print_near_expiry_warning(exp_time: datetime, remaining: timedelta, explorer_url: str) -> None:
+    """Prints a highlighted console message for near-expiry bearer token warnings."""
+    no_color = os.getenv("NO_COLOR", "").lower() in ("1", "true", "yes")
+    use_color = sys.stdout.isatty() and not no_color
+
+    if use_color:
+        yellow = "\033[93m"
+        cyan = "\033[96m"
+        bold = "\033[1m"
+        reset = "\033[0m"
+    else:
+        yellow = cyan = bold = reset = ""
+
+    border = f"{yellow}{bold}{'=' * 90}{reset}"
+    print(border)
+    print(f"{yellow}{bold}⚠ BEARER TOKEN EXPIRING SOON{reset}")
+    print(f"{yellow}Expires at: {exp_time.isoformat()}{reset}")
+    print(f"{yellow}Remaining: {format_duration(remaining)}{reset}")
+    print("The token expires within the next 10 minutes.")
+    print(f"{cyan}Refresh here if needed: {explorer_url}{reset}")
+    print(border)
+
+
+def enforce_bearer_token_policy(token: str, logger=None, prompt_user: bool = True) -> None:
+    """Enforces token policy: stop if expired, confirm if expiring within 10 minutes."""
+    global _near_expiry_user_decision
+
+    exp_time = get_token_expiration_utc(token)
+    if not exp_time:
+        message = "Bearer token validity cannot be determined from JWT claims; continuing without expiry enforcement"
+        if logger:
+            logger.warning(message)
+        print(f"⚠ {message}")
+        return
+
+    now = datetime.now(timezone.utc)
+    remaining = exp_time - now
+    remaining_seconds = int(remaining.total_seconds())
+
+    if remaining_seconds <= 0:
+        explorer_url = "https://developer.microsoft.com/en-us/graph/graph-explorer"
+        message = (
+            f"Bearer token has expired at {exp_time.isoformat()}. "
+            "Please refresh BEARER_TOKEN in .env and run again. "
+            f"Link: [{explorer_url}]({explorer_url})"
+        )
+        if logger:
+            logger.error(message)
+        print_expired_token_error(exp_time, explorer_url)
+        raise ValueError(message)
+
+    if remaining_seconds <= NEAR_EXPIRY_THRESHOLD_SECONDS:
+        explorer_url = "https://developer.microsoft.com/en-us/graph/graph-explorer"
+        warning = (
+            f"Bearer token will expire soon at {exp_time.isoformat()} "
+            f"(remaining {format_duration(remaining)})."
+        )
+        if logger:
+            logger.warning(warning)
+        print_near_expiry_warning(exp_time, remaining, explorer_url)
+
+        if _near_expiry_user_decision is None:
+            if prompt_user:
+                try:
+                    answer = input("Do you want to continue processing? [y/N]: ").strip().lower()
+                except Exception:
+                    answer = ""
+                _near_expiry_user_decision = answer in ("y", "yes")
+            else:
+                _near_expiry_user_decision = False
+
+        if not _near_expiry_user_decision:
+            message = "Processing cancelled because the bearer token expires within the next 10 minutes."
             if logger:
-                logger.warning("Bearer token does not include 'exp' claim; validity cannot be determined")
+                logger.warning(message)
+            print(f"✗ {message}")
+            raise ValueError(message)
+
+
+def log_token_validity(token: str, logger=None) -> None:
+    """Checks and logs JWT token validity."""
+    try:
+        exp_time = get_token_expiration_utc(token)
+        if not exp_time:
+            if logger:
+                logger.warning("Bearer token does not look like a JWT; validity cannot be determined")
             return
 
-        exp_time = datetime.fromtimestamp(int(exp), tz=timezone.utc)
         now = datetime.now(timezone.utc)
         remaining = exp_time - now
 
@@ -784,7 +937,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     """
     if not silent:
         print(f"\n{'='*80}")
-        print(f"CSV Enrichment mit AD User-Daten (MICROSOFT GRAPH API)")
+        print(f"CSV enrichment with AD user data (MICROSOFT GRAPH API)")
         print(f"{'='*80}\n")
         print(f"Input:  {input_file}")
         print(f"Output: {output_file}\n")
@@ -803,6 +956,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     
     # Check token validity
     if not silent:
+        enforce_bearer_token_policy(bearer_token, logger=logger, prompt_user=True)
         log_token_validity(bearer_token, logger)
     
     # Read CSV
@@ -812,15 +966,15 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
             input_rows = list(reader)
     except FileNotFoundError:
         if not silent:
-            print(f"✗ Fehler: Datei '{input_file}' nicht gefunden!")
+            print(f"✗ Error: File '{input_file}' not found!")
         raise
     except Exception as e:
         if not silent:
-            print(f"✗ Fehler beim Lesen der CSV: {e}")
+            print(f"✗ Error while reading CSV: {e}")
         raise
     
     if not silent:
-        print(f"✓ {len(input_rows)} Zeilen eingelesen")
+        print(f"✓ {len(input_rows)} rows loaded")
     
     # Collect unique AD security groups
     unique_groups = sorted(set(row['AD Security Group'] for row in input_rows))
@@ -836,21 +990,21 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
             non_technical_groups.append(group)
     
     if not silent:
-        print(f"✓ {len(unique_groups)} eindeutige AD Security Groups gefunden")
-        print(f"  - Technische Namen: {len(technical_groups)}")
-        print(f"  - Nicht-technische Namen (displayName): {len(non_technical_groups)}")
+        print(f"✓ {len(unique_groups)} unique AD security groups found")
+        print(f"  - Technical names: {len(technical_groups)}")
+        print(f"  - Non-technical names (displayName): {len(non_technical_groups)}")
         if non_technical_groups:
-            print(f"\nℹ Nicht-technische Gruppen (erste 10, werden via displayName gesucht):")
+            print(f"\nℹ Non-technical groups (first 10, searched via displayName):")
             for group in non_technical_groups[:10]:
                 print(f"    - {group}")
             if len(non_technical_groups) > 10:
-                print(f"    ... und {len(non_technical_groups) - 10} weitere")
+                print(f"    ... and {len(non_technical_groups) - 10} more")
         print()
     
     # Load mapping
     if not silent:
         print(f"{'='*80}")
-        print(f"Lade Group ID Mapping...")
+        print(f"Loading group ID mapping...")
         print(f"{'='*80}\n")
     
     cn_map, displayname_map, max_no, error_entries = load_group_id_mapping(logger=logger)
@@ -860,7 +1014,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     # Resolve group IDs
     if not silent:
         print(f"{'='*80}")
-        print(f"Löse Group IDs für {len(unique_groups)} Gruppen auf...")
+        print(f"Resolving group IDs for {len(unique_groups)} groups...")
         print(f"{'='*80}\n")
     
     group_ids_dict = {}
@@ -883,13 +1037,13 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     # Persist mapping updates
     if mapping_updates:
         if not silent:
-            print(f"✓ {len(mapping_updates)} neue Gruppen entdeckt - aktualisiere Mapping-Datei...")
+            print(f"✓ {len(mapping_updates)} new groups discovered - updating mapping file...")
         append_to_mapping_file('conf/group_id_mapping.csv', mapping_updates, logger)
     
     # Retrieve members
     if not silent:
         print(f"\n{'='*80}")
-        print(f"⚡ Rufe Mitglieder für {len(group_ids_dict)} Gruppen ab (Graph API Batch)...")
+        print(f"⚡ Retrieving members for {len(group_ids_dict)} groups (Graph API batch)...")
         print(f"{'='*80}\n")
     
     group_members_cache = get_group_members_batch(group_ids_dict, bearer_token, session, logger, obs_logger)
@@ -898,7 +1052,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     batch_duration = (batch_end - batch_start).total_seconds()
     
     if not silent:
-        print(f"\n⏱ API-Abfrage dauerte: {batch_duration:.1f} Sekunden")
+        print(f"\n⏱ API request duration: {batch_duration:.1f} seconds")
     
     # Collect statistics
     groups_found = {}
@@ -912,14 +1066,14 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
             groups_found[group_name] = len(members)
     
     if not silent:
-        print(f"\n✓ API-Abfrage abgeschlossen")
-        print(f"  - Gruppen mit Mitgliedern: {len(groups_found)}")
-        print(f"  - Gruppen ohne Mitglieder: {len(groups_not_found)}")
-        print(f"  - Gruppen mit Timeout: {len(timeout_groups)}\n")
+        print(f"\n✓ API request completed")
+        print(f"  - Groups with members: {len(groups_found)}")
+        print(f"  - Groups without members: {len(groups_not_found)}")
+        print(f"  - Groups with timeout: {len(timeout_groups)}\n")
     
     if not silent:
         print(f"{'='*80}")
-        print(f"Erweitere CSV-Daten...")
+        print(f"Enriching CSV data...")
         print(f"{'='*80}\n")
     
     # Create new rows with user data
@@ -968,15 +1122,15 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
             writer.writerows(output_rows)
         
         if not silent:
-            print(f"✓ CSV erfolgreich erweitert und gespeichert\n")
+            print(f"✓ CSV successfully enriched and saved\n")
             print(f"{'='*80}")
-            print(f"Statistik:")
+            print(f"Statistics:")
             print(f"{'='*80}")
-            print(f"  Eingabe-Zeilen:              {len(input_rows):6d}")
-            print(f"  AD Security Groups:          {len(unique_groups):6d}")
-            print(f"  Gruppen ohne Mitglieder:     {groups_without_members:6d}")
-            print(f"  Gefundene User:              {total_users:6d}")
-            print(f"  Ausgabe-Zeilen:              {len(output_rows):6d}")
+            print(f"  Input rows:                  {len(input_rows):6d}")
+            print(f"  AD security groups:          {len(unique_groups):6d}")
+            print(f"  Groups without members:      {groups_without_members:6d}")
+            print(f"  Found users:                 {total_users:6d}")
+            print(f"  Output rows:                 {len(output_rows):6d}")
             print(f"{'='*80}\n")
         
         # Return statistics
@@ -993,7 +1147,7 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
         
     except Exception as e:
         if not silent:
-            print(f"✗ Fehler beim Schreiben der CSV: {e}")
+            print(f"✗ Error while writing CSV: {e}")
         raise
 
 
@@ -1005,19 +1159,19 @@ def generate_report(processed_files, skipped_files, failed_files, all_groups_fou
     
     report = f"""# CSV Enrichment Report (Microsoft Graph API)
 
-**Zeitstempel:** {timestamp}
+**Timestamp:** {timestamp}
 
-## Zusammenfassung
+## Summary
 
-- **Verarbeitete Dateien:** {len(processed_files)}
-- **Übersprungene Dateien:** {len(skipped_files)}
-- **Fehlgeschlagene Dateien:** {len(failed_files)}
-- **Gesamt gefundene User:** {total_users}
-- **AD-Gruppen ohne Mitglieder:** {len(all_groups_not_found)}
-- **AD-Gruppen mit Timeout:** {len(set(all_timeout_groups))}
-- **Übersprungene "schöne" Gruppennamen:** {len(set(all_skipped_groups))}
+- **Processed files:** {len(processed_files)}
+- **Skipped files:** {len(skipped_files)}
+- **Failed files:** {len(failed_files)}
+- **Total users found:** {total_users}
+- **AD groups without members:** {len(all_groups_not_found)}
+- **AD groups with timeout:** {len(set(all_timeout_groups))}
+- **Skipped "pretty" group names:** {len(set(all_skipped_groups))}
 
-## Verarbeitete Dateien
+## Processed Files
 
 """
     
@@ -1025,56 +1179,56 @@ def generate_report(processed_files, skipped_files, failed_files, all_groups_fou
         for filename in processed_files:
             report += f"- ✓ {filename}\n"
     else:
-        report += "*Keine Dateien verarbeitet*\n"
+        report += "*No files processed*\n"
     
-    report += "\n## Übersprungene Dateien\n\n"
+    report += "\n## Skipped Files\n\n"
     
     if skipped_files:
         for filename in skipped_files:
-            report += f"- ⊘ {filename} (bereits vorhanden)\n"
+            report += f"- ⊘ {filename} (already exists)\n"
     else:
-        report += "*Keine Dateien übersprungen*\n"
+        report += "*No files skipped*\n"
     
-    report += "\n## Fehlgeschlagene Dateien\n\n"
+    report += "\n## Failed Files\n\n"
     
     if failed_files:
         for filename, error in failed_files:
             report += f"- ✗ {filename}\n"
-            report += f"  - Fehler: `{error}`\n"
+            report += f"  - Error: `{error}`\n"
     else:
-        report += "*Keine Fehler*\n"
+        report += "*No errors*\n"
     
     if all_skipped_groups:
         unique_skipped = sorted(set(all_skipped_groups))
-        report += f"\n## Übersprungene 'schöne' Gruppennamen ({len(unique_skipped)})\n\n"
+        report += f"\n## Skipped 'pretty' group names ({len(unique_skipped)})\n\n"
         for group in unique_skipped[:20]:
             report += f"- ⚠ {group}\n"
         if len(unique_skipped) > 20:
-            report += f"\n*... und {len(unique_skipped) - 20} weitere*\n"
+            report += f"\n*... and {len(unique_skipped) - 20} more*\n"
     
-    report += "\n## AD-Gruppen Statistik\n\n"
+    report += "\n## AD Group Statistics\n\n"
     
     if all_groups_found:
-        report += f"### Gruppen mit Mitgliedern ({len(all_groups_found)})\n\n"
-        report += "| AD Security Group | Anzahl User |\n"
+        report += f"### Groups with members ({len(all_groups_found)})\n\n"
+        report += "| AD Security Group | User Count |\n"
         report += "|-------------------|-------------|\n"
         for group, count in sorted(all_groups_found.items(), key=lambda x: x[1], reverse=True):
             report += f"| {group} | {count} |\n"
     
     if all_groups_not_found:
         unique_not_found = sorted(set(all_groups_not_found))
-        report += f"\n### Gruppen ohne Mitglieder / nicht gefunden ({len(unique_not_found)})\n\n"
+        report += f"\n### Groups without members / not found ({len(unique_not_found)})\n\n"
         for group in unique_not_found:
             report += f"- ⚠ {group}\n"
     
     if all_timeout_groups:
         unique_timeout = sorted(set(all_timeout_groups))
-        report += f"\n### Gruppen mit Timeout ({len(unique_timeout)})\n\n"
-        report += "*HINWEIS: Timeout bedeutet, dass die API-Anfrage abgebrochen wurde.*\n\n"
+        report += f"\n### Groups with timeout ({len(unique_timeout)})\n\n"
+        report += "*NOTE: Timeout means the API request was aborted.*\n\n"
         for group in unique_timeout:
             report += f"- ⏱ {group}\n"
     
-    report += "\n---\n*Generiert automatisch durch get_users_and_groups_from_ad.py*\n"
+    report += "\n---\n*Generated automatically by get_users_and_groups_from_ad.py*\n"
     
     return report
 
@@ -1095,15 +1249,15 @@ def batch_process(input_dir, output_dir, report_file):
     
     print(f"\n{'='*80}")
     print(f"BATCH ENRICHMENT (MICROSOFT GRAPH API)")
-    print(f"⚡ Verwendet Azure AD / Entra ID statt on-premises PowerShell")
+    print(f"⚡ Uses Azure AD / Entra ID instead of on-premises PowerShell")
     print(f"{'='*80}\n")
-    print(f"Input-Verzeichnis:  {input_dir}")
-    print(f"Output-Verzeichnis: {output_dir}")
-    print(f"Report-Datei:       {report_file}")
+    print(f"Input directory:  {input_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Report file:      {report_file}")
     print(f"Observations-Log:   {obs_file}\n")
     
     if not input_dir.exists():
-        print(f"✗ Fehler: Input-Verzeichnis '{input_dir}' nicht gefunden!")
+        print(f"✗ Error: Input directory '{input_dir}' not found!")
         sys.exit(1)
     
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1111,10 +1265,10 @@ def batch_process(input_dir, output_dir, report_file):
     csv_files = sorted(input_dir.glob("*.csv"))
     
     if not csv_files:
-        print(f"✗ Keine CSV-Dateien in '{input_dir}' gefunden!")
+        print(f"✗ No CSV files found in '{input_dir}'!")
         sys.exit(1)
     
-    print(f"✓ {len(csv_files)} CSV-Datei(en) gefunden\n")
+    print(f"✓ {len(csv_files)} CSV file(s) found\n")
     
     processed_files = []
     skipped_files = []
@@ -1129,15 +1283,15 @@ def batch_process(input_dir, output_dir, report_file):
         output_file = output_dir / csv_file.name
         
         if output_file.exists():
-            print(f"[{idx:4d}/{len(csv_files)}] ⊘ Überspringe: {csv_file.name} (bereits vorhanden)")
+            print(f"[{idx:4d}/{len(csv_files)}] ⊘ Skipping: {csv_file.name} (already exists)")
             skipped_files.append(csv_file.name)
             continue
         
         print(f"\n{'='*80}")
-        print(f"[{idx:4d}/{len(csv_files)}] Verarbeite: {csv_file.name}")
+        print(f"[{idx:4d}/{len(csv_files)}] Processing: {csv_file.name}")
         print(f"{'='*80}")
         
-        logger.info(f"Verarbeite Datei {idx}/{len(csv_files)}: {csv_file.name}")
+        logger.info(f"Processing file {idx}/{len(csv_files)}: {csv_file.name}")
         
         file_start = datetime.now()
         
@@ -1160,18 +1314,18 @@ def batch_process(input_dir, output_dir, report_file):
             file_end = datetime.now()
             file_duration = (file_end - file_start).total_seconds()
             
-            print(f"\n✓ Erfolgreich verarbeitet: {csv_file.name}")
-            print(f"  ⏱ Verarbeitungszeit: {file_duration:.1f} Sekunden")
-            logger.info(f"Erfolgreich verarbeitet: {csv_file.name} ({stats['total_users']} User, {file_duration:.1f}s)")
+            print(f"\n✓ Successfully processed: {csv_file.name}")
+            print(f"  ⏱ Processing time: {file_duration:.1f} seconds")
+            logger.info(f"Successfully processed: {csv_file.name} ({stats['total_users']} users, {file_duration:.1f}s)")
             
         except Exception as e:
-            error_msg = f"Fehler bei der Verarbeitung von {csv_file.name}: {e}"
+            error_msg = f"Error while processing {csv_file.name}: {e}"
             print(f"\n✗ {error_msg}")
             logger.error(error_msg)
             failed_files.append((csv_file.name, str(e)))
     
     print(f"\n{'='*80}")
-    print(f"REPORT GENERIEREN")
+    print(f"GENERATING REPORT")
     print(f"{'='*80}\n")
     
     report_text = generate_report(
@@ -1189,7 +1343,7 @@ def batch_process(input_dir, output_dir, report_file):
         f.write(report_text)
     
     print(report_text)
-    print(f"\n✓ Report gespeichert: {report_file}")
+    print(f"\n✓ Report saved: {report_file}")
     print(f"✓ Observations Log: {obs_file}")
     
     # Calculate total runtime
@@ -1199,19 +1353,19 @@ def batch_process(input_dir, output_dir, report_file):
     total_seconds = int(total_duration % 60)
     
     print(f"\n{'='*80}")
-    print(f"BATCH ENRICHMENT ABGESCHLOSSEN")
+    print(f"BATCH ENRICHMENT COMPLETED")
     print(f"{'='*80}")
-    print(f"  Verarbeitet:    {len(processed_files):4d}")
-    print(f"  Übersprungen:   {len(skipped_files):4d}")
-    print(f"  Fehlgeschlagen: {len(failed_files):4d}")
-    print(f"  Gesamt User:    {total_users:4d}")
-    print(f"  ⏱ Gesamtlaufzeit: {total_minutes} Min {total_seconds} Sek ({total_duration:.1f}s)")
+    print(f"  Processed:      {len(processed_files):4d}")
+    print(f"  Skipped:        {len(skipped_files):4d}")
+    print(f"  Failed:         {len(failed_files):4d}")
+    print(f"  Total users:    {total_users:4d}")
+    print(f"  ⏱ Total runtime: {total_minutes} min {total_seconds} sec ({total_duration:.1f}s)")
     print(f"{'='*80}\n")
     
     logger.info("="*80)
-    logger.info("BATCH ENRICHMENT ABGESCHLOSSEN")
-    logger.info(f"Verarbeitet: {len(processed_files)}, Gesamt User: {total_users}")
-    logger.info(f"Gesamtlaufzeit: {total_minutes} Min {total_seconds} Sek")
+    logger.info("BATCH ENRICHMENT COMPLETED")
+    logger.info(f"Processed: {len(processed_files)}, Total users: {total_users}")
+    logger.info(f"Total runtime: {total_minutes} min {total_seconds} sec")
     logger.info("="*80)
 
 
@@ -1223,51 +1377,59 @@ def main():
     
     startup_options_text = """
 Startup options:
-  1) Batch mode (default):
+  1) Interactive single-file mode (default):
       %(prog)s
-      %(prog)s --batch
 
-  2) Single file mode:
+  2) Single file mode with explicit paths:
       %(prog)s -i input.csv -o output.csv
 
-  3) Batch mode with custom folders:
+  3) Batch mode:
+      %(prog)s --batch
+
+  4) Batch mode with custom folders:
       %(prog)s --batch --input-dir exports/splitted --output-dir exports/enriched --report exports/enrichment_report_msgraph.md
 
-  4) Show full help:
+  5) Show full help:
       %(prog)s --help
+
+  Note (single file mode):
+      Output file must be in the same folder as input file
+      and must use a different filename.
 """
 
     parser = argparse.ArgumentParser(
-        description='Erweitert CSV mit AD Security Group Mitgliedern (MICROSOFT GRAPH API)',
+        description='Enriches CSV with AD security group members (MICROSOFT GRAPH API)',
         formatter_class=argparse.RawDescriptionHelpFormatter,
-            epilog="""
+        epilog="""
 ⚡ MICROSOFT GRAPH API:
-  Verwendet Azure AD / Entra ID statt on-premises PowerShell.
-  Batch-Optimierung für beste Performance!
+  Uses Azure AD / Entra ID instead of on-premises PowerShell.
+  Batch optimization for best performance.
 
-Beispiele:
-  Batch-Verarbeitung (Standard):
+Examples:
+    Interactive single-file mode (default):
     %(prog)s
   
-  Einzelne Datei:
+    Single file with explicit paths:
     %(prog)s -i input.csv -o output.csv
+
+    Batch processing:
+        %(prog)s --batch
         """
     )
-    
-    parser.add_argument('-i', '--input', help='Input CSV-Datei')
-    parser.add_argument('-o', '--output', help='Output CSV-Datei')
-    parser.add_argument('--batch', action='store_true', help='Batch-Modus')
-    parser.add_argument('--input-dir', help='Input-Verzeichnis (Standard: exports/splitted)')
-    parser.add_argument('--output-dir', help='Output-Verzeichnis (Standard: exports/enriched)')
-    parser.add_argument('--report', help='Report-Datei (Standard: exports/enrichment_report_msgraph.md)')
+
+    parser.add_argument('-i', '--input', help='Input CSV file')
+    parser.add_argument('-o', '--output', help='Output CSV file')
+    parser.add_argument('--batch', action='store_true', help='Batch mode')
+    parser.add_argument('--input-dir', help='Input directory (default: exports/splitted)')
+    parser.add_argument('--output-dir', help='Output directory (default: exports/enriched)')
+    parser.add_argument('--report', help='Report file (default: exports/enrichment_report_msgraph.md)')
     
     args = parser.parse_args()
 
     print(startup_options_text % {'prog': parser.prog})
     
     if not args.input and not args.output and not args.batch:
-        print("⚡ MICROSOFT GRAPH API - Batch-Verarbeitung\n")
-        args.batch = True
+        print("⚡ MICROSOFT GRAPH API - Interactive single-file mode\n")
     
     if args.batch:
         input_dir = Path(args.input_dir) if args.input_dir else project_root / "exports" / "splitted"
@@ -1276,22 +1438,34 @@ Beispiele:
         
         batch_process(input_dir, output_dir, report_file)
         return
-    
+
     if not args.input or not args.output:
-        print("✗ Fehler: --input und --output erforderlich!")
-        print('-i', '--input', help='Input CSV-Datei')
-        print('-o', '--output', help='Output CSV-Datei')
-        print('--batch', action='store_true', help='Batch-Modus')
-        print('--input-dir', help='Input-Verzeichnis (Standard: exports/splitted)')
-        print('--output-dir', help='Output-Verzeichnis (Standard: exports/enriched)')
-        print('--report', help='Report-Datei (Standard: exports/enrichment_report_msgraph.md)')
+        print("\nSingle file mode requires input and output paths.")
+        print("Missing values will be asked interactively.")
+        prompted_input, prompted_output = prompt_for_single_file_paths(project_root, args.input, args.output)
+        args.input = str(prompted_input)
+        args.output = str(prompted_output)
+
+    input_path = Path(args.input)
+    output_path = Path(args.output)
+
+    if output_path.parent != input_path.parent:
+        print("✗ Output file must be in the same folder as input file.")
+        print(f"  Input folder:  {input_path.parent}")
+        print(f"  Output folder: {output_path.parent}")
+        sys.exit(1)
+
+    if output_path.name == input_path.name:
+        print("✗ Output filename must be different from input filename.")
+        print(f"  Input file:  {input_path.name}")
+        print(f"  Output file: {output_path.name}")
         sys.exit(1)
     
     logger = setup_logging()
     obs_logger, obs_file = setup_observations_log()
     
-    process_csv(args.input, args.output, logger=logger, obs_logger=obs_logger)
-    print(f"✓ Fertig! Erweiterte CSV: {args.output}")
+    process_csv(str(input_path), str(output_path), logger=logger, obs_logger=obs_logger)
+    print(f"✓ Done! Enriched CSV: {output_path}")
     print(f"✓ Observations Log: {obs_file}\n")
 
 

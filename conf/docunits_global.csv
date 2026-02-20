@@ -1,0 +1,21 @@
+persona,DocUnit
+Product Quality Safety Evaluator (PQSE),Global_Product_Quality_Safety_Evaluator_PQSE
+GBS,Global_GBS
+Country Cluster Head (for LCR),Global_Country_Cluster_Head_for_LCR
+QA - Gatekeeper,Global_QA_-_Gatekeeper
+Additional - Gatekeeper,Global_Additional_-_Gatekeeper
+Complaint Amendment Approver,Global_Complaint_Amendment_Approver
+IQMS Viewer/Consumer,Global_IQMS_Viewer/Consumer
+Audit Key User,Global_Audit_Key_User
+Inspection Approver,Global_Inspection_Approver
+Auditor Profile Administrator,Global_Auditor_Profile_Administrator
+Audit Qualification Approver (Global),Global_Audit_Qualification_Approver_Global
+Audit Qualification Approver (Local),Global_Audit_Qualification_Approver_Local
+Supplier Quality Management User,Global_Supplier_Quality_Management_User
+Supplier Quality Management User (Lite),Global_Supplier_Quality_Management_User_Lite
+External Site Administrator,Global_External_Site_Administrator
+APQR Regulatory Owner,Global_APQR_Regulatory_Owner
+MAH Reviewer,Global_MAH_Reviewer
+Vault Owner,Global_Vault_Owner
+Business Admin,Global_Business_Admin
+System Admin,Global_System_Admin

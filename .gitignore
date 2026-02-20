@@ -10,4 +10,5 @@ logs/*
 mapping_persona_sg/ID now-Personas mapping_updated.xlsx
 mapping_persona_sg/ID now-Personas mapping.xlsx
 reports/*
-.obsolet/group_id_mapping.csv.old
+.obsolet/*
+

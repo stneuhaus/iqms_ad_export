@@ -20,3 +20,5 @@ Code Changes
 
 * All code comments must be English
 * When starting the program an explanation should show which option exist to start the programm
+
+Status: Solved

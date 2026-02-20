@@ -3692,3 +3692,5 @@ no,displayName,onPremisesSamAccountName,mailNickname,id
 3691,IQMS Local Support SC Weimar DE09,ef.u.iqms_local_support_sc_weimar_de09,ef.u.iqms_local_support_sc_weimar_de09,178ac37c-a371-4311-8790-b20917efc44a
 3692,IQMS Local Support SCM Operations DE10,ef.u.iqms_local_support_scm_operations_de10,ef.u.iqms_local_support_scm_operations_de10,22fbb71a-af66-428a-8eb3-3e7a231a58d3
 3693,IQMS Local Support Vapi IN01,ef.u.iqms_local_support_vapi_in01,ef.u.iqms_local_support_vapi_in01,7fa88944-79e0-4fa0-aa2a-c5d4858c8102
+3694,IQMS Viewer/Consumer SC Leverkusen DE03,ERROR: Could not find group,ERROR: Could not find group,ERROR: Could not find group
+3695,IQMS Viewer/Consumer SC Leverkusen DE03,ef.u.iqms_viewer-consumer_sc_leverkusen_de03,ef.u.iqms_viewer_consumer_sc_leverkusen_de03,bc244ae1-60de-47eb-8a36-0c5fd01384be
