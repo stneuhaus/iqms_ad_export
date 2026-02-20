@@ -90,7 +90,8 @@ def setup_logging():
     project_root = Path(__file__).parent
     log_dir = project_root / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
-    log_file = log_dir / "get_users_and_groups_from_ad.log"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = log_dir / f"get_users_and_groups_from_ad_{timestamp}.log"
     
     # Logger konfigurieren
     logger = logging.getLogger('enrichment')
@@ -129,7 +130,8 @@ def setup_observations_log():
     project_root = Path(__file__).parent
     reports_dir = project_root / "reports"
     reports_dir.mkdir(parents=True, exist_ok=True)
-    obs_file = reports_dir / "observations_from_get_users_and_groups.md"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    obs_file = reports_dir / f"observations_from_get_users_and_groups_{timestamp}.md"
     
     # Observations Logger
     obs_logger = logging.getLogger('observations')
@@ -690,34 +692,57 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
                 
                 if status == 200:
                     body = resp.get('body', {})
-                    members_data = body.get('value', [])
-
-                    if len(members_data) == 0 and obs_logger:
-                        obs_logger.info(f"Group with 0 members: {group_cn},{group_id}")
-                    
                     members = []
-                    for member in members_data:
-                        upn = member.get('userPrincipalName', '')
-                        alias = member.get('onPremisesSamAccountName', '')
-                        account_enabled = member.get('accountEnabled', None)
-                        
-                        # Observation: Kein Alias gefunden
-                        if upn and not alias and obs_logger:
-                            obs_logger.info(f"{'No Alias found for user':<60} | {upn}")
-                        
-                        # Map User Status
-                        if account_enabled is True:
-                            user_status = "Enabled"
-                        elif account_enabled is False:
-                            user_status = "Disabled"
-                        else:
-                            user_status = "Unknown"
-                        
-                        members.append({
-                            'User': upn,
-                            'Alias': alias,
-                            'User Status': user_status
-                        })
+
+                    page_no = 1
+                    while True:
+                        members_data = body.get('value', [])
+
+                        for member in members_data:
+                            upn = member.get('userPrincipalName', '')
+                            alias = member.get('onPremisesSamAccountName', '')
+                            account_enabled = member.get('accountEnabled', None)
+
+                            # Observation: Kein Alias gefunden
+                            if upn and not alias and obs_logger:
+                                obs_logger.info(f"{'No Alias found for user':<60} | {upn}")
+
+                            # Map User Status
+                            if account_enabled is True:
+                                user_status = "Enabled"
+                            elif account_enabled is False:
+                                user_status = "Disabled"
+                            else:
+                                user_status = "Unknown"
+
+                            members.append({
+                                'User': upn,
+                                'Alias': alias,
+                                'User Status': user_status
+                            })
+
+                        next_link = body.get('@odata.nextLink')
+                        if not next_link:
+                            break
+
+                        page_no += 1
+                        if logger:
+                            logger.info(f"MS Graph REST call -> GET {next_link}")
+                            logger.info(f"Pagination: fetching page {page_no} for group {group_cn} ({group_id})")
+
+                        try:
+                            next_response = session.get(next_link, headers=headers, timeout=60)
+                            next_response.raise_for_status()
+                            body = next_response.json()
+                        except requests.exceptions.RequestException as e:
+                            if logger:
+                                logger.warning(
+                                    f"Pagination request failed for group {group_cn} ({group_id}) on page {page_no}: {e}"
+                                )
+                            break
+
+                    if len(members) == 0 and obs_logger:
+                        obs_logger.info(f"Group with 0 members: {group_cn},{group_id}")
                     
                     results[group_cn] = members
                 else:
