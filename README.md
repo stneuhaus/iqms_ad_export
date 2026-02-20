@@ -1,58 +1,18 @@
 # AD Group Export Tool
 
-Python-Programm zum Auslesen von Benutzern einer Active Directory Gruppe unter Windows.
 
-## Installation
+### How to Get a Bearer Token
 
-1. Dependencies installieren:
-```bash
-pip install -r requirements.txt
-```
+You can obtain a bearer token for testing from the Microsoft Graph Explorer:
 
-## Verwendung
+1. Go to https://developer.microsoft.com/en-us/graph/graph-explorer
+2. Sign in with your Microsoft account
+3. In the query box, enter: `https://graph.microsoft.com/v1.0/me`
+4. Click **"Run query"**
+5. Click on the **"Access token"** tab (as shown in the image below)
+6. Copy the token displayed
+7. Paste this token into your `.env` file as the `BEARER_TOKEN` value
 
-### Grundlegende Ausgabe (Konsole):
-```bash
-python ad_group_export.py -g "Gruppenname"
-```
+![Graph Explorer - Access Token Tab](docs/graph-explorer-access-token.png)
 
-### Export als CSV:
-```bash
-python ad_group_export.py -g "IT-Abteilung" --csv benutzer.csv
-```
-
-### Export als JSON:
-```bash
-python ad_group_export.py -g "Marketing" --json benutzer.json
-```
-
-### Kombiniert (Konsole + CSV + JSON):
-```bash
-python ad_group_export.py -g "Vertrieb" --csv vertrieb.csv --json vertrieb.json
-```
-
-## Exportierte Felder
-
-- DisplayName (Anzeigename)
-- SamAccountName (Login-Name)
-- Email
-- Vorname
-- Nachname
-- Abteilung
-- Telefon
-- Titel
-- Beschreibung
-- DN (Distinguished Name)
-
-## Voraussetzungen
-
-- Windows Betriebssystem
-- Zugriff auf Active Directory
-- Python 3.x
-- pywin32 Library
-
-## Hinweise
-
-- Das Programm muss auf einem System mit AD-Zugriff ausgeführt werden
-- Der ausführende Benutzer benötigt Leserechte im Active Directory
-- Gruppenname muss exakt angegeben werden (Case-sensitive)
+**Note:** Tokens from Graph Explorer are temporary and expire after a short period. For production use, you should implement proper OAuth authentication or use a service principal with appropriate permissions.

@@ -87,8 +87,10 @@ def setup_logging():
     """
     Richtet Logging-System ein mit File und Console Handler.
     """
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file = f"enrichment_msgraph_{timestamp}.log"
+    project_root = Path(__file__).parent
+    log_dir = project_root / "logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_file = log_dir / "get_users_and_groups_from_ad.log"
     
     # Logger konfigurieren
     logger = logging.getLogger('enrichment')
@@ -124,8 +126,10 @@ def setup_observations_log():
     """
     Richtet Observations Log ein für Warnungen und besondere Ereignisse.
     """
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    obs_file = f"observations_{timestamp}.log"
+    project_root = Path(__file__).parent
+    reports_dir = project_root / "reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    obs_file = reports_dir / "observations_from_get_users_and_groups.md"
     
     # Observations Logger
     obs_logger = logging.getLogger('observations')
@@ -137,7 +141,7 @@ def setup_observations_log():
         return obs_logger, obs_file
     
     # File Handler
-    obs_handler = logging.FileHandler(obs_file, encoding='utf-8')
+    obs_handler = logging.FileHandler(obs_file, encoding='utf-8', mode='w')
     obs_handler.setLevel(logging.INFO)
     obs_formatter = logging.Formatter('%(message)s')
     obs_handler.setFormatter(obs_formatter)
@@ -146,7 +150,7 @@ def setup_observations_log():
     
     # Header schreiben
     obs_logger.info("="*100)
-    obs_logger.info(f"OBSERVATIONS LOG - enrich_csv_with_users_msgraph.py")
+    obs_logger.info(f"OBSERVATIONS LOG - get_users_and_groups_from_ad.py")
     obs_logger.info(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     obs_logger.info("="*100)
     obs_logger.info(f"{'Observation Description':<60} | {'userPrincipalName/Details'}")
@@ -1045,7 +1049,7 @@ def generate_report(processed_files, skipped_files, failed_files, all_groups_fou
         for group in unique_timeout:
             report += f"- ⏱ {group}\n"
     
-    report += "\n---\n*Generiert automatisch durch enrich_csv_with_users_msgraph.py*\n"
+    report += "\n---\n*Generiert automatisch durch get_users_and_groups_from_ad.py*\n"
     
     return report
 

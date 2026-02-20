@@ -1,5 +1,400 @@
 no,displayName,onPremisesSamAccountName,mailNickname,id
-
 1,IQMS QMS Deviation & Event QA SC Garbagnate IT01 2,ERROR: Could not find group,ERROR: Could not find group,ERROR: Could not find group
+10,IQMS QMS CQH CO Brazil BR02,ef.u.iqms_qms_cqh_co_brazil_br02,ef.u.iqms_qms_cqh_co_brazil_br02,db801c36-15c8-4b2d-8e5a-38dda61c39a6
+100,IQMS QMS Internal Task Owner CO India IN02,ef.u.iqms_qms_internal_task_owner_co_india_in02,ef.u.iqms_qms_internal_task_owner_co_india_in02,024aaad9-6f56-4e2e-8e94-a3ef097b4ce4
+101,IQMS QMS Internal Task Owner CO Indonesia ID02,ef.u.iqms_qms_internal_task_owner_co_indonesia_id02,ef.u.iqms_qms_internal_task_owner_co_indonesia_id02,728e1862-8a7d-4978-bbdc-e3000d1bb852
+102,IQMS QMS Internal Task Owner CO Ireland IE01,ef.u.iqms_qms_internal_task_owner_co_ireland_ie01,ef.u.iqms_qms_internal_task_owner_co_ireland_ie01,b1b4c4b6-4ee4-4076-88e4-ee3f673c8204
+103,IQMS QMS Internal Task Owner CO Israel IL01,ef.u.iqms_qms_internal_task_owner_co_israel_il01,ef.u.iqms_qms_internal_task_owner_co_israel_il01,072cdf5d-c3f3-48be-aa7d-e312c9a7f0a2
+104,IQMS QMS Internal Task Owner CO Italy IT03,ef.u.iqms_qms_internal_task_owner_co_italy_it03,ef.u.iqms_qms_internal_task_owner_co_italy_it03,e131fb97-cf07-46dc-87bb-597d13212aab
+105,IQMS QMS Internal Task Owner CO Japan JP02,ef.u.iqms_qms_internal_task_owner_co_japan_jp02,ef.u.iqms_qms_internal_task_owner_co_japan_jp02,3dfee04b-819f-4da0-a0a8-e0dbc9d13602
+106,IQMS QMS Internal Task Owner CO Kazakhstan KZ01,ef.u.iqms_qms_internal_task_owner_co_kazakhstan_kz01,ef.u.iqms_qms_internal_task_owner_co_kazakhstan_kz01,c921400c-04ba-4604-88c3-72889cb4d4b7
+107,IQMS QMS Internal Task Owner CO Kenya KE01,ef.u.iqms_qms_internal_task_owner_co_kenya_ke01,ef.u.iqms_qms_internal_task_owner_co_kenya_ke01,d792592c-9903-4eb5-a7cb-4f1875d3d1a1
+108,IQMS QMS Internal Task Owner CO Lithuania LT01,ef.u.iqms_qms_internal_task_owner_co_lithuania_lt01,ef.u.iqms_qms_internal_task_owner_co_lithuania_lt01,62fdd099-48e8-4fd7-80d4-11877b6aec66
+109,IQMS QMS Internal Task Owner CO Malaysia MY01,ef.u.iqms_qms_internal_task_owner_co_malaysia_my01,ef.u.iqms_qms_internal_task_owner_co_malaysia_my01,90de6780-135a-4676-9027-fbdc3939a758
+11,IQMS QMS CQH CO Bulgaria BG01,ef.u.iqms_qms_cqh_co_bulgaria_bg01,ef.u.iqms_qms_cqh_co_bulgaria_bg01,f84f532b-cf4c-4a7e-a5a2-5cb508ff159d
+110,IQMS QMS Internal Task Owner CO Mexico MX04,ef.u.iqms_qms_internal_task_owner_co_mexico_mx04,ef.u.iqms_qms_internal_task_owner_co_mexico_mx04,fb121a5d-8e77-476d-8bc2-0b962f70cd8a
+111,IQMS QMS Internal Task Owner CO Morocco MA02,ef.u.iqms_qms_internal_task_owner_co_morocco_ma02,ef.u.iqms_qms_internal_task_owner_co_morocco_ma02,c52e1426-c61c-4bf6-8f57-6297430d45d5
+112,IQMS QMS Internal Task Owner CO Netherlands NL02,ef.u.iqms_qms_internal_task_owner_co_netherlands_nl02,ef.u.iqms_qms_internal_task_owner_co_netherlands_nl02,9af3c1c2-4321-484e-a367-11784d7145f9
+113,IQMS QMS Internal Task Owner CO Nigeria NG01,ef.u.iqms_qms_internal_task_owner_co_nigeria_ng01,ef.u.iqms_qms_internal_task_owner_co_nigeria_ng01,f6b7d74f-85c8-44bd-9fee-b888e34e67ba
+114,IQMS QMS Internal Task Owner CO Norway NO02,ef.u.iqms_qms_internal_task_owner_co_norway_no02,ef.u.iqms_qms_internal_task_owner_co_norway_no02,cb28c23d-37a6-42d0-bf3b-603a5e0e0afb
+115,IQMS QMS Internal Task Owner CO Pakistan PK01,ef.u.iqms_qms_internal_task_owner_co_pakistan_pk01,ef.u.iqms_qms_internal_task_owner_co_pakistan_pk01,d8ec53ca-8e0e-4ded-9e94-5bcdba71842e
+116,IQMS QMS Internal Task Owner CO Panama PA01,ef.u.iqms_qms_internal_task_owner_co_panama_pa01,ef.u.iqms_qms_internal_task_owner_co_panama_pa01,963a2f2b-0fad-4b29-b854-c2020a855d62
+117,IQMS QMS Internal Task Owner CO Paraguay PY01,ef.u.iqms_qms_internal_task_owner_co_paraguay_py01,ef.u.iqms_qms_internal_task_owner_co_paraguay_py01,1b4d3280-a84f-4065-b3b3-df717f9a9002
+118,IQMS QMS Internal Task Owner CO Peru PE01,ef.u.iqms_qms_internal_task_owner_co_peru_pe01,ef.u.iqms_qms_internal_task_owner_co_peru_pe01,9bdc2eb0-151a-429e-8c52-d5d701b8a09d
+119,IQMS QMS Internal Task Owner CO Philippines PH01,ef.u.iqms_qms_internal_task_owner_co_philippines_ph01,ef.u.iqms_qms_internal_task_owner_co_philippines_ph01,dbb62c35-061f-4dc6-a306-bc05a15a380d
+12,IQMS QMS CQH CO Canada CA02,ef.u.iqms_qms_cqh_co_canada_ca02,ef.u.iqms_qms_cqh_co_canada_ca02,47286edf-8368-4beb-bf8a-2dd793e0eb4e
+120,IQMS QMS Internal Task Owner CO Poland PL01,ef.u.iqms_qms_internal_task_owner_co_poland_pl01,ef.u.iqms_qms_internal_task_owner_co_poland_pl01,d8013c90-fbeb-44c0-af55-0883f1f8371c
+121,IQMS QMS Internal Task Owner CO Portugal PT01,ef.u.iqms_qms_internal_task_owner_co_portugal_pt01,ef.u.iqms_qms_internal_task_owner_co_portugal_pt01,3a117336-a2c5-47ad-ac95-df9dac8ce450
+122,IQMS QMS Internal Task Owner CO Romania RO01,ef.u.iqms_qms_internal_task_owner_co_romania_ro01,ef.u.iqms_qms_internal_task_owner_co_romania_ro01,0b4e0fa7-cc87-4b2c-afbc-3889427a5e86
+123,IQMS QMS Internal Task Owner CO Saudi Arabia SA01,ef.u.iqms_qms_internal_task_owner_co_saudi_arabia_sa01,ef.u.iqms_qms_internal_task_owner_co_saudi_arabia_sa01,addc303a-9543-439d-b6b7-1ad0de623864
+124,IQMS QMS Internal Task Owner CO Singapore SG01,ef.u.iqms_qms_internal_task_owner_co_singapore_sg01,ef.u.iqms_qms_internal_task_owner_co_singapore_sg01,abe5456a-429b-4782-8e08-02826e3b5af0
+125,IQMS QMS Internal Task Owner CO Slovakia SK01,ef.u.iqms_qms_internal_task_owner_co_slovakia_sk01,ef.u.iqms_qms_internal_task_owner_co_slovakia_sk01,ef8edb20-3e1c-44c3-a879-77d923f4c890
+126,IQMS QMS Internal Task Owner CO Slovenia SI01,ef.u.iqms_qms_internal_task_owner_co_slovenia_si01,ef.u.iqms_qms_internal_task_owner_co_slovenia_si01,b7e7343b-7fac-4ef0-a800-d1b11b66cec3
+127,IQMS QMS Internal Task Owner CO South Africa ZA01,ef.u.iqms_qms_internal_task_owner_co_south_africa_za01,ef.u.iqms_qms_internal_task_owner_co_south_africa_za01,44c47019-12a8-4893-918a-986367a7e392
+128,IQMS QMS Internal Task Owner CO South Korea KR01,ef.u.iqms_qms_internal_task_owner_co_south_korea_kr01,ef.u.iqms_qms_internal_task_owner_co_south_korea_kr01,c19036c5-e3c7-4d7f-9e75-8bfa1664929e
+129,IQMS QMS Internal Task Owner CO Spain ES03,ef.u.iqms_qms_internal_task_owner_co_spain_es03,ef.u.iqms_qms_internal_task_owner_co_spain_es03,d34b8396-3df0-41ad-894a-ca700c4f6164
+13,IQMS QMS CQH CO Chile CL01,ef.u.iqms_qms_cqh_co_chile_cl01,ef.u.iqms_qms_cqh_co_chile_cl01,67139862-6d66-492b-a6d9-37ea29e90358
+130,IQMS QMS Internal Task Owner CO Sweden SE01,ef.u.iqms_qms_internal_task_owner_co_sweden_se01,ef.u.iqms_qms_internal_task_owner_co_sweden_se01,97382516-2edd-4b3a-837b-cd6eeb9dad54
+131,IQMS QMS Internal Task Owner CO Switzerland CH03,ef.u.iqms_qms_internal_task_owner_co_switzerland_ch03,ef.u.iqms_qms_internal_task_owner_co_switzerland_ch03,4f86db00-c4ca-4ded-8466-10cd227f297a
+132,IQMS QMS Internal Task Owner CO Taiwan TW01,ef.u.iqms_qms_internal_task_owner_co_taiwan_tw01,ef.u.iqms_qms_internal_task_owner_co_taiwan_tw01,36c4bac4-b198-42b1-94a8-70f3e57875ff
+133,IQMS QMS Internal Task Owner CO Thailand TH01,ef.u.iqms_qms_internal_task_owner_co_thailand_th01,ef.u.iqms_qms_internal_task_owner_co_thailand_th01,5d9bfba7-0fc4-43ea-a069-6e0e07b87cc8
+134,IQMS QMS Internal Task Owner CO Turkey TR01,ef.u.iqms_qms_internal_task_owner_co_turkey_tr01,ef.u.iqms_qms_internal_task_owner_co_turkey_tr01,09eefa83-7edc-44db-be56-3628bf154ec0
+135,IQMS QMS Internal Task Owner CO Ukraine UA01,ef.u.iqms_qms_internal_task_owner_co_ukraine_ua01,ef.u.iqms_qms_internal_task_owner_co_ukraine_ua01,100d34aa-86ca-4464-8669-e1ccbfee9bce
+136,IQMS QMS Internal Task Owner CO United Arab Emirates AE01,ef.u.iqms_qms_internal_task_owner_co_united_arab_emirates_ae01,ef.u.iqms_qms_internal_task_owner_co_united_arab_emirates_ae01,eb3d30b0-222e-46aa-8273-7f8b84157e77
+137,IQMS QMS Internal Task Owner CO United Kingdom GB01,ef.u.iqms_qms_internal_task_owner_co_united_kingdom_gb01,ef.u.iqms_qms_internal_task_owner_co_united_kingdom_gb01,121d8b70-c8af-4873-a9a8-ea321d2828be
+138,IQMS QMS Internal Task Owner CO Uruguay UY01,ef.u.iqms_qms_internal_task_owner_co_uruguay_uy01,ef.u.iqms_qms_internal_task_owner_co_uruguay_uy01,c85ec64b-79ad-4a55-937f-7242c0e8abe8
+139,IQMS QMS Internal Task Owner CO USA US03,ef.u.iqms_qms_internal_task_owner_co_usa_us03,ef.u.iqms_qms_internal_task_owner_co_usa_us03,5ed4f6ef-2989-4bd6-bfa6-244ed39d7762
+14,IQMS QMS CQH CO China CN07,ef.u.iqms_qms_cqh_co_china_cn07,ef.u.iqms_qms_cqh_co_china_cn07,7a51207a-1673-46db-8426-aee4ae9b970a
+140,IQMS QMS Internal Task Owner CO Venezuela VE01,ef.u.iqms_qms_internal_task_owner_co_venezuela_ve01,ef.u.iqms_qms_internal_task_owner_co_venezuela_ve01,02d57458-8e6b-47af-8249-828f2006998c
+141,IQMS QMS Internal Task Owner CO Vietnam VN01,ef.u.iqms_qms_internal_task_owner_co_vietnam_vn01,ef.u.iqms_qms_internal_task_owner_co_vietnam_vn01,b8560ad0-77d7-432d-984f-6643be360344
+142,IQMS QMS Internal Task Owner Commercial Organizations DE15,ef.u.iqms_qms_internal_task_owner_commercial_organizations_de15,ef.u.iqms_qms_internal_task_owner_commercial_organizations_de15,b895d137-e39e-450c-81bb-ba1f0a131b60
+143,IQMS QMS Internal Task Owner Global Business Services WO01,ef.u.iqms_qms_internal_task_owner_global_business_services_wo01,ef.u.iqms_qms_internal_task_owner_global_business_services_wo01,2000b2ea-d290-4b87-bc98-d2fb29efefab
+144,IQMS QMS Internal Task Owner HUB Maastricht NL01,ef.u.iqms_qms_internal_task_owner_hub_maastricht_nl01,ef.u.iqms_qms_internal_task_owner_hub_maastricht_nl01,197233b0-a440-431e-9a61-48bdffdbf768
+145,IQMS QMS Internal Task Owner IT Quality DE19,ef.u.iqms_qms_internal_task_owner_it_quality_de19,ef.u.iqms_qms_internal_task_owner_it_quality_de19,a2f17ec6-5f67-4e2c-9dc3-e1bb369984cf
+146,IQMS QMS Internal Task Owner MD Beijing CN08,ef.u.iqms_qms_internal_task_owner_md_beijing_cn08,ef.u.iqms_qms_internal_task_owner_md_beijing_cn08,2921e80b-df3b-4e7e-8712-ddf9101c606b
+147,IQMS QMS Internal Task Owner Medical Device US09,ef.u.iqms_qms_internal_task_owner_medical_device_us09,ef.u.iqms_qms_internal_task_owner_medical_device_us09,38072dac-f63c-4b62-86f8-92df508a587a
+148,IQMS QMS Internal Task Owner PH CPD DE05,ef.u.iqms_qms_internal_task_owner_ph_cpd_de05,ef.u.iqms_qms_internal_task_owner_ph_cpd_de05,64a80433-066d-4b49-82de-af8cbe35ce62
+149,IQMS QMS Internal Task Owner PH External Manufacturing DE17,ef.u.iqms_qms_internal_task_owner_ph_external_manufacturing_de17,ef.u.iqms_qms_internal_task_owner_ph_external_manufacturing_de17,db52cc9e-9351-4dad-8887-25a5960ef054
+15,IQMS QMS CQH CO Colombia CO01,ef.u.iqms_qms_cqh_co_colombia_co01,ef.u.iqms_qms_cqh_co_colombia_co01,a78a4d91-d3b5-40ac-b113-c7aaa899c062
+150,IQMS QMS Internal Task Owner SC Alajuela CR01,ef.u.iqms_qms_internal_task_owner_sc_alajuela_cr01,ef.u.iqms_qms_internal_task_owner_sc_alajuela_cr01,621194d9-6eb4-484f-8959-1cbc8397f73e
+151,IQMS QMS Internal Task Owner SC Alcala ES01,ef.u.iqms_qms_internal_task_owner_sc_alcala_es01,ef.u.iqms_qms_internal_task_owner_sc_alcala_es01,0781853e-e253-4bd0-a2a2-274d7ab35840
+152,IQMS QMS Internal Task Owner SC Beijing CN01,ef.u.iqms_qms_internal_task_owner_sc_beijing_cn01,ef.u.iqms_qms_internal_task_owner_sc_beijing_cn01,e91a3f66-3aaa-4f51-ae08-88b8bc22bbd0
+153,IQMS QMS Internal Task Owner SC Bergkamen DE08,ef.u.iqms_qms_internal_task_owner_sc_bergkamen_de08,ef.u.iqms_qms_internal_task_owner_sc_bergkamen_de08,f49a1882-6769-413b-accd-1799a4725778
+154,IQMS QMS Internal Task Owner SC Berkeley US01,ef.u.iqms_qms_internal_task_owner_sc_berkeley_us01,ef.u.iqms_qms_internal_task_owner_sc_berkeley_us01,63773400-805a-4792-b164-c758a4dd6f3a
+155,IQMS QMS Internal Task Owner SC Berlin DE06,ef.u.iqms_qms_internal_task_owner_sc_berlin_de06,ef.u.iqms_qms_internal_task_owner_sc_berlin_de06,d3cb0645-3cc5-43b3-b9bf-75c8139a53ae
+156,IQMS QMS Internal Task Owner SC Bitterfeld DE12,ef.u.iqms_qms_internal_task_owner_sc_bitterfeld_de12,ef.u.iqms_qms_internal_task_owner_sc_bitterfeld_de12,42e03c4c-da54-4482-adeb-cd292609f2c8
+157,IQMS QMS Internal Task Owner SC Casablanca MA01,ef.u.iqms_qms_internal_task_owner_sc_casablanca_ma01,ef.u.iqms_qms_internal_task_owner_sc_casablanca_ma01,a9ff5c9d-9668-478e-bf7a-b32b91eac5ec
+158,IQMS QMS Internal Task Owner SC Cimanggis ID01,ef.u.iqms_qms_internal_task_owner_sc_cimanggis_id01,ef.u.iqms_qms_internal_task_owner_sc_cimanggis_id01,359aa38f-2926-4a6e-a61d-22eb4d92ef5d
+159,IQMS QMS Internal Task Owner SC Darmstadt DE18,ef.u.iqms_qms_internal_task_owner_sc_darmstadt_de18,ef.u.iqms_qms_internal_task_owner_sc_darmstadt_de18,5db781f4-bf2d-4aa2-aa21-6e7ce958579a
+16,IQMS QMS CQH CO Czech Republic CZ01,ef.u.iqms_qms_cqh_co_czech_republic_cz01,ef.u.iqms_qms_cqh_co_czech_republic_cz01,fd65a263-ee38-4188-a03a-472b952ffb65
+160,IQMS QMS Internal Task Owner SC Elberfeld DE04,ef.u.iqms_qms_internal_task_owner_sc_elberfeld_de04,ef.u.iqms_qms_internal_task_owner_sc_elberfeld_de04,2a36fe98-f8ff-4724-b881-83ebc328e1bd
+161,IQMS QMS Internal Task Owner SC Garbagnate IT01,$0FCD20-B18PMDOQQBEQ,ef.u.iqms_qms_internal_task_owner_sc_garbagnate_it01,91f1c2b0-fafa-4345-b8ae-7c288d478455
+162,IQMS QMS Internal Task Owner SC Grenzach DE07,ef.u.iqms_qms_internal_task_owner_sc_grenzach_de07,ef.u.iqms_qms_internal_task_owner_sc_grenzach_de07,d05663ac-a96b-49e8-ba02-ebb18b8b59df
+163,IQMS QMS Internal Task Owner SC Guatemala GT01,ef.u.iqms_qms_internal_task_owner_sc_guatemala_gt01,ef.u.iqms_qms_internal_task_owner_sc_guatemala_gt01,ada5f25f-c458-450e-b2cd-12daab754727
+164,IQMS QMS Internal Task Owner SC Heredia CR02,ef.u.iqms_qms_internal_task_owner_sc_heredia_cr02,ef.u.iqms_qms_internal_task_owner_sc_heredia_cr02,d2630fad-a361-4b63-a40a-b84f5703a21c
+165,IQMS QMS Internal Task Owner SC Indianola US11,ef.u.iqms_qms_internal_task_owner_sc_indianola_us11,ef.u.iqms_qms_internal_task_owner_sc_indianola_us11,a8b4936d-93eb-49df-af57-e6bc7118c04a
+166,IQMS QMS Internal Task Owner SC Kunming CN06,ef.u.iqms_qms_internal_task_owner_sc_kunming_cn06,ef.u.iqms_qms_internal_task_owner_sc_kunming_cn06,03a3eb1c-4ed7-43ec-b72d-e61626ca43b2
+167,IQMS QMS Internal Task Owner SC La Felguera ES02,ef.u.iqms_qms_internal_task_owner_sc_la_felguera_es02,ef.u.iqms_qms_internal_task_owner_sc_la_felguera_es02,c64ea9f5-1cb3-409d-83f1-b4398bd8639e
+168,IQMS QMS Internal Task Owner SC Lerma MX03,ef.u.iqms_qms_internal_task_owner_sc_lerma_mx03,ef.u.iqms_qms_internal_task_owner_sc_lerma_mx03,110c1b6f-3d31-4357-ba54-b91c0db5da54
+169,IQMS QMS Internal Task Owner SC Myerstown US05,ef.u.iqms_qms_internal_task_owner_sc_myerstown_us05,ef.u.iqms_qms_internal_task_owner_sc_myerstown_us05,4a9d9af9-c27c-4c33-a603-ab9019eb6ece
+17,IQMS QMS CQH CO Denmark DK01,ef.u.iqms_qms_cqh_co_denmark_dk01,ef.u.iqms_qms_cqh_co_denmark_dk01,1a77ea66-9c66-4d3b-ad97-cfee9316ac2f
+170,IQMS QMS Internal Task Owner SC O'Hara US12,ef.u.iqms_qms_internal_task_owner_sc_o'hara_us12,ef.u.iqms_qms_internal_task_owner_sc_o_hara_us12,90c03293-d5f3-4738-bc10-2cda85f1e805
+171,IQMS QMS Internal Task Owner SC Orizaba MX01,ef.u.iqms_qms_internal_task_owner_sc_orizaba_mx01,ef.u.iqms_qms_internal_task_owner_sc_orizaba_mx01,7562f508-d306-4baa-9535-3870c505c347
+172,IQMS QMS Internal Task Owner SC Oslo NO01,ef.u.iqms_qms_internal_task_owner_sc_oslo_no01,ef.u.iqms_qms_internal_task_owner_sc_oslo_no01,257bf0c9-0ec0-41ee-9868-27ff3bc193fb
+173,IQMS QMS Internal Task Owner SC Pilar AR01,ef.u.iqms_qms_internal_task_owner_sc_pilar_ar01,ef.u.iqms_qms_internal_task_owner_sc_pilar_ar01,21355048-474b-4e7f-a36a-f019b242f196
+174,IQMS QMS Internal Task Owner SC QiDong CN03,ef.u.iqms_qms_internal_task_owner_sc_qidong_cn03,ef.u.iqms_qms_internal_task_owner_sc_qidong_cn03,cccec7ca-9688-408e-9ce6-db2d925b4ac3
+175,IQMS QMS Internal Task Owner SC Rydalmere AU02,ef.u.iqms_qms_internal_task_owner_sc_rydalmere_au02,ef.u.iqms_qms_internal_task_owner_sc_rydalmere_au02,a88bf482-7f60-4ab0-9826-86c6059a86c0
+176,IQMS QMS Internal Task Owner SC Sao Paulo BR01,ef.u.iqms_qms_internal_task_owner_sc_sao_paulo_br01,ef.u.iqms_qms_internal_task_owner_sc_sao_paulo_br01,7bc255f9-9499-49a5-b34b-8a09a4da4a0e
+177,IQMS QMS Internal Task Owner SC Saxonburg US13,ef.u.iqms_qms_internal_task_owner_sc_saxonburg_us13,ef.u.iqms_qms_internal_task_owner_sc_saxonburg_us13,a7dcf8a0-03ac-4496-8f42-5ab96443eb25
+178,IQMS QMS Internal Task Owner SC Shiga JP01,ef.u.iqms_qms_internal_task_owner_sc_shiga_jp01,ef.u.iqms_qms_internal_task_owner_sc_shiga_jp01,59b2aa8f-041d-411b-bdfb-031d0ad753f3
+179,IQMS QMS Internal Task Owner SC Turku FI01,ef.u.iqms_qms_internal_task_owner_sc_turku_fi01,ef.u.iqms_qms_internal_task_owner_sc_turku_fi01,85a303c4-cbea-4c71-a94e-12f2c0dac127
+18,IQMS QMS CQH CO Ecuador EC01,ef.u.iqms_qms_cqh_co_ecuador_ec01,ef.u.iqms_qms_cqh_co_ecuador_ec01,d3f004ef-c1c4-4947-af86-25fb68a235f7
+180,IQMS QMS Internal Task Owner SC Weimar DE09,ef.u.iqms_qms_internal_task_owner_sc_weimar_de09,ef.u.iqms_qms_internal_task_owner_sc_weimar_de09,69d452cb-43b2-4bc6-9efb-9495c2448899
+181,IQMS QMS Internal Task Owner SCM Operations DE10,ef.u.iqms_qms_internal_task_owner_scm_operations_de10,ef.u.iqms_qms_internal_task_owner_scm_operations_de10,09112d12-543f-4181-b6fe-5396b63440c6
+182,IQMS QMS Internal Task Owner Vapi IN01,ef.u.iqms_qms_internal_task_owner_vapi_in01,ef.u.iqms_qms_internal_task_owner_vapi_in01,833350e4-d660-48e0-b708-31e3f8294366
+183,IQMS QMS PQSE Consumer Health,ef.u.iqms_qms_pqse_consumer_health,ef.u.iqms_qms_pqse_consumer_health,d53de2ce-e744-4f0f-8d58-ca2fcbc979bf
+184,IQMS QMS Product Quality Safety Evaluator (PQSE) Pharma,ef.u.iqms_qms_product_quality_safety_evaluator_(pqse)_pharma,ef.u.iqms_qms_product_quality_safety_evaluator__pqse__pharma,7b3d6aeb-58cc-43c5-8fd9-5ce1bd7960c8
+185,IQMS QMS Product Quality Safety Evaluator (PQSE) Radiology,ef.u.iqms_qms_product_quality_safety_evaluator_(pqse)_radiology,ef.u.iqms_qms_product_quality_safety_evaluator__pqse__radiology,c78e21cf-c70b-400f-a3d8-c1a241fa19db
+186,IQMS QMS RQU (Responsible Quality Unit) BCC AG Basel CH01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_bcc_ag_basel_ch01,ef.u.iqms_qms_rqu__responsible_quality_unit__bcc_ag_basel_ch01,166ffa10-45a2-4763-8baf-85a414a48e06
+187,IQMS QMS RQU (Responsible Quality Unit) BHSC Shanghai CN05,ef.u.iqms_qms_rqu_(responsible_quality_unit)_bhsc_shanghai_cn05,ef.u.iqms_qms_rqu__responsible_quality_unit__bhsc_shanghai_cn05,d78d1ff2-1892-4c42-9c9a-9ee6e6c0d88c
+188,IQMS QMS RQU (Responsible Quality Unit) Biologics US08,ef.u.iqms_qms_rqu_(responsible_quality_unit)_biologics_us08,ef.u.iqms_qms_rqu__responsible_quality_unit__biologics_us08,2b8169ab-7130-4314-a7f7-446aeee0a855
+189,IQMS QMS RQU (Responsible Quality Unit) HUB Maastricht NL01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_hub_maastricht_nl01,ef.u.iqms_qms_rqu__responsible_quality_unit__hub_maastricht_nl01,f27970c9-216c-438c-9445-9942beea630a
+19,IQMS QMS CQH CO Egypt EG01,ef.u.iqms_qms_cqh_co_egypt_eg01,ef.u.iqms_qms_cqh_co_egypt_eg01,5bfba8ae-c748-4ba0-8723-f0f89dd8616c
+190,IQMS QMS RQU (Responsible Quality Unit) MD Beijing CN08,ef.u.iqms_qms_rqu_(responsible_quality_unit)_md_beijing_cn08,ef.u.iqms_qms_rqu__responsible_quality_unit__md_beijing_cn08,fa0bcb51-cf08-40f6-965b-8f11952da2c1
+191,IQMS QMS RQU (Responsible Quality Unit) Medical Device US09,ef.u.iqms_qms_rqu_(responsible_quality_unit)_medical_device_us09,ef.u.iqms_qms_rqu__responsible_quality_unit__medical_device_us09,0dcc53b5-8b72-49fd-bf92-c4d1009a8987
+192,IQMS QMS RQU (Responsible Quality Unit) PH CPD DE05,ef.u.iqms_qms_rqu_(responsible_quality_unit)_ph_cpd_de05,ef.u.iqms_qms_rqu__responsible_quality_unit__ph_cpd_de05,fb8f04bb-8f87-4837-8327-48d6a31f2555
+193,IQMS QMS RQU (Responsible Quality Unit) SC Alajuela CR01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_alajuela_cr01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_alajuela_cr01,edcf34d1-769a-4a25-97e8-633b3a27d1ae
+194,IQMS QMS RQU (Responsible Quality Unit) SC Alcala ES01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_alcala_es01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_alcala_es01,c19f3234-12c4-4f0a-81e9-62585f8aff9d
+195,IQMS QMS RQU (Responsible Quality Unit) SC Beijing CN01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_beijing_cn01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_beijing_cn01,33ca7b4b-2eff-480f-b8f0-3f471b08f4c8
+196,IQMS QMS RQU (Responsible Quality Unit) SC Bergkamen DE08,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_bergkamen_de08,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_bergkamen_de08,73dbde1c-b1af-4f49-9a32-39e69cd93b57
+197,IQMS QMS RQU (Responsible Quality Unit) SC Berkeley US01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_berkeley_us01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_berkeley_us01,010ecafc-fc7a-4f26-ae4c-f30d17dab5a4
+198,IQMS QMS RQU (Responsible Quality Unit) SC Berlin DE06,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_berlin_de06,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_berlin_de06,1e964db3-6789-493e-8b0d-44fc192b6e8f
+199,IQMS QMS RQU (Responsible Quality Unit) SC Bitterfeld DE12,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_bitterfeld_de12,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_bitterfeld_de12,b8e82116-944b-4d7c-bcd4-04dc960a7074
 2,IQMS QMS OOS Initiator CO Germany DE20,$DECD20-F2U56SK7EOQS,ef.u.iqms_qms_oos_initiator_co_germany_de20,1c066b3a-eb6e-43f8-81dd-8807dc4a06af
+20,IQMS QMS CQH CO Finland FI02,ef.u.iqms_qms_cqh_co_finland_fi02,ef.u.iqms_qms_cqh_co_finland_fi02,773a12a1-548a-4cda-abd1-cd5d5ab008e2
+200,IQMS QMS RQU (Responsible Quality Unit) SC Casablanca MA01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_casablanca_ma01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_casablanca_ma01,ff506194-9b6c-4ec6-9d44-a546f6c1a532
+201,IQMS QMS Internal Task Owner SC Leverkusen DE03,ph.a.iqms_qms_internal_task_owner_sc_leverkusen_de03,ph.a.iqms_qms_internal_task_owner_sc_leverkusen_de03,3301882b-9b8d-4f22-bf80-057a5adc6202
+202,IQMS QMS Country Cluster Head (for LCR),ef.u.iqms_qms_country_cluster_head_(for_lcr),ef.u.iqms_qms_country_cluster_head__for_lcr_,0395f280-d5a7-432c-aaec-ed34c7dc836b
+203,IQMS QMS Dev & Event Init CO UAE AE01,ef.u.iqms_qms_dev_&_event_init_co_uae_ae01,ef.u.iqms_qms_dev___event_init_co_uae_ae01,d931a10b-9cce-4ef3-8767-b76ffdbf27a2
+204,IQMS QMS Dev & Event Init Comm Orgs DE15,ef.u.iqms_qms_dev_&_event_init_comm_orgs_de15,ef.u.iqms_qms_dev___event_init_comm_orgs_de15,7d742fc4-3f3f-43cc-a370-4a20654ed9f0
+205,IQMS QMS Dev & Event Init Corp & Pharm Qual DE02,ef.u.iqms_qms_dev_&_event_init_corp_&_pharm_qual_de02,ef.u.iqms_qms_dev___event_init_corp___pharm_qual_de02,a133865b-d024-4d68-b6ae-fb2267447037
+206,IQMS QMS Dev & Event Init Ctrl Tower Dist WO02,ef.u.iqms_qms_dev_&_event_init_ctrl_tower_dist_wo02,ef.u.iqms_qms_dev___event_init_ctrl_tower_dist_wo02,09dc11e5-214a-4cf9-8db0-14098858e043
+207,IQMS QMS Dev & Event Init Glob Bus Serv WO01,ef.u.iqms_qms_dev_&_event_init_glob_bus_serv_wo01,ef.u.iqms_qms_dev___event_init_glob_bus_serv_wo01,c59f259a-b0a6-46be-81cd-d077c3f7f783
+208,IQMS QMS Dev & Event Init GMP/GDP Reg & Sub Docs DE01,ef.u.iqms_qms_dev_&_event_init_gmp-gdp_reg_&_sub_docs_de01,ef.u.iqms_qms_dev___event_init_gmp-gdp_reg___sub_docs_de01,18734b67-26ea-4abf-afb7-d62db64f40c9
+209,IQMS QMS Dev & Event Init PH Ext Mfg DE17,ef.u.iqms_qms_dev_&_event_init_ph_ext_mfg_de17,ef.u.iqms_qms_dev___event_init_ph_ext_mfg_de17,1db12c35-a016-4b9e-a297-3f8868949e28
+21,IQMS QMS CQH CO France FR01,ef.u.iqms_qms_cqh_co_france_fr01,ef.u.iqms_qms_cqh_co_france_fr01,9462a814-dcd2-4a4d-8e8f-e8de7e98b459
+210,IQMS QMS Dev & Event Init Site Mgmt & Infra Serv DE22,ef.u.iqms_qms_dev_&_event_init_site_mgmt_&_infra_serv_de22,ef.u.iqms_qms_dev___event_init_site_mgmt___infra_serv_de22,965c276e-8f2a-48d7-8da4-a119d1cdfe5d
+211,IQMS QMS Deviation & Event Initiator BCC AG Basel CH01,ef.u.iqms_qms_deviation_&_event_initiator_bcc_ag_basel_ch01,ef.u.iqms_qms_deviation___event_initiator_bcc_ag_basel_ch01,bb56098e-ed72-4e60-80e5-cc3d2b23b398
+212,IQMS QMS Deviation & Event Initiator BHSC Shanghai CN05,ef.u.iqms_qms_deviation_&_event_initiator_bhsc_shanghai_cn05,ef.u.iqms_qms_deviation___event_initiator_bhsc_shanghai_cn05,e11ea8d8-a10d-4ecc-9dee-fb58ee987236
+213,IQMS QMS Deviation & Event Initiator Biologics US08,ef.u.iqms_qms_deviation_&_event_initiator_biologics_us08,ef.u.iqms_qms_deviation___event_initiator_biologics_us08,f433a0df-6a1c-4bc5-ba5b-c70cf5f1a8a7
+214,IQMS QMS Deviation & Event Initiator CH R&D and RMSQC CH02,ef.u.iqms_qms_deviation_&_event_initiator_ch_r&d_and_rmsqc_ch02,ef.u.iqms_qms_deviation___event_initiator_ch_r_d_and_rmsqc_ch02,5d48a379-f836-497d-a445-dc367e83792e
+215,IQMS QMS Deviation & Event Initiator CO Algeria DZ01,ef.u.iqms_qms_deviation_&_event_initiator_co_algeria_dz01,ef.u.iqms_qms_deviation___event_initiator_co_algeria_dz01,9eda427a-ae1d-4832-a599-54a0799fc6bd
+216,IQMS QMS Deviation & Event Initiator CO Argentina AR02,ef.u.iqms_qms_deviation_&_event_initiator_co_argentina_ar02,ef.u.iqms_qms_deviation___event_initiator_co_argentina_ar02,1efb22eb-23cd-4f9d-af29-274cc68352d3
+217,IQMS QMS Deviation & Event Initiator CO Australia AU01,ef.u.iqms_qms_deviation_&_event_initiator_co_australia_au01,ef.u.iqms_qms_deviation___event_initiator_co_australia_au01,16317250-2516-45b1-88ea-feaf23682d8d
+218,IQMS QMS Deviation & Event Initiator CO Austria AT01,ef.u.iqms_qms_deviation_&_event_initiator_co_austria_at01,ef.u.iqms_qms_deviation___event_initiator_co_austria_at01,8dcb41fc-3380-4a73-ba33-d22c7e3b8997
+219,IQMS QMS Deviation & Event Initiator CO Belgium BE01,ef.u.iqms_qms_deviation_&_event_initiator_co_belgium_be01,ef.u.iqms_qms_deviation___event_initiator_co_belgium_be01,3f67b694-a9ae-4654-b9a0-3e7a1730f5d1
+22,IQMS QMS CQH CO Germany DE20,ef.u.iqms_qms_cqh_co_germany_de20,ef.u.iqms_qms_cqh_co_germany_de20,b3559b28-3447-49e4-9bcf-bba1bcae6de5
+220,IQMS QMS Deviation & Event Initiator CO Bolivia BO01,ef.u.iqms_qms_deviation_&_event_initiator_co_bolivia_bo01,ef.u.iqms_qms_deviation___event_initiator_co_bolivia_bo01,49931826-594f-4c51-be5a-02ed9b0773c6
+221,IQMS QMS Deviation & Event Initiator CO Brazil BR02,ef.u.iqms_qms_deviation_&_event_initiator_co_brazil_br02,ef.u.iqms_qms_deviation___event_initiator_co_brazil_br02,89d759f1-1791-4f62-91f3-b366a643c748
+222,IQMS QMS Deviation & Event Initiator CO Bulgaria BG01,ef.u.iqms_qms_deviation_&_event_initiator_co_bulgaria_bg01,ef.u.iqms_qms_deviation___event_initiator_co_bulgaria_bg01,32e6fe07-b818-4576-90a1-17750b2e577c
+223,IQMS QMS Deviation & Event Initiator CO Canada CA02,ef.u.iqms_qms_deviation_&_event_initiator_co_canada_ca02,ef.u.iqms_qms_deviation___event_initiator_co_canada_ca02,6a32eb0e-5d41-4fee-be93-bf60cecaaaae
+224,IQMS QMS Deviation & Event Initiator CO Chile CL01,ef.u.iqms_qms_deviation_&_event_initiator_co_chile_cl01,ef.u.iqms_qms_deviation___event_initiator_co_chile_cl01,97c98605-ec58-4d64-987c-dc24925240d9
+225,IQMS QMS Deviation & Event Initiator CO China CN07,ef.u.iqms_qms_deviation_&_event_initiator_co_china_cn07,ef.u.iqms_qms_deviation___event_initiator_co_china_cn07,773fbc1f-1c91-4e4a-b24a-040489d0b119
+226,IQMS QMS Deviation & Event Initiator CO Colombia CO01,ef.u.iqms_qms_deviation_&_event_initiator_co_colombia_co01,ef.u.iqms_qms_deviation___event_initiator_co_colombia_co01,6a22cf69-bc69-4657-adf5-d3f0a438e549
+227,IQMS QMS Deviation & Event Initiator CO Czech Republic CZ01,ef.u.iqms_qms_deviation_&_event_initiator_co_czech_republic_cz01,ef.u.iqms_qms_deviation___event_initiator_co_czech_republic_cz01,e33c388f-fbff-4242-9782-328698b6cb6e
+228,IQMS QMS Deviation & Event Initiator CO Denmark DK01,ef.u.iqms_qms_deviation_&_event_initiator_co_denmark_dk01,ef.u.iqms_qms_deviation___event_initiator_co_denmark_dk01,7e090511-12b0-424e-82bb-8142cf61550d
+229,IQMS QMS Deviation & Event Initiator CO Ecuador EC01,ef.u.iqms_qms_deviation_&_event_initiator_co_ecuador_ec01,ef.u.iqms_qms_deviation___event_initiator_co_ecuador_ec01,dfb7a8cb-f137-4c24-977f-6a531dae3aba
+23,IQMS QMS CQH CO Greece GR01,ef.u.iqms_qms_cqh_co_greece_gr01,ef.u.iqms_qms_cqh_co_greece_gr01,25f35995-6c49-4e66-9f03-7dab7ea0141c
+230,IQMS QMS Deviation & Event Initiator CO Egypt EG01,ef.u.iqms_qms_deviation_&_event_initiator_co_egypt_eg01,ef.u.iqms_qms_deviation___event_initiator_co_egypt_eg01,fafdacea-262f-4d6c-b256-d1fea05b33fa
+231,IQMS QMS Deviation & Event Initiator CO Finland FI02,ef.u.iqms_qms_deviation_&_event_initiator_co_finland_fi02,ef.u.iqms_qms_deviation___event_initiator_co_finland_fi02,81a7a57a-0088-48e2-94e0-b559234723e1
+232,IQMS QMS Deviation & Event Initiator CO France FR01,ef.u.iqms_qms_deviation_&_event_initiator_co_france_fr01,ef.u.iqms_qms_deviation___event_initiator_co_france_fr01,5d073c7b-4810-4a5a-9a28-2bcec5bc5b29
+233,IQMS QMS Deviation & Event Initiator CO Germany DE20,$DFCD20-P88AKPUBVO4J,ef.u.iqms_qms_deviation___event_initiator_co_germany_de20,ab31accc-d89c-4fbf-baa5-07b955623f69
+234,IQMS QMS Deviation & Event Initiator CO Greece GR01,ef.u.iqms_qms_deviation_&_event_initiator_co_greece_gr01,ef.u.iqms_qms_deviation___event_initiator_co_greece_gr01,6248c27c-ecbd-49a6-9dfe-68da6b221672
+235,IQMS QMS Deviation & Event Initiator CO Hong Kong HK01,ef.u.iqms_qms_deviation_&_event_initiator_co_hong_kong_hk01,ef.u.iqms_qms_deviation___event_initiator_co_hong_kong_hk01,86279467-71c1-4648-9c3a-a8a99914ad23
+236,IQMS QMS Deviation & Event Initiator CO Hungary HU01,ef.u.iqms_qms_deviation_&_event_initiator_co_hungary_hu01,ef.u.iqms_qms_deviation___event_initiator_co_hungary_hu01,9b529484-8b7a-4753-96b2-e73788e61357
+237,IQMS QMS Deviation & Event Initiator CO India IN02,ef.u.iqms_qms_deviation_&_event_initiator_co_india_in02,ef.u.iqms_qms_deviation___event_initiator_co_india_in02,1d3e7643-714a-4db3-b7a5-0feafe7f392d
+238,IQMS QMS Deviation & Event Initiator CO Indonesia ID02,ef.u.iqms_qms_deviation_&_event_initiator_co_indonesia_id02,ef.u.iqms_qms_deviation___event_initiator_co_indonesia_id02,ab6389e8-85f3-44f1-a78f-7bd71db83937
+239,IQMS QMS Deviation & Event Initiator CO Ireland IE01,ef.u.iqms_qms_deviation_&_event_initiator_co_ireland_ie01,ef.u.iqms_qms_deviation___event_initiator_co_ireland_ie01,2bbb2d53-f993-44ac-9f78-b327ad69d5b7
+24,IQMS QMS CQH CO Hong Kong HK01,ef.u.iqms_qms_cqh_co_hong_kong_hk01,ef.u.iqms_qms_cqh_co_hong_kong_hk01,6dc477a6-0e1f-4534-b3db-bb1f910aeec4
+240,IQMS QMS Deviation & Event Initiator CO Israel IL01,ef.u.iqms_qms_deviation_&_event_initiator_co_israel_il01,ef.u.iqms_qms_deviation___event_initiator_co_israel_il01,df95a155-2ec9-486d-b8c2-824c6efbb82c
+241,IQMS QMS Deviation & Event Initiator CO Italy IT03,ef.u.iqms_qms_deviation_&_event_initiator_co_italy_it03,ef.u.iqms_qms_deviation___event_initiator_co_italy_it03,ea077571-7544-452c-918d-788224de2edb
+242,IQMS QMS Deviation & Event Initiator CO Japan JP02,ef.u.iqms_qms_deviation_&_event_initiator_co_japan_jp02,ef.u.iqms_qms_deviation___event_initiator_co_japan_jp02,c8a6ae07-eed0-4909-9188-74103010adf7
+243,IQMS QMS Deviation & Event Initiator CO Kazakhstan KZ01,ef.u.iqms_qms_deviation_&_event_initiator_co_kazakhstan_kz01,ef.u.iqms_qms_deviation___event_initiator_co_kazakhstan_kz01,4aa9ddbd-6557-4875-9c51-68a275e1b2d9
+244,IQMS QMS Deviation & Event Initiator CO Kenya KE01,ef.u.iqms_qms_deviation_&_event_initiator_co_kenya_ke01,ef.u.iqms_qms_deviation___event_initiator_co_kenya_ke01,de0807eb-ba49-4451-bdd1-74bea5c128ee
+245,IQMS QMS Deviation & Event Initiator CO Lithuania LT01,ef.u.iqms_qms_deviation_&_event_initiator_co_lithuania_lt01,ef.u.iqms_qms_deviation___event_initiator_co_lithuania_lt01,e3cef0c0-dcd2-4258-a99b-5fcacf7ac2e7
+246,IQMS QMS Deviation & Event Initiator CO Malaysia MY01,ef.u.iqms_qms_deviation_&_event_initiator_co_malaysia_my01,ef.u.iqms_qms_deviation___event_initiator_co_malaysia_my01,331e3db6-6aa7-4b5c-ba1c-e509683f5f27
+247,IQMS QMS Deviation & Event Initiator CO Mexico MX04,ef.u.iqms_qms_deviation_&_event_initiator_co_mexico_mx04,ef.u.iqms_qms_deviation___event_initiator_co_mexico_mx04,e0adadd9-a641-45d9-b4c3-30a885ce1142
+248,IQMS QMS Deviation & Event Initiator CO Morocco MA02,ef.u.iqms_qms_deviation_&_event_initiator_co_morocco_ma02,ef.u.iqms_qms_deviation___event_initiator_co_morocco_ma02,e08af127-7646-4486-9566-bcbd36d6b33b
+249,IQMS QMS Deviation & Event Initiator CO Netherlands NL02,ef.u.iqms_qms_deviation_&_event_initiator_co_netherlands_nl02,ef.u.iqms_qms_deviation___event_initiator_co_netherlands_nl02,06b3cef9-ea55-4583-a91e-bb1143638efd
+25,IQMS QMS CQH CO Hungary HU01,ef.u.iqms_qms_cqh_co_hungary_hu01,ef.u.iqms_qms_cqh_co_hungary_hu01,84c712c3-a08f-4164-b230-cd016e50a819
+250,IQMS QMS Deviation & Event Initiator CO Nigeria NG01,ef.u.iqms_qms_deviation_&_event_initiator_co_nigeria_ng01,ef.u.iqms_qms_deviation___event_initiator_co_nigeria_ng01,6942afbf-6685-43b5-8ee2-eafdf8368752
+251,IQMS QMS Deviation & Event Initiator CO Norway NO02,ef.u.iqms_qms_deviation_&_event_initiator_co_norway_no02,ef.u.iqms_qms_deviation___event_initiator_co_norway_no02,4d658509-889b-41ef-a1f7-8896be0726e2
+252,IQMS QMS Deviation & Event Initiator CO Pakistan PK01,ef.u.iqms_qms_deviation_&_event_initiator_co_pakistan_pk01,ef.u.iqms_qms_deviation___event_initiator_co_pakistan_pk01,efc19ee9-6f21-4ae6-83cc-92f1793395b1
+253,IQMS QMS Deviation & Event Initiator CO Panama PA01,ef.u.iqms_qms_deviation_&_event_initiator_co_panama_pa01,ef.u.iqms_qms_deviation___event_initiator_co_panama_pa01,730af5bf-4804-4e0b-93fe-4f260578cd50
+254,IQMS QMS Deviation & Event Initiator CO Paraguay PY01,ef.u.iqms_qms_deviation_&_event_initiator_co_paraguay_py01,ef.u.iqms_qms_deviation___event_initiator_co_paraguay_py01,b811e79e-4a5d-4518-ab95-4c7e22b7125d
+255,IQMS QMS Deviation & Event Initiator CO Peru PE01,ef.u.iqms_qms_deviation_&_event_initiator_co_peru_pe01,ef.u.iqms_qms_deviation___event_initiator_co_peru_pe01,49695bcf-9816-40d8-aabc-3ebac6161f4a
+256,IQMS QMS Deviation & Event Initiator CO Philippines PH01,ef.u.iqms_qms_deviation_&_event_initiator_co_philippines_ph01,ef.u.iqms_qms_deviation___event_initiator_co_philippines_ph01,0a939e97-69ac-4975-8dd9-8c7595246c35
+257,IQMS QMS Deviation & Event Initiator CO Poland PL01,ef.u.iqms_qms_deviation_&_event_initiator_co_poland_pl01,ef.u.iqms_qms_deviation___event_initiator_co_poland_pl01,725adf51-cb36-4823-8293-5be0ac91eee6
+258,IQMS QMS Deviation & Event Initiator CO Portugal PT01,ef.u.iqms_qms_deviation_&_event_initiator_co_portugal_pt01,ef.u.iqms_qms_deviation___event_initiator_co_portugal_pt01,62ad6fb0-7ff1-4eb9-a86e-3517dacb2c0e
+259,IQMS QMS Deviation & Event Initiator CO Romania RO01,ef.u.iqms_qms_deviation_&_event_initiator_co_romania_ro01,ef.u.iqms_qms_deviation___event_initiator_co_romania_ro01,5d91903e-76f9-4c54-ac4b-7ce7b61d4c1c
+26,IQMS QMS CQH CO India IN02,ef.u.iqms_qms_cqh_co_india_in02,ef.u.iqms_qms_cqh_co_india_in02,9d8c9807-d721-4480-8e24-78ff838e039f
+260,IQMS QMS Deviation & Event Initiator CO Saudi Arabia SA01,ef.u.iqms_qms_deviation_&_event_initiator_co_saudi_arabia_sa01,ef.u.iqms_qms_deviation___event_initiator_co_saudi_arabia_sa01,0de01613-478c-468f-b651-323b66769e2d
+261,IQMS QMS Deviation & Event Initiator CO Singapore SG01,ef.u.iqms_qms_deviation_&_event_initiator_co_singapore_sg01,ef.u.iqms_qms_deviation___event_initiator_co_singapore_sg01,c37e74b9-cdc3-4c8e-9f29-d7ff46a59126
+262,IQMS QMS Deviation & Event Initiator CO Slovakia SK01,ef.u.iqms_qms_deviation_&_event_initiator_co_slovakia_sk01,ef.u.iqms_qms_deviation___event_initiator_co_slovakia_sk01,f1d92bfd-c61f-474f-bb10-a1e5fab7a2c7
+263,IQMS QMS Deviation & Event Initiator CO Slovenia SI01,ef.u.iqms_qms_deviation_&_event_initiator_co_slovenia_si01,ef.u.iqms_qms_deviation___event_initiator_co_slovenia_si01,02824c09-d40a-46ea-808f-e66f33c47245
+264,IQMS QMS Deviation & Event Initiator CO South Africa ZA01,ef.u.iqms_qms_deviation_&_event_initiator_co_south_africa_za01,ef.u.iqms_qms_deviation___event_initiator_co_south_africa_za01,7d816861-ee8e-4784-98d4-ead70ae6f110
+265,IQMS QMS Deviation & Event Initiator CO South Korea KR01,ef.u.iqms_qms_deviation_&_event_initiator_co_south_korea_kr01,ef.u.iqms_qms_deviation___event_initiator_co_south_korea_kr01,5fb52045-b8fb-4786-918e-35e60fb2d499
+266,IQMS QMS Deviation & Event Initiator CO Spain ES03,ef.u.iqms_qms_deviation_&_event_initiator_co_spain_es03,ef.u.iqms_qms_deviation___event_initiator_co_spain_es03,255bff1b-8cb5-4142-8692-48804e37d93f
+267,IQMS QMS Deviation & Event Initiator CO Sweden SE01,ef.u.iqms_qms_deviation_&_event_initiator_co_sweden_se01,ef.u.iqms_qms_deviation___event_initiator_co_sweden_se01,3cef689c-3f81-4d93-924d-c6ccf202703d
+268,IQMS QMS Deviation & Event Initiator CO Switzerland CH03,ef.u.iqms_qms_deviation_&_event_initiator_co_switzerland_ch03,ef.u.iqms_qms_deviation___event_initiator_co_switzerland_ch03,4c2041fc-189c-4f3c-817c-bb39206b75e3
+269,IQMS QMS Deviation & Event Initiator CO Taiwan TW01,ef.u.iqms_qms_deviation_&_event_initiator_co_taiwan_tw01,ef.u.iqms_qms_deviation___event_initiator_co_taiwan_tw01,7691fa57-8c24-4994-b243-fa747ed9cd1f
+27,IQMS QMS CQH CO Indonesia ID02,ef.u.iqms_qms_cqh_co_indonesia_id02,ef.u.iqms_qms_cqh_co_indonesia_id02,13022e54-b650-44cc-9fa8-1029ec95518d
+270,IQMS QMS Deviation & Event Initiator CO Thailand TH01,ef.u.iqms_qms_deviation_&_event_initiator_co_thailand_th01,ef.u.iqms_qms_deviation___event_initiator_co_thailand_th01,10881cb1-a4b3-4376-bcbb-d33fb67163e8
+271,IQMS QMS Deviation & Event Initiator CO Turkey TR01,ef.u.iqms_qms_deviation_&_event_initiator_co_turkey_tr01,ef.u.iqms_qms_deviation___event_initiator_co_turkey_tr01,c17719d2-4d6b-4eb6-b522-7765ea9f5020
+272,IQMS QMS Deviation & Event Initiator CO Ukraine UA01,ef.u.iqms_qms_deviation_&_event_initiator_co_ukraine_ua01,ef.u.iqms_qms_deviation___event_initiator_co_ukraine_ua01,82f56e1d-7480-4f87-abda-5dcd050e74aa
+273,IQMS QMS Deviation & Event Initiator CO United Kingdom GB01,ef.u.iqms_qms_deviation_&_event_initiator_co_united_kingdom_gb01,ef.u.iqms_qms_deviation___event_initiator_co_united_kingdom_gb01,d3493bb9-d8b4-4b0f-9eaa-25dac9242c07
+274,IQMS QMS Deviation & Event Initiator CO Uruguay UY01,ef.u.iqms_qms_deviation_&_event_initiator_co_uruguay_uy01,ef.u.iqms_qms_deviation___event_initiator_co_uruguay_uy01,24ab814d-cf27-44bb-b48f-a6a1fd28df37
+275,IQMS QMS Deviation & Event Initiator CO USA US03,ef.u.iqms_qms_deviation_&_event_initiator_co_usa_us03,ef.u.iqms_qms_deviation___event_initiator_co_usa_us03,115d4717-ae15-4b7b-bebd-5e8514192099
+276,IQMS QMS Deviation & Event Initiator CO Venezuela VE01,ef.u.iqms_qms_deviation_&_event_initiator_co_venezuela_ve01,ef.u.iqms_qms_deviation___event_initiator_co_venezuela_ve01,f5aa42fe-2cd7-43f5-8723-cc24e749ffdf
+277,IQMS QMS Deviation & Event Initiator CO Vietnam VN01,ef.u.iqms_qms_deviation_&_event_initiator_co_vietnam_vn01,ef.u.iqms_qms_deviation___event_initiator_co_vietnam_vn01,ee3b2ace-2eda-4d82-8f4a-94ced6d72b6b
+278,IQMS QMS Deviation & Event Initiator HUB Maastricht NL01,ef.u.iqms_qms_deviation_&_event_initiator_hub_maastricht_nl01,ef.u.iqms_qms_deviation___event_initiator_hub_maastricht_nl01,ddb9bba7-6cf2-41b9-acc5-4ba76f0bf3bd
+279,IQMS QMS Deviation & Event Initiator IT Quality DE19,ef.u.iqms_qms_deviation_&_event_initiator_it_quality_de19,ef.u.iqms_qms_deviation___event_initiator_it_quality_de19,d6d621aa-43f7-40e0-aabe-ba53f6237e30
+28,IQMS QMS CQH CO Ireland IE01,ef.u.iqms_qms_cqh_co_ireland_ie01,ef.u.iqms_qms_cqh_co_ireland_ie01,35540003-1f24-4f9e-9184-7fba112e7127
+280,IQMS QMS Deviation & Event Initiator MD Beijing CN08,ef.u.iqms_qms_deviation_&_event_initiator_md_beijing_cn08,ef.u.iqms_qms_deviation___event_initiator_md_beijing_cn08,50135d16-657f-476a-94bc-1c7656a4c03a
+281,IQMS QMS Deviation & Event Initiator Medical Device US09,ef.u.iqms_qms_deviation_&_event_initiator_medical_device_us09,ef.u.iqms_qms_deviation___event_initiator_medical_device_us09,86e86cf7-0abf-45c5-b390-9e1295478480
+282,IQMS QMS Deviation & Event Initiator PH CPD DE05,ef.u.iqms_qms_deviation_&_event_initiator_ph_cpd_de05,ef.u.iqms_qms_deviation___event_initiator_ph_cpd_de05,159d496c-0ff1-4a81-b979-c706e2dec76c
+283,IQMS QMS Deviation & Event Initiator SC Alajuela CR01,ef.u.iqms_qms_deviation_&_event_initiator_sc_alajuela_cr01,ef.u.iqms_qms_deviation___event_initiator_sc_alajuela_cr01,71390ae9-5a26-4346-9c08-78f63c83d356
+284,IQMS QMS Deviation & Event Initiator SC Alcala ES01,ef.u.iqms_qms_deviation_&_event_initiator_sc_alcala_es01,ef.u.iqms_qms_deviation___event_initiator_sc_alcala_es01,b1e9c04d-9f76-4f19-85e3-e3c581e527d0
+285,IQMS QMS Deviation & Event Initiator SC Beijing CN01,ef.u.iqms_qms_deviation_&_event_initiator_sc_beijing_cn01,ef.u.iqms_qms_deviation___event_initiator_sc_beijing_cn01,4468b43b-bd56-436e-b2d9-93171a2e27d3
+286,IQMS QMS Deviation & Event Initiator SC Bergkamen DE08,ef.u.iqms_qms_deviation_&_event_initiator_sc_bergkamen_de08,ef.u.iqms_qms_deviation___event_initiator_sc_bergkamen_de08,69e25459-244b-4cd0-a81e-941f9f8d33e2
+287,IQMS QMS Deviation & Event Initiator SC Berkeley US01,ef.u.iqms_qms_deviation_&_event_initiator_sc_berkeley_us01,ef.u.iqms_qms_deviation___event_initiator_sc_berkeley_us01,8160627a-2150-4cb6-8a2a-f40176352df8
+288,IQMS QMS Deviation & Event Initiator SC Berlin DE06,ef.u.iqms_qms_deviation_&_event_initiator_sc_berlin_de06,ef.u.iqms_qms_deviation___event_initiator_sc_berlin_de06,61e1cec7-4b84-4572-9028-0141225711ed
+289,IQMS QMS Deviation & Event Initiator SC Bitterfeld DE12,ef.u.iqms_qms_deviation_&_event_initiator_sc_bitterfeld_de12,ef.u.iqms_qms_deviation___event_initiator_sc_bitterfeld_de12,b12d07c7-a2cb-486e-88f5-cfa5c605573c
+29,IQMS QMS CQH CO Israel IL01,ef.u.iqms_qms_cqh_co_israel_il01,ef.u.iqms_qms_cqh_co_israel_il01,c33adc50-a85e-472f-9568-96b5a6d22688
+290,IQMS QMS Deviation & Event Initiator SC Casablanca MA01,ef.u.iqms_qms_deviation_&_event_initiator_sc_casablanca_ma01,ef.u.iqms_qms_deviation___event_initiator_sc_casablanca_ma01,38fb8123-8e61-482c-9ae1-7cd1d6704779
+291,IQMS QMS Deviation & Event Initiator SC Cimanggis ID01,ef.u.iqms_qms_deviation_&_event_initiator_sc_cimanggis_id01,ef.u.iqms_qms_deviation___event_initiator_sc_cimanggis_id01,4a0ee93e-7b3e-4a03-b4bd-d80bf9b2fcdd
+292,IQMS QMS Deviation & Event Initiator SC Darmstadt DE18,ef.u.iqms_qms_deviation_&_event_initiator_sc_darmstadt_de18,ef.u.iqms_qms_deviation___event_initiator_sc_darmstadt_de18,d0f4fb47-35f2-4595-96ca-4e098759d2be
+293,IQMS QMS Deviation & Event Initiator SC Elberfeld DE04,ef.u.iqms_qms_deviation_&_event_initiator_sc_elberfeld_de04,ef.u.iqms_qms_deviation___event_initiator_sc_elberfeld_de04,9f60463c-dab8-40fa-97bc-d23bc2f6c62a
+294,IQMS QMS Deviation & Event Initiator SC Garbagnate IT01,ef.u.iqms_qms_deviation_&_event_initiator_sc_garbagnate_it01,ef.u.iqms_qms_deviation___event_initiator_sc_garbagnate_it01,cd60e1d0-3c40-4d72-b408-5c001f5d2ec5
+295,IQMS QMS Deviation & Event Initiator SC Grenzach DE07,ef.u.iqms_qms_deviation_&_event_initiator_sc_grenzach_de07,ef.u.iqms_qms_deviation___event_initiator_sc_grenzach_de07,7caa6908-52be-42f8-a674-c0227a7ecbe0
+296,IQMS QMS Deviation & Event Initiator SC Guatemala GT01,ef.u.iqms_qms_deviation_&_event_initiator_sc_guatemala_gt01,ef.u.iqms_qms_deviation___event_initiator_sc_guatemala_gt01,89502cbd-2645-424f-ae8f-a6d3bade71c0
+297,IQMS QMS Deviation & Event Initiator SC Heredia CR02,ef.u.iqms_qms_deviation_&_event_initiator_sc_heredia_cr02,ef.u.iqms_qms_deviation___event_initiator_sc_heredia_cr02,ff461800-dc14-4cbb-b784-8c3481041bfb
+298,IQMS QMS Deviation & Event Initiator SC Indianola US11,ef.u.iqms_qms_deviation_&_event_initiator_sc_indianola_us11,ef.u.iqms_qms_deviation___event_initiator_sc_indianola_us11,6d1732f3-b5e8-4470-809e-af62b26a6eaf
+299,IQMS QMS Deviation & Event Initiator SC Kunming CN06,ef.u.iqms_qms_deviation_&_event_initiator_sc_kunming_cn06,ef.u.iqms_qms_deviation___event_initiator_sc_kunming_cn06,875f2833-f5db-4cf4-b7a9-c9b84f05c846
 3,IQMS QMS Int Task Own Corp & Pharm Qual DE02,ef.u.iqms_qms_int_task_own_corp_&_pharm_qual_de02,ef.u.iqms_qms_int_task_own_corp___pharm_qual_de02,543a40fd-d3b3-4565-8a9b-3586cc066467
+30,IQMS QMS CQH CO Italy IT03,ef.u.iqms_qms_cqh_co_italy_it03,ef.u.iqms_qms_cqh_co_italy_it03,d75cc961-f62a-4ceb-bdb3-e44247bd54fc
+300,IQMS QMS Deviation & Event Initiator SC La Felguera ES02,ef.u.iqms_qms_deviation_&_event_initiator_sc_la_felguera_es02,ef.u.iqms_qms_deviation___event_initiator_sc_la_felguera_es02,4a26782d-7804-4e14-926a-06befb567d58
+301,IQMS QMS Deviation & Event Initiator SC Lerma MX03,ef.u.iqms_qms_deviation_&_event_initiator_sc_lerma_mx03,ef.u.iqms_qms_deviation___event_initiator_sc_lerma_mx03,223722a6-8eee-4ba0-a4d9-8c8bf6d900c4
+302,IQMS QMS Deviation & Event Initiator SC Leverkusen DE03,ef.u.iqms_qms_deviation_&_event_initiator_sc_leverkusen_de03,ef.u.iqms_qms_deviation___event_initiator_sc_leverkusen_de03,d2b91131-0b8b-41dd-ac16-b4a255c55db9
+303,IQMS QMS Deviation & Event Initiator SC Myerstown US05,ef.u.iqms_qms_deviation_&_event_initiator_sc_myerstown_us05,ef.u.iqms_qms_deviation___event_initiator_sc_myerstown_us05,7f00a33f-5906-4b56-96a1-ed4320e1e7dd
+304,IQMS QMS Deviation & Event Initiator SC O'Hara US12,ef.u.iqms_qms_deviation_&_event_initiator_sc_o'hara_us12,ef.u.iqms_qms_deviation___event_initiator_sc_o_hara_us12,27fee568-8af3-458f-8715-e8bf059563de
+305,IQMS QMS Deviation & Event Initiator SC Orizaba MX01,ef.u.iqms_qms_deviation_&_event_initiator_sc_orizaba_mx01,ef.u.iqms_qms_deviation___event_initiator_sc_orizaba_mx01,c80a0467-e846-4fe6-88d2-78ed5e2391f9
+306,IQMS QMS Deviation & Event Initiator SC Oslo NO01,ef.u.iqms_qms_deviation_&_event_initiator_sc_oslo_no01,ef.u.iqms_qms_deviation___event_initiator_sc_oslo_no01,32e5ca1f-9b3e-42d8-b700-1dfc747e1905
+307,IQMS QMS Deviation & Event Initiator SC Pilar AR01,ef.u.iqms_qms_deviation_&_event_initiator_sc_pilar_ar01,ef.u.iqms_qms_deviation___event_initiator_sc_pilar_ar01,cd7ede0e-ba25-4e35-97a2-d4423c21b956
+308,IQMS QMS Deviation & Event Initiator SC QiDong CN03,ef.u.iqms_qms_deviation_&_event_initiator_sc_qidong_cn03,ef.u.iqms_qms_deviation___event_initiator_sc_qidong_cn03,11363c83-2215-4c46-9736-8a1279fc1155
+309,IQMS QMS Deviation & Event Initiator SC Rydalmere AU02,ef.u.iqms_qms_deviation_&_event_initiator_sc_rydalmere_au02,ef.u.iqms_qms_deviation___event_initiator_sc_rydalmere_au02,e2d8254f-81ff-4eae-91b2-122837b58773
+31,IQMS QMS CQH CO Japan JP02,ef.u.iqms_qms_cqh_co_japan_jp02,ef.u.iqms_qms_cqh_co_japan_jp02,4925358e-bc5a-4d4c-aee1-dcabc5775a20
+310,IQMS QMS Deviation & Event Initiator SC Sao Paulo BR01,ef.u.iqms_qms_deviation_&_event_initiator_sc_sao_paulo_br01,ef.u.iqms_qms_deviation___event_initiator_sc_sao_paulo_br01,85f5a60f-8c9a-4dcc-932c-ffa4b2ca5499
+311,IQMS QMS Deviation & Event Initiator SC Saxonburg US13,ef.u.iqms_qms_deviation_&_event_initiator_sc_saxonburg_us13,ef.u.iqms_qms_deviation___event_initiator_sc_saxonburg_us13,7781340e-996f-4263-9caa-a69abe996ba6
+312,IQMS QMS Deviation & Event Initiator SC Shiga JP01,ef.u.iqms_qms_deviation_&_event_initiator_sc_shiga_jp01,ef.u.iqms_qms_deviation___event_initiator_sc_shiga_jp01,d9272b5f-368d-4ffe-96d2-76516ba998ae
+313,IQMS QMS Deviation & Event Initiator SC Turku FI01,ef.u.iqms_qms_deviation_&_event_initiator_sc_turku_fi01,ef.u.iqms_qms_deviation___event_initiator_sc_turku_fi01,874502a2-d4e1-4bcd-ae03-b1e4e8e7c623
+314,IQMS QMS Deviation & Event Initiator SC Weimar DE09,ef.u.iqms_qms_deviation_&_event_initiator_sc_weimar_de09,ef.u.iqms_qms_deviation___event_initiator_sc_weimar_de09,5ae0c2d9-1f9f-4c31-884f-4ae6e39b45d2
+315,IQMS QMS Deviation & Event Initiator SCM Operations DE10,ef.u.iqms_qms_deviation_&_event_initiator_scm_operations_de10,ef.u.iqms_qms_deviation___event_initiator_scm_operations_de10,c7700e0d-9e21-4c7e-a6df-c38aa57a7c45
+316,IQMS QMS Deviation & Event Initiator Vapi IN01,ef.u.iqms_qms_deviation_&_event_initiator_vapi_in01,ef.u.iqms_qms_deviation___event_initiator_vapi_in01,38a46419-0396-45e9-9e6d-14c55c60fdd0
+317,IQMS QMS Deviation & Event Owner BCC AG Basel CH01,ef.u.iqms_qms_deviation_&_event_owner_bcc_ag_basel_ch01,ef.u.iqms_qms_deviation___event_owner_bcc_ag_basel_ch01,286edd89-f916-4331-83fd-25230b49e1d6
+318,IQMS QMS Deviation & Event Owner BHSC Shanghai CN05,ef.u.iqms_qms_deviation_&_event_owner_bhsc_shanghai_cn05,ef.u.iqms_qms_deviation___event_owner_bhsc_shanghai_cn05,5485cf3f-f7b8-4e6f-9b42-353dde9e6602
+319,IQMS QMS Deviation & Event Owner Biologics US08,ef.u.iqms_qms_deviation_&_event_owner_biologics_us08,ef.u.iqms_qms_deviation___event_owner_biologics_us08,5591dc34-b0c0-45de-8ac4-0f4a70845623
+32,IQMS QMS CQH CO Kazakhstan KZ01,ef.u.iqms_qms_cqh_co_kazakhstan_kz01,ef.u.iqms_qms_cqh_co_kazakhstan_kz01,b77fb394-3f81-400d-9791-e081c822f4f5
+320,IQMS QMS Deviation & Event Owner CH R&D and RMSQC CH02,ef.u.iqms_qms_deviation_&_event_owner_ch_r&d_and_rmsqc_ch02,ef.u.iqms_qms_deviation___event_owner_ch_r_d_and_rmsqc_ch02,88d3c6fe-07b1-4a06-8351-53df31713d7d
+321,IQMS QMS Deviation & Event Owner CO Algeria DZ01,ef.u.iqms_qms_deviation_&_event_owner_co_algeria_dz01,ef.u.iqms_qms_deviation___event_owner_co_algeria_dz01,f9b54a84-81a7-4b21-b402-0c191d2a92af
+322,IQMS QMS Deviation & Event Owner CO Argentina AR02,ef.u.iqms_qms_deviation_&_event_owner_co_argentina_ar02,ef.u.iqms_qms_deviation___event_owner_co_argentina_ar02,5fe318b5-ff2e-4904-a06b-6d482f4762d5
+323,IQMS QMS Deviation & Event Owner CO Australia AU01,ef.u.iqms_qms_deviation_&_event_owner_co_australia_au01,ef.u.iqms_qms_deviation___event_owner_co_australia_au01,f68cb55e-cd64-4a8b-af38-a5e6b515d579
+324,IQMS QMS Deviation & Event Owner CO Austria AT01,ef.u.iqms_qms_deviation_&_event_owner_co_austria_at01,ef.u.iqms_qms_deviation___event_owner_co_austria_at01,cff02c1c-d390-426c-962e-962af2858f45
+325,IQMS QMS Deviation & Event Owner CO Belgium BE01,ef.u.iqms_qms_deviation_&_event_owner_co_belgium_be01,ef.u.iqms_qms_deviation___event_owner_co_belgium_be01,69b680f1-9c9c-4380-bf3c-d9422e45742c
+326,IQMS QMS Deviation & Event Owner CO Bolivia BO01,ef.u.iqms_qms_deviation_&_event_owner_co_bolivia_bo01,ef.u.iqms_qms_deviation___event_owner_co_bolivia_bo01,8dd58937-56cb-4feb-ade6-9f435375eccc
+327,IQMS QMS Deviation & Event Owner CO Brazil BR02,ef.u.iqms_qms_deviation_&_event_owner_co_brazil_br02,ef.u.iqms_qms_deviation___event_owner_co_brazil_br02,fe6771ea-2fe4-4b54-ac52-32f1244500b5
+328,IQMS QMS Deviation & Event Owner CO Bulgaria BG01,ef.u.iqms_qms_deviation_&_event_owner_co_bulgaria_bg01,ef.u.iqms_qms_deviation___event_owner_co_bulgaria_bg01,7c515e10-e361-4bcc-b59a-a159e198268d
+329,IQMS QMS RPS BCC AG Basel CH01,ef.u.iqms_qms_rps_bcc_ag_basel_ch01,ef.u.iqms_qms_rps_bcc_ag_basel_ch01,a1754bc3-b060-431e-be55-b0d1116c0241
+33,IQMS QMS CQH CO Kenya KE01,ef.u.iqms_qms_cqh_co_kenya_ke01,ef.u.iqms_qms_cqh_co_kenya_ke01,14ade639-9e1f-475f-aa7b-c5fc1d88c05b
+330,IQMS QMS RPS BHSC Shanghai CN05,ef.u.iqms_qms_rps_bhsc_shanghai_cn05,ef.u.iqms_qms_rps_bhsc_shanghai_cn05,3c2bd2e9-56c4-460e-aeef-ea358e07f7d2
+331,IQMS QMS RPS Biologics US08,ef.u.iqms_qms_rps_biologics_us08,ef.u.iqms_qms_rps_biologics_us08,765846da-5011-450c-a9c2-762f493f638e
+332,IQMS QMS RPS Corp & Pharm Qual DE02,ef.u.iqms_qms_rps_corp_&_pharm_qual_de02,ef.u.iqms_qms_rps_corp___pharm_qual_de02,b74dfa8a-ff78-41b9-916e-fa3892ff97b2
+333,IQMS QMS RPS HUB Maastricht NL01,ef.u.iqms_qms_rps_hub_maastricht_nl01,ef.u.iqms_qms_rps_hub_maastricht_nl01,2eb6fc9c-e630-4321-9fb4-2719a09521c3
+334,IQMS QMS RPS MD Beijing CN08,ef.u.iqms_qms_rps_md_beijing_cn08,ef.u.iqms_qms_rps_md_beijing_cn08,92228f24-4195-422e-aaa8-839b1565936f
+335,IQMS QMS RPS Med Device US09,ef.u.iqms_qms_rps_med_device_us09,ef.u.iqms_qms_rps_med_device_us09,72f40d8d-49da-4714-b1b3-441f5ae15f4d
+336,IQMS QMS RPS PH CPD DE05,ef.u.iqms_qms_rps_ph_cpd_de05,ef.u.iqms_qms_rps_ph_cpd_de05,1528b0c9-d3c9-4a22-bfb2-4af4a4e41363
+337,IQMS QMS RPS PH Ext Mfg DE17,ef.u.iqms_qms_rps_ph_ext_mfg_de17,ef.u.iqms_qms_rps_ph_ext_mfg_de17,c1fc418f-1037-41ba-86c0-36de89e5a106
+338,IQMS QMS RPS SC Alajuela CR01,ef.u.iqms_qms_rps_sc_alajuela_cr01,ef.u.iqms_qms_rps_sc_alajuela_cr01,a32e6026-d040-4f9a-a8fc-6d390c7372a8
+339,IQMS QMS RPS SC Alcala ES01,ef.u.iqms_qms_rps_sc_alcala_es01,ef.u.iqms_qms_rps_sc_alcala_es01,2fd5b543-7287-461e-a30d-18a187db238c
+34,IQMS QMS CQH CO Lithuania LT01,ef.u.iqms_qms_cqh_co_lithuania_lt01,ef.u.iqms_qms_cqh_co_lithuania_lt01,49f01ace-6cb1-46f4-9d04-9e5276224f2d
+340,IQMS QMS RPS SC Beijing CN01,ef.u.iqms_qms_rps_sc_beijing_cn01,ef.u.iqms_qms_rps_sc_beijing_cn01,f3e18879-f82a-4fde-a822-f0d0ba918486
+341,IQMS QMS RPS SC Bergkamen DE08,ef.u.iqms_qms_rps_sc_bergkamen_de08,ef.u.iqms_qms_rps_sc_bergkamen_de08,30ec517b-ecb4-43d2-8e35-b3518abbe5db
+342,IQMS QMS RPS SC Berkeley US01,ef.u.iqms_qms_rps_sc_berkeley_us01,ef.u.iqms_qms_rps_sc_berkeley_us01,fd711fa4-9bd8-4f8a-8513-a425bc3c7a12
+343,IQMS QMS RPS SC Berlin DE06,ef.u.iqms_qms_rps_sc_berlin_de06,ef.u.iqms_qms_rps_sc_berlin_de06,b783bc55-3e06-4940-9eb3-c8e5d73bae7c
+344,IQMS QMS RPS SC Bitterfeld DE12,ef.u.iqms_qms_rps_sc_bitterfeld_de12,ef.u.iqms_qms_rps_sc_bitterfeld_de12,b504274f-6771-493b-b489-e33eaccf9bc9
+345,IQMS QMS RPS SC Casablanca MA01,ef.u.iqms_qms_rps_sc_casablanca_ma01,ef.u.iqms_qms_rps_sc_casablanca_ma01,441e4a70-c972-48d2-8ba0-518daf00f171
+346,IQMS QMS RPS SC Cimanggis ID01,ef.u.iqms_qms_rps_sc_cimanggis_id01,ef.u.iqms_qms_rps_sc_cimanggis_id01,adf0f160-e15b-4734-b4b8-437e7b6149ec
+347,IQMS QMS RPS SC Darmstadt DE18,ef.u.iqms_qms_rps_sc_darmstadt_de18,ef.u.iqms_qms_rps_sc_darmstadt_de18,5539b3c5-c9e0-4eba-913d-aa45b70207f3
+348,IQMS QMS RPS SC Elberfeld DE04,ef.u.iqms_qms_rps_sc_elberfeld_de04,ef.u.iqms_qms_rps_sc_elberfeld_de04,16b1db2a-51db-4745-ac7a-37a663826fa0
+349,IQMS QMS RPS SC Garbagnate IT01,ef.u.iqms_qms_rps_sc_garbagnate_it01,ef.u.iqms_qms_rps_sc_garbagnate_it01,5e10d1f7-f951-4e08-9f7d-e750a655f519
+35,IQMS QMS CQH CO Malaysia MY01,ef.u.iqms_qms_cqh_co_malaysia_my01,ef.u.iqms_qms_cqh_co_malaysia_my01,6ee180bf-a38e-438a-94eb-2b33d4fb3321
+350,IQMS QMS RPS SC Grenzach DE07,ef.u.iqms_qms_rps_sc_grenzach_de07,ef.u.iqms_qms_rps_sc_grenzach_de07,a401a1f2-ce05-40e3-916f-bdba22f233a6
+351,IQMS QMS RPS SC Guatemala GT01,ef.u.iqms_qms_rps_sc_guatemala_gt01,ef.u.iqms_qms_rps_sc_guatemala_gt01,b4eaff95-528a-4b1e-a800-5ea5dff6bf93
+352,IQMS QMS RPS SC Heredia CR02,ef.u.iqms_qms_rps_sc_heredia_cr02,ef.u.iqms_qms_rps_sc_heredia_cr02,6eb22eec-b6c3-4f72-b156-7f4853aee4b2
+353,IQMS QMS RPS SC Indianola US11,ef.u.iqms_qms_rps_sc_indianola_us11,ef.u.iqms_qms_rps_sc_indianola_us11,c5c8909b-a67c-4b90-a687-b61fc5ba0261
+354,IQMS QMS RPS SC Kunming CN06,ef.u.iqms_qms_rps_sc_kunming_cn06,ef.u.iqms_qms_rps_sc_kunming_cn06,5057b8ee-e235-4727-b904-3a084b6d550c
+355,IQMS QMS RPS SC La Felguera ES02,ef.u.iqms_qms_rps_sc_la_felguera_es02,ef.u.iqms_qms_rps_sc_la_felguera_es02,75765b5c-89f5-42fe-b5df-3e085a26e671
+356,IQMS QMS RPS SC Lerma MX03,ef.u.iqms_qms_rps_sc_lerma_mx03,ef.u.iqms_qms_rps_sc_lerma_mx03,58a53ad8-d660-4530-9aa2-29d3b5690585
+357,IQMS QMS RPS SC Leverkusen DE03,ef.u.iqms_qms_rps_sc_leverkusen_de03,ef.u.iqms_qms_rps_sc_leverkusen_de03,ebc9462c-1bc4-4e5c-a7c9-a7f0b6439d0b
+358,IQMS QMS RPS SC Myerstown US05,ef.u.iqms_qms_rps_sc_myerstown_us05,ef.u.iqms_qms_rps_sc_myerstown_us05,9ba0f0c9-f2d1-4103-9484-be605b27f301
+359,IQMS QMS RPS SC O'Hara US12,ef.u.iqms_qms_rps_sc_o'hara_us12,ef.u.iqms_qms_rps_sc_o_hara_us12,468c5e46-91c9-4ab9-8d19-4d44f0423b76
+36,IQMS QMS CQH CO Mexico MX04,ef.u.iqms_qms_cqh_co_mexico_mx04,ef.u.iqms_qms_cqh_co_mexico_mx04,409a142f-0ad2-49e6-a8ed-1b1681eab60a
+360,IQMS QMS RPS SC Orizaba MX01,ef.u.iqms_qms_rps_sc_orizaba_mx01,ef.u.iqms_qms_rps_sc_orizaba_mx01,3bc519cb-f2b5-4c23-94e3-de02adc17990
+361,IQMS QMS RPS SC Oslo NO01,ef.u.iqms_qms_rps_sc_oslo_no01,ef.u.iqms_qms_rps_sc_oslo_no01,c2afacb8-e4d0-4fdd-a200-023af425d1ff
+362,IQMS QMS RPS SC Pilar AR01,ef.u.iqms_qms_rps_sc_pilar_ar01,ef.u.iqms_qms_rps_sc_pilar_ar01,290e0db4-24b7-40eb-b6f0-e9e13ee3660b
+363,IQMS QMS RPS SC QiDong CN03,ef.u.iqms_qms_rps_sc_qidong_cn03,ef.u.iqms_qms_rps_sc_qidong_cn03,e9b459e2-5269-45a3-ac98-c9f0e6613b40
+364,IQMS QMS RPS SC Rydalmere AU02,ef.u.iqms_qms_rps_sc_rydalmere_au02,ef.u.iqms_qms_rps_sc_rydalmere_au02,a37830cc-c862-4f93-8168-58226cde8d9d
+365,IQMS QMS RPS SC Sao Paulo BR01,ef.u.iqms_qms_rps_sc_sao_paulo_br01,ef.u.iqms_qms_rps_sc_sao_paulo_br01,77b09041-e360-4ada-8c0e-b64a09de5518
+366,IQMS QMS RPS SC Saxonburg US13,ef.u.iqms_qms_rps_sc_saxonburg_us13,ef.u.iqms_qms_rps_sc_saxonburg_us13,a6f39645-4db0-452a-994c-4b101fe10d20
+367,IQMS QMS RPS SC Shiga JP01,ef.u.iqms_qms_rps_sc_shiga_jp01,ef.u.iqms_qms_rps_sc_shiga_jp01,860db58d-1cc1-4fe8-8964-542c66d4520a
+368,IQMS QMS RPS SC Turku FI01,ef.u.iqms_qms_rps_sc_turku_fi01,ef.u.iqms_qms_rps_sc_turku_fi01,ea5687e4-d874-4e30-b917-07537c07a0d9
+369,IQMS QMS RPS SC Weimar DE09,ef.u.iqms_qms_rps_sc_weimar_de09,ef.u.iqms_qms_rps_sc_weimar_de09,bebc8ea8-c848-434c-9643-8b545fc96fde
+37,IQMS QMS CQH CO Morocco MA02,ef.u.iqms_qms_cqh_co_morocco_ma02,ef.u.iqms_qms_cqh_co_morocco_ma02,8ff4e71f-759d-4bf5-a1b9-f934baebbe34
+370,IQMS QMS RPS SCM Ops DE10,ef.u.iqms_qms_rps_scm_ops_de10,ef.u.iqms_qms_rps_scm_ops_de10,785c378f-4548-4e4a-9f75-ce5c3bd67cf6
+371,IQMS QMS RPS Vapi IN01,ef.u.iqms_qms_rps_vapi_in01,ef.u.iqms_qms_rps_vapi_in01,fa65e7bb-d2e2-4071-85a7-2055f77d6df4
+372,IQMS QMS RQU (Responsible Quality Unit) SC Cimanggis ID01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_cimanggis_id01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_cimanggis_id01,7283c3ad-17d0-43f8-a2cb-a6c2045c685c
+373,IQMS QMS RQU (Responsible Quality Unit) SC Darmstadt DE18,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_darmstadt_de18,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_darmstadt_de18,12fbfbfe-a8cc-47e0-9ba5-a9e2d8b9a97e
+374,IQMS QMS RQU (Responsible Quality Unit) SC Elberfeld DE04,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_elberfeld_de04,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_elberfeld_de04,0bc400f0-f23b-418e-b4c3-21dd4543288c
+375,IQMS QMS RQU (Responsible Quality Unit) SC Garbagnate IT01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_garbagnate_it01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_garbagnate_it01,85c68ec5-59e5-4867-9896-5ce5abea832a
+376,IQMS QMS RQU (Responsible Quality Unit) SC Grenzach DE07,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_grenzach_de07,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_grenzach_de07,4ca4f32a-e48e-4df5-bc05-5812921c7e71
+377,IQMS QMS RQU (Responsible Quality Unit) SC Guatemala GT01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_guatemala_gt01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_guatemala_gt01,6247c482-1caf-44da-98b1-8a1f0cf245d3
+378,IQMS QMS RQU (Responsible Quality Unit) SC Heredia CR02,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_heredia_cr02,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_heredia_cr02,9a0ac0af-3978-46c5-b4d6-c9f97371ed62
+379,IQMS QMS RQU (Responsible Quality Unit) SC Indianola US11,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_indianola_us11,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_indianola_us11,a488e188-5daf-4531-bc98-00c26f5c1da2
+38,IQMS QMS CQH CO Netherlands NL02,ef.u.iqms_qms_cqh_co_netherlands_nl02,ef.u.iqms_qms_cqh_co_netherlands_nl02,ef9bc77c-fb87-4f25-baf5-9f10a87312ce
+380,IQMS QMS RQU (Responsible Quality Unit) SC Kunming CN06,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_kunming_cn06,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_kunming_cn06,0f8ee89f-b604-4429-aea8-9c369cb02aef
+381,IQMS QMS RQU (Responsible Quality Unit) SC La Felguera ES02,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_la_felguera_es02,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_la_felguera_es02,46eae4e4-a3ff-4192-8424-36909aa39bef
+382,IQMS QMS RQU (Responsible Quality Unit) SC Lerma MX03,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_lerma_mx03,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_lerma_mx03,a9d96043-84ba-45c4-a81d-f0a6b4672dc1
+383,IQMS QMS RQU (Responsible Quality Unit) SC Leverkusen DE03,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_leverkusen_de03,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_leverkusen_de03,4ec20955-46b2-4940-903d-22bf995c607e
+384,IQMS QMS RQU (Responsible Quality Unit) SC Myerstown US05,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_myerstown_us05,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_myerstown_us05,cbc7911b-6e02-435a-a9b0-e665f2393347
+385,IQMS QMS RQU (Responsible Quality Unit) SC O'Hara US12,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_o'hara_us12,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_o_hara_us12,f46b7d0e-1f8d-4297-a528-adbab0f6b191
+386,IQMS QMS RQU (Responsible Quality Unit) SC Orizaba MX01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_orizaba_mx01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_orizaba_mx01,f65e2357-9a2e-49db-bca5-2eb03cba7002
+387,IQMS QMS RQU (Responsible Quality Unit) SC Oslo NO01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_oslo_no01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_oslo_no01,039c7ae7-28e2-4528-af3f-f9fbe14c239c
+388,IQMS QMS RQU (Responsible Quality Unit) SC Pilar AR01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_pilar_ar01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_pilar_ar01,0cdb10b5-24e8-4d5f-a095-a99109f17ee5
+389,IQMS QMS RQU (Responsible Quality Unit) SC QiDong CN03,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_qidong_cn03,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_qidong_cn03,0ae05600-c82c-483c-9302-8f9354f3de1b
+39,IQMS QMS CQH CO Nigeria NG01,ef.u.iqms_qms_cqh_co_nigeria_ng01,ef.u.iqms_qms_cqh_co_nigeria_ng01,be0afb1d-88a4-4adc-ae6b-1d39350fe103
+390,IQMS QMS RQU (Responsible Quality Unit) SC Rydalmere AU02,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_rydalmere_au02,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_rydalmere_au02,57201a81-61b1-4026-b882-c8054886c621
+391,IQMS QMS RQU (Responsible Quality Unit) SC Sao Paulo BR01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_sao_paulo_br01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_sao_paulo_br01,136769b5-d15c-4c75-9b53-c65e4ad5933f
+392,IQMS QMS RQU (Responsible Quality Unit) SC Saxonburg US13,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_saxonburg_us13,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_saxonburg_us13,53f35371-32ca-40f2-a748-5dab15ef1047
+393,IQMS QMS RQU (Responsible Quality Unit) SC Shiga JP01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_shiga_jp01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_shiga_jp01,fb1050ed-c8ca-4463-9c41-2e9bb3f20e22
+394,IQMS QMS RQU (Responsible Quality Unit) SC Turku FI01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_turku_fi01,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_turku_fi01,3011f13f-5766-437b-9196-a645fee0fa7e
+395,IQMS QMS RQU (Responsible Quality Unit) SC Weimar DE09,ef.u.iqms_qms_rqu_(responsible_quality_unit)_sc_weimar_de09,ef.u.iqms_qms_rqu__responsible_quality_unit__sc_weimar_de09,58c54637-ebef-4b53-be66-d30190d5920e
+396,IQMS QMS RQU (Responsible Quality Unit) SCM Operations DE10,ef.u.iqms_qms_rqu_(responsible_quality_unit)_scm_operations_de10,ef.u.iqms_qms_rqu__responsible_quality_unit__scm_operations_de10,4e928bc4-66a4-4368-9dd6-6c180bee9cb8
+397,IQMS QMS RQU (Responsible Quality Unit) Vapi IN01,ef.u.iqms_qms_rqu_(responsible_quality_unit)_vapi_in01,ef.u.iqms_qms_rqu__responsible_quality_unit__vapi_in01,9b7dfd98-8ae8-435e-9c2d-0521acaba246
+398,IQMS QMS RQU Corp & Pharm Qual DE02,ef.u.iqms_qms_rqu_corp_&_pharm_qual_de02,ef.u.iqms_qms_rqu_corp___pharm_qual_de02,83307386-390c-4bf6-8f05-6990baef7e84
+399,IQMS QMS RQU PH Ext Mfg DE17,ef.u.iqms_qms_rqu_ph_ext_mfg_de17,ef.u.iqms_qms_rqu_ph_ext_mfg_de17,737e3e49-0f6c-4f9c-a0db-0c14828e488a
+4,IQMS QMS CQH CO Algeria DZ01,ef.u.iqms_qms_cqh_co_algeria_dz01,ef.u.iqms_qms_cqh_co_algeria_dz01,07dbd238-ce0f-45df-980f-d9f98f03df85
+40,IQMS QMS CQH CO Norway NO02,ef.u.iqms_qms_cqh_co_norway_no02,ef.u.iqms_qms_cqh_co_norway_no02,f473a4ac-dd04-4bf1-b916-a70f40676015
+41,IQMS QMS CQH CO Pakistan PK01,ef.u.iqms_qms_cqh_co_pakistan_pk01,ef.u.iqms_qms_cqh_co_pakistan_pk01,66705cdb-543e-4562-98ef-6d32ddebac91
+42,IQMS QMS CQH CO Panama PA01,ef.u.iqms_qms_cqh_co_panama_pa01,ef.u.iqms_qms_cqh_co_panama_pa01,862e6281-4861-4c45-851e-41e9413f2a8a
+43,IQMS QMS CQH CO Paraguay PY01,ef.u.iqms_qms_cqh_co_paraguay_py01,ef.u.iqms_qms_cqh_co_paraguay_py01,14fdeba7-34dc-4d1e-9887-2f62600a95cd
+44,IQMS QMS CQH CO Peru PE01,ef.u.iqms_qms_cqh_co_peru_pe01,ef.u.iqms_qms_cqh_co_peru_pe01,504bd39d-d834-4b2c-b04b-92cbb76c0024
+45,IQMS QMS CQH CO Philippines PH01,ef.u.iqms_qms_cqh_co_philippines_ph01,ef.u.iqms_qms_cqh_co_philippines_ph01,60145577-92b7-4068-a808-8ad8534c1717
+46,IQMS QMS CQH CO Poland PL01,ef.u.iqms_qms_cqh_co_poland_pl01,ef.u.iqms_qms_cqh_co_poland_pl01,1b184fbc-9d06-4224-9bbd-4823d3b25f4e
+47,IQMS QMS CQH CO Portugal PT01,ef.u.iqms_qms_cqh_co_portugal_pt01,ef.u.iqms_qms_cqh_co_portugal_pt01,81bf13de-c5fa-4bf1-ab85-0fe1c14cd55a
+48,IQMS QMS CQH CO Romania RO01,ef.u.iqms_qms_cqh_co_romania_ro01,ef.u.iqms_qms_cqh_co_romania_ro01,1e2cf214-cd53-4d21-9e15-6312b8b52aaf
+49,IQMS QMS CQH CO Saudi Arabia SA01,ef.u.iqms_qms_cqh_co_saudi_arabia_sa01,ef.u.iqms_qms_cqh_co_saudi_arabia_sa01,42dd82c8-26d9-448b-a643-9d8950ef94b3
+5,IQMS QMS CQH CO Argentina AR02,ef.u.iqms_qms_cqh_co_argentina_ar02,ef.u.iqms_qms_cqh_co_argentina_ar02,b07224f0-82a8-4c2b-9d09-9a26586aae07
+50,IQMS QMS CQH CO Singapore SG01,ef.u.iqms_qms_cqh_co_singapore_sg01,ef.u.iqms_qms_cqh_co_singapore_sg01,7a11608d-c6da-4157-a404-44701b0c4473
+51,IQMS QMS CQH CO Slovakia SK01,ef.u.iqms_qms_cqh_co_slovakia_sk01,ef.u.iqms_qms_cqh_co_slovakia_sk01,dd2dabec-6d71-459c-9929-b43066733d49
+52,IQMS QMS CQH CO Slovenia SI01,ef.u.iqms_qms_cqh_co_slovenia_si01,ef.u.iqms_qms_cqh_co_slovenia_si01,dbf12903-9fac-42aa-b380-cf4a60fc9c93
+53,IQMS QMS CQH CO South Africa ZA01,ef.u.iqms_qms_cqh_co_south_africa_za01,ef.u.iqms_qms_cqh_co_south_africa_za01,584327f0-1926-469d-b6f2-487c585cd101
+54,IQMS QMS CQH CO South Korea KR01,ef.u.iqms_qms_cqh_co_south_korea_kr01,ef.u.iqms_qms_cqh_co_south_korea_kr01,7de3ea92-b99e-4237-9c99-87d09473db18
+55,IQMS QMS CQH CO Spain ES03,ef.u.iqms_qms_cqh_co_spain_es03,ef.u.iqms_qms_cqh_co_spain_es03,eff61014-3adb-41e0-a6d4-cbfafb5695fc
+56,IQMS QMS CQH CO Sweden SE01,ef.u.iqms_qms_cqh_co_sweden_se01,ef.u.iqms_qms_cqh_co_sweden_se01,a84dcd5d-34f4-4e51-8a6e-68902a4b1087
+57,IQMS QMS CQH CO Switzerland CH03,ef.u.iqms_qms_cqh_co_switzerland_ch03,ef.u.iqms_qms_cqh_co_switzerland_ch03,9450338a-332b-4f78-8179-55e5827b6d39
+58,IQMS QMS CQH CO Taiwan TW01,ef.u.iqms_qms_cqh_co_taiwan_tw01,ef.u.iqms_qms_cqh_co_taiwan_tw01,35610143-ca49-48f6-a0b5-ff42fc5eaa32
+59,IQMS QMS CQH CO Thailand TH01,ef.u.iqms_qms_cqh_co_thailand_th01,ef.u.iqms_qms_cqh_co_thailand_th01,e27f857a-7ef4-4cd7-a698-6fe405b9d6b4
+6,IQMS QMS CQH CO Australia AU01,ef.u.iqms_qms_cqh_co_australia_au01,ef.u.iqms_qms_cqh_co_australia_au01,83479eee-7bdd-45c5-a7a8-28fc8749f5c7
+60,IQMS QMS CQH CO Turkey TR01,ef.u.iqms_qms_cqh_co_turkey_tr01,ef.u.iqms_qms_cqh_co_turkey_tr01,5404e896-32bd-487c-9bce-931f6a36fc26
+61,IQMS QMS CQH CO Ukraine UA01,ef.u.iqms_qms_cqh_co_ukraine_ua01,ef.u.iqms_qms_cqh_co_ukraine_ua01,bbde44ef-0e00-44df-821c-70fddf3fac22
+62,IQMS QMS CQH CO United Arab Emirates AE01,ef.u.iqms_qms_cqh_co_united_arab_emirates_ae01,ef.u.iqms_qms_cqh_co_united_arab_emirates_ae01,a66f3592-c319-427e-bdbd-8d749cfd2dc6
+63,IQMS QMS CQH CO United Kingdom GB01,ef.u.iqms_qms_cqh_co_united_kingdom_gb01,ef.u.iqms_qms_cqh_co_united_kingdom_gb01,30cbfb2a-2463-4503-8c63-8c853a0d6693
+64,IQMS QMS CQH CO Uruguay UY01,ef.u.iqms_qms_cqh_co_uruguay_uy01,ef.u.iqms_qms_cqh_co_uruguay_uy01,422df19b-8ec9-4f7d-a3d5-2924b4d42a6c
+65,IQMS QMS CQH CO USA US03,ef.u.iqms_qms_cqh_co_usa_us03,ef.u.iqms_qms_cqh_co_usa_us03,1e1dc9ad-0153-4b96-8f79-c13efdf9b75c
+66,IQMS QMS CQH CO Venezuela VE01,ef.u.iqms_qms_cqh_co_venezuela_ve01,ef.u.iqms_qms_cqh_co_venezuela_ve01,a4838db8-acbc-4f41-b9ba-6a848e977ca9
+67,IQMS QMS CQH CO Vietnam VN01,ef.u.iqms_qms_cqh_co_vietnam_vn01,ef.u.iqms_qms_cqh_co_vietnam_vn01,820f8441-5692-41a9-ab7d-b0bf0b71a277
+68,IQMS QMS GBS Costa Rica,ef.u.iqms_qms_gbs_costa_rica,ef.u.iqms_qms_gbs_costa_rica,0b66e8e4-8cb9-4750-a2f4-61433d92d061
+69,IQMS QMS GBS Dalian,ef.u.iqms_qms_gbs_dalian,ef.u.iqms_qms_gbs_dalian,6f4e6557-3fe7-4856-98b3-15f40b813b35
+7,IQMS QMS CQH CO Austria AT01,ef.u.iqms_qms_cqh_co_austria_at01,ef.u.iqms_qms_cqh_co_austria_at01,4ecdd3af-49d2-487f-8ff7-8730e22d7fc2
+70,IQMS QMS GBS Gdansk,ef.u.iqms_qms_gbs_gdansk,ef.u.iqms_qms_gbs_gdansk,92cd79e1-4d18-47c3-9202-b41c2c2d109d
+71,IQMS QMS Int Task Own Ctrl Tower Dist WO02,ef.u.iqms_qms_int_task_own_ctrl_tower_dist_wo02,ef.u.iqms_qms_int_task_own_ctrl_tower_dist_wo02,75b8c49a-dbf0-40c7-b73d-8453a3de94af
+72,IQMS QMS Int Task Own GMP/GDP Reg & Sub Docs DE01,ef.u.iqms_qms_int_task_own_gmp-gdp_reg_&_sub_docs_de01,ef.u.iqms_qms_int_task_own_gmp-gdp_reg___sub_docs_de01,b54cb38c-e9fc-4f7a-8a09-a0b9c9ab1cae
+73,IQMS QMS Int Task Own Site Mgmt & Infra Serv DE22,ef.u.iqms_qms_int_task_own_site_mgmt_&_infra_serv_de22,ef.u.iqms_qms_int_task_own_site_mgmt___infra_serv_de22,3e4ceb86-2595-4d4e-a05a-1a81918a08a2
+74,IQMS QMS Internal Task Owner BCC AG Basel CH01,ef.u.iqms_qms_internal_task_owner_bcc_ag_basel_ch01,ef.u.iqms_qms_internal_task_owner_bcc_ag_basel_ch01,03cad59a-b114-4139-9b99-2ee4b578ba15
+75,IQMS QMS Internal Task Owner BHSC Shanghai CN05,ef.u.iqms_qms_internal_task_owner_bhsc_shanghai_cn05,ef.u.iqms_qms_internal_task_owner_bhsc_shanghai_cn05,c9514c88-80ec-4a2c-be62-428219a71760
+76,IQMS QMS Internal Task Owner Biologics US08,ef.u.iqms_qms_internal_task_owner_biologics_us08,ef.u.iqms_qms_internal_task_owner_biologics_us08,36c51f5e-d9ba-4b77-884a-edcea5fd236f
+77,IQMS QMS Internal Task Owner CH R&D and RMSQC CH02,ef.u.iqms_qms_internal_task_owner_ch_r&d_and_rmsqc_ch02,ef.u.iqms_qms_internal_task_owner_ch_r_d_and_rmsqc_ch02,20b50bc7-3b7f-495d-ab3e-02dcb02f3601
+78,IQMS QMS Internal Task Owner CO Algeria DZ01,ef.u.iqms_qms_internal_task_owner_co_algeria_dz01,ef.u.iqms_qms_internal_task_owner_co_algeria_dz01,65021dbb-ee5f-4f17-bb15-06777731f713
+79,IQMS QMS Internal Task Owner CO Argentina AR02,ef.u.iqms_qms_internal_task_owner_co_argentina_ar02,ef.u.iqms_qms_internal_task_owner_co_argentina_ar02,0815c338-274a-44a8-a282-420d176ec43e
+8,IQMS QMS CQH CO Belgium BE01,ef.u.iqms_qms_cqh_co_belgium_be01,ef.u.iqms_qms_cqh_co_belgium_be01,ccf27707-c943-4a7b-941b-dc27c6b9bdd6
+80,IQMS QMS Internal Task Owner CO Australia AU01,ef.u.iqms_qms_internal_task_owner_co_australia_au01,ef.u.iqms_qms_internal_task_owner_co_australia_au01,5fb28fd0-9f4f-48ff-ae50-cc37b4512056
+81,IQMS QMS Internal Task Owner CO Austria AT01,ef.u.iqms_qms_internal_task_owner_co_austria_at01,ef.u.iqms_qms_internal_task_owner_co_austria_at01,b5f8d222-45e3-4e60-8028-812e75375f1a
+82,IQMS QMS Internal Task Owner CO Belgium BE01,ef.u.iqms_qms_internal_task_owner_co_belgium_be01,ef.u.iqms_qms_internal_task_owner_co_belgium_be01,d3b561f3-5550-4f10-bfb2-412984aa6486
+83,IQMS QMS Internal Task Owner CO Bolivia BO01,ef.u.iqms_qms_internal_task_owner_co_bolivia_bo01,ef.u.iqms_qms_internal_task_owner_co_bolivia_bo01,56cf6dd7-54f2-48f0-ad81-212e1e851d46
+84,IQMS QMS Internal Task Owner CO Brazil BR02,ef.u.iqms_qms_internal_task_owner_co_brazil_br02,ef.u.iqms_qms_internal_task_owner_co_brazil_br02,aebc50d9-2463-4625-ae6c-6d95bc594564
+85,IQMS QMS Internal Task Owner CO Bulgaria BG01,ef.u.iqms_qms_internal_task_owner_co_bulgaria_bg01,ef.u.iqms_qms_internal_task_owner_co_bulgaria_bg01,cefd1814-41b1-4d1e-98a6-378912b68257
+86,IQMS QMS Internal Task Owner CO Canada CA02,ef.u.iqms_qms_internal_task_owner_co_canada_ca02,ef.u.iqms_qms_internal_task_owner_co_canada_ca02,3177b533-1f37-4148-92c3-8ab34183fa95
+87,IQMS QMS Internal Task Owner CO Chile CL01,ef.u.iqms_qms_internal_task_owner_co_chile_cl01,ef.u.iqms_qms_internal_task_owner_co_chile_cl01,d90ffeec-ad47-4edc-8898-b15c91e6087e
+88,IQMS QMS Internal Task Owner CO China CN07,ef.u.iqms_qms_internal_task_owner_co_china_cn07,ef.u.iqms_qms_internal_task_owner_co_china_cn07,0d6a4339-799c-4d64-8f92-cc86541e2259
+89,IQMS QMS Internal Task Owner CO Colombia CO01,ef.u.iqms_qms_internal_task_owner_co_colombia_co01,ef.u.iqms_qms_internal_task_owner_co_colombia_co01,a002345f-c516-41ff-ab49-0904fcb11a6d
+9,IQMS QMS CQH CO Bolivia BO01,ef.u.iqms_qms_cqh_co_bolivia_bo01,ef.u.iqms_qms_cqh_co_bolivia_bo01,cae680d4-5538-46b6-97a8-e8f64b06252e
+90,IQMS QMS Internal Task Owner CO Czech Republic CZ01,ef.u.iqms_qms_internal_task_owner_co_czech_republic_cz01,ef.u.iqms_qms_internal_task_owner_co_czech_republic_cz01,4b2e3efc-587c-4565-b53d-0ebeacba5cfc
+91,IQMS QMS Internal Task Owner CO Denmark DK01,ef.u.iqms_qms_internal_task_owner_co_denmark_dk01,ef.u.iqms_qms_internal_task_owner_co_denmark_dk01,6700bddc-9053-4812-a429-8d00c102fce3
+92,IQMS QMS Internal Task Owner CO Ecuador EC01,ef.u.iqms_qms_internal_task_owner_co_ecuador_ec01,ef.u.iqms_qms_internal_task_owner_co_ecuador_ec01,70679184-720e-4ddb-8dc1-34083cbd2827
+93,IQMS QMS Internal Task Owner CO Egypt EG01,ef.u.iqms_qms_internal_task_owner_co_egypt_eg01,ef.u.iqms_qms_internal_task_owner_co_egypt_eg01,48c04fdd-6ae3-401d-8060-efc5f6e52489
+94,IQMS QMS Internal Task Owner CO Finland FI02,ef.u.iqms_qms_internal_task_owner_co_finland_fi02,ef.u.iqms_qms_internal_task_owner_co_finland_fi02,72b1af18-20c0-4b3b-bb5a-5f12097844a4
+95,IQMS QMS Internal Task Owner CO France FR01,ef.u.iqms_qms_internal_task_owner_co_france_fr01,ef.u.iqms_qms_internal_task_owner_co_france_fr01,43be8276-ad4d-481e-882f-eb934d0547bf
+96,IQMS QMS Internal Task Owner CO Germany DE20,$PECD20-521IC72S4FV2,ef.u.iqms_qms_internal_task_owner_co_germany_de20,3dbd5135-7911-4a06-b122-f4d92bc8dd82
+97,IQMS QMS Internal Task Owner CO Greece GR01,ef.u.iqms_qms_internal_task_owner_co_greece_gr01,ef.u.iqms_qms_internal_task_owner_co_greece_gr01,2debe3e6-b8b4-47a6-921b-0300de2a61b5
+98,IQMS QMS Internal Task Owner CO Hong Kong HK01,ef.u.iqms_qms_internal_task_owner_co_hong_kong_hk01,ef.u.iqms_qms_internal_task_owner_co_hong_kong_hk01,1e8a44e2-4618-4892-b42e-1c5a2364e2c1
+99,IQMS QMS Internal Task Owner CO Hungary HU01,ef.u.iqms_qms_internal_task_owner_co_hungary_hu01,ef.u.iqms_qms_internal_task_owner_co_hungary_hu01,95f1f9bd-2c29-4757-b3b8-6f44709b875a
