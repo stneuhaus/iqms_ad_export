@@ -29,6 +29,33 @@ if sys.platform == 'win32':
 # Load environment variables from .env file
 load_dotenv()
 
+ERROR_GROUP_TEXT = "ERROR: Could not find group"
+
+
+def log_rest_call(logger, method, endpoint, params=None):
+    """Loggt den verwendeten REST Call inkl. Query-Parametern."""
+    if not logger:
+        return
+
+    try:
+        prepared = requests.Request(method, endpoint, params=params).prepare()
+        logger.info(f"MS Graph REST call -> {method.upper()} {prepared.url}")
+    except Exception:
+        logger.info(f"MS Graph REST call -> {method.upper()} {endpoint}")
+
+
+def mapping_entry_exists(cn_map, displayname_map, display_name, cn, group_id):
+    """Prüft, ob ein Mapping-Eintrag bereits existiert (Duplikat-Schutz)."""
+    if cn and cn in cn_map and cn_map[cn][1] == group_id:
+        return True
+
+    if display_name and display_name in displayname_map:
+        for existing_cn, existing_id in displayname_map[display_name]:
+            if existing_id == group_id and (not cn or existing_cn == cn):
+                return True
+
+    return False
+
 
 def get_requests_session():
     """
@@ -210,20 +237,22 @@ def load_group_id_mapping(csv_path='conf/group_id_mapping.csv', logger=None):
     Lädt Mapping von CN/DisplayName zu Group IDs.
     
     Returns:
-        Tuple: (cn_map, displayname_map, max_no)
+        Tuple: (cn_map, displayname_map, max_no, error_entries)
         - cn_map: {cn: (displayName, id), ...}
         - displayname_map: {displayName: [(cn, id), ...], ...}
         - max_no: höchste verwendete Nummer
+        - error_entries: Set mit bereits vorhandenen Error-Zeilen
     """
     cn_map = {}
     displayname_map = {}
+    error_entries = set()
     max_no = 0
     
     csv_path = Path(csv_path)
     if not csv_path.exists():
         if logger:
             logger.warning(f"Mapping file not found: {csv_path}")
-        return cn_map, displayname_map, max_no
+        return cn_map, displayname_map, max_no, error_entries
     
     try:
         with open(csv_path, 'r', encoding='utf-8-sig') as f:
@@ -232,6 +261,7 @@ def load_group_id_mapping(csv_path='conf/group_id_mapping.csv', logger=None):
                 no = row.get('no', '').strip()
                 displayName = row.get('displayName', '').strip()
                 cn = row.get('onPremisesSamAccountName', '').strip()
+                mail_nickname = row.get('mailNickname', '').strip()
                 group_id = row.get('id', '').strip()
                 
                 # Track max number
@@ -241,6 +271,11 @@ def load_group_id_mapping(csv_path='conf/group_id_mapping.csv', logger=None):
                     except ValueError:
                         pass
                 
+                # Track existing error rows for deduplication, but do not use them as valid mappings
+                if group_id.startswith(ERROR_GROUP_TEXT):
+                    error_entries.add((displayName, cn, mail_nickname, group_id))
+                    continue
+
                 # Map CN to (displayName, id)
                 if cn and group_id:
                     cn_map[cn] = (displayName, group_id)
@@ -252,13 +287,16 @@ def load_group_id_mapping(csv_path='conf/group_id_mapping.csv', logger=None):
                     displayname_map[displayName].append((cn, group_id))
         
         if logger:
-            logger.info(f"Loaded {len(cn_map)} CN mappings and {len(displayname_map)} displayName mappings")
+            logger.info(
+                f"Loaded {len(cn_map)} CN mappings and {len(displayname_map)} displayName mappings "
+                f"({len(error_entries)} error rows ignored as lookup source)"
+            )
     
     except Exception as e:
         if logger:
             logger.error(f"Error loading mapping file: {e}")
     
-    return cn_map, displayname_map, max_no
+    return cn_map, displayname_map, max_no, error_entries
 
 
 def append_to_mapping_file(csv_path, entries, logger=None):
@@ -348,6 +386,7 @@ def search_group_by_cn(cn, bearer_token, session=None, logger=None):
     try:
         if logger:
             logger.info(f"MS Graph group search -> attribute=mailNickname, value='{sanitized_cn}', endpoint=v1.0/groups")
+            log_rest_call(logger, 'GET', endpoint_v1, params_v1)
             logger.debug(f"Searching by mailNickname (v1.0): '{sanitized_cn}' (original: '{cn}')")
         
         response = session.get(endpoint_v1, headers=headers, params=params_v1, timeout=30)
@@ -385,6 +424,7 @@ def search_group_by_cn(cn, bearer_token, session=None, logger=None):
     try:
         if logger:
             logger.info(f"MS Graph group search -> attribute=onPremisesSamAccountName, value='{cn}', endpoint=beta/groups")
+            log_rest_call(logger, 'GET', endpoint_beta, params_beta)
             logger.debug(f"Searching by onPremisesSamAccountName (beta): '{cn}'")
         
         response = session.get(endpoint_beta, headers=headers, params=params_beta, timeout=30)
@@ -425,7 +465,7 @@ def search_group_by_displayname(displayName, bearer_token, session=None, logger=
     Sucht Gruppe nach displayName.
     
     Returns:
-        List of (displayName, cn, id) oder []
+        List of (displayName, cn, mailNickname, id) oder []
     """
     # Escape single quotes for OData (replace ' with '')
     displayName_escaped = displayName.replace("'", "''")
@@ -433,7 +473,7 @@ def search_group_by_displayname(displayName, bearer_token, session=None, logger=
     endpoint = "https://graph.microsoft.com/v1.0/groups"
     params = {
         '$filter': f"displayName eq '{displayName_escaped}'",
-        '$select': 'displayName,onPremisesSamAccountName,id'
+        '$select': 'displayName,onPremisesSamAccountName,mailNickname,id'
     }
     
     headers = {
@@ -446,6 +486,10 @@ def search_group_by_displayname(displayName, bearer_token, session=None, logger=
         session = requests
     
     try:
+        if logger:
+            logger.info(f"MS Graph group search -> attribute=displayName, value='{displayName}', endpoint=v1.0/groups")
+            log_rest_call(logger, 'GET', endpoint, params)
+
         response = session.get(endpoint, headers=headers, params=params, timeout=30)
         response.raise_for_status()
         
@@ -456,9 +500,10 @@ def search_group_by_displayname(displayName, bearer_token, session=None, logger=
             for group in data['value']:
                 dn = group.get('displayName', '')
                 group_cn = group.get('onPremisesSamAccountName', '')
+                mail_nickname = group.get('mailNickname', '')
                 group_id = group.get('id', '')
                 if group_id:
-                    results.append((dn, group_cn, group_id))
+                    results.append((dn, group_cn, mail_nickname, group_id))
             
             # Observation: Mehrere Gruppen gefunden
             if len(results) > 1 and obs_logger:
@@ -472,29 +517,54 @@ def search_group_by_displayname(displayName, bearer_token, session=None, logger=
         return []
 
 
-def resolve_group_id(group_cn, cn_map, displayname_map, bearer_token, next_no, mapping_updates, session=None, logger=None, obs_logger=None):
+def resolve_group_id(group_cn, cn_map, displayname_map, bearer_token, next_no, mapping_updates, error_entries=None, session=None, logger=None, obs_logger=None):
     """
     Löst Group ID auf - über Cache oder API.
     
     Returns:
         Tuple: (group_id or None, updated_next_no)
     """
-    # 1. Prüfe CN in Cache
-    if group_cn in cn_map:
+    is_technical = is_technical_group_name(group_cn)
+
+    # 1. Technische Namen zuerst via CN-Cache auflösen
+    if is_technical and group_cn in cn_map:
         displayName, group_id = cn_map[group_cn]
         return group_id, next_no
-    
-    # 2. Suche via API nach CN
-    results = search_group_by_cn(group_cn, bearer_token, session, logger)
+
+    # 1b. Nicht-technische Namen via displayName-Cache auflösen
+    if (not is_technical) and group_cn in displayname_map and displayname_map[group_cn]:
+        cached_cn, cached_group_id = displayname_map[group_cn][0]
+        if logger:
+            logger.info(f"Mapping cache hit (displayName): '{group_cn}' -> ID {cached_group_id}")
+        return cached_group_id, next_no
+
+    # 2. Suche via API
+    if is_technical:
+        results = search_group_by_cn(group_cn, bearer_token, session, logger)
+    else:
+        if logger:
+            logger.info(f"Non-technical group name detected -> searching by displayName: '{group_cn}'")
+        results = search_group_by_displayname(group_cn, bearer_token, session, logger, obs_logger)
     
     if results:
-        # Gefunden via CN
+        # Gefunden via API
         for displayName, found_cn, mail_nickname, group_id in results:
             mapped_cn = found_cn or group_cn
             mapped_mail_nickname = mail_nickname or sanitize_cn_for_mailnickname(group_cn, logger)
 
+            # Duplikat-Schutz: Nur neue Mapping-Einträge anhängen
+            if mapping_entry_exists(cn_map, displayname_map, displayName, mapped_cn, group_id):
+                if logger:
+                    logger.info(
+                        f"Skip duplicate mapping entry: displayName='{displayName}', onPremisesSamAccountName='{mapped_cn}', id='{group_id}'"
+                    )
+                continue
+
             # Update Cache
-            cn_map[group_cn] = (displayName, group_id)
+            cn_map[mapped_cn] = (displayName, group_id)
+            if displayName not in displayname_map:
+                displayname_map[displayName] = []
+            displayname_map[displayName].append((mapped_cn, group_id))
             
             # Mark for file update
             mapping_updates.append((next_no, displayName, mapped_cn, mapped_mail_nickname, group_id))
@@ -503,11 +573,29 @@ def resolve_group_id(group_cn, cn_map, displayname_map, bearer_token, next_no, m
         # Return first result's ID
         return results[0][3], next_no
     
-    # 3. Fallback: Suche nach displayName (extrahiere aus CN oder verwende leer)
-    # Da wir keinen displayName haben, können wir hier nicht weitersuchen
-    # Dies sollte idealerweise aus dem Input CSV kommen
+    if error_entries is None:
+        error_entries = set()
+
+    if is_technical:
+        # Searched by mailNickname (sanitized CN)
+        search_value = sanitize_cn_for_mailnickname(group_cn, logger)
+        error_row = (ERROR_GROUP_TEXT, ERROR_GROUP_TEXT, search_value, ERROR_GROUP_TEXT)
+    else:
+        # Searched by displayName (original value)
+        error_row = (group_cn, ERROR_GROUP_TEXT, ERROR_GROUP_TEXT, ERROR_GROUP_TEXT)
+
+    if error_row not in error_entries:
+        mapping_updates.append((next_no, *error_row))
+        error_entries.add(error_row)
+        next_no += 1
+    elif logger:
+        logger.info(f"Skip duplicate error mapping entry for group: {group_cn}")
+
+    if obs_logger:
+        obs_logger.info(f"Group Not Found: {group_cn}")
+
     if logger:
-        logger.warning(f"Group not found by CN: {group_cn}")
+        logger.warning(f"Group not found in MS Graph: {group_cn}")
     
     return None, next_no
 
@@ -544,9 +632,13 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
                 results[group_cn] = []
                 continue
             
-            # Log the first few requests for debugging
-            if idx < 3 and logger:
+            if logger:
                 logger.info(f"Adding batch request: CN={group_cn}, ID={group_id}")
+                logger.info(
+                    "MS Graph REST call -> GET "
+                    f"https://graph.microsoft.com/v1.0/groups/{group_id}/members"
+                    "?$select=userPrincipalName,onPremisesSamAccountName,accountEnabled,mail"
+                )
             
             batch_requests.append({
                 "id": str(idx),
@@ -569,6 +661,11 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
         }
         
         try:
+            if logger:
+                log_rest_call(logger, 'POST', batch_endpoint)
+                for req in batch_requests[:3]:
+                    logger.info(f"MS Graph REST batch item -> {req.get('method', 'GET')} https://graph.microsoft.com/v1.0{req.get('url', '')}")
+
             response = session.post(batch_endpoint, headers=headers, json=batch_body, timeout=60)
             response.raise_for_status()
             
@@ -590,6 +687,9 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
                 if status == 200:
                     body = resp.get('body', {})
                     members_data = body.get('value', [])
+
+                    if len(members_data) == 0 and obs_logger:
+                        obs_logger.info(f"Group with 0 members: {group_cn},{group_id}")
                     
                     members = []
                     for member in members_data:
@@ -696,26 +796,26 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     # Eindeutige AD Security Groups sammeln
     unique_groups = sorted(set(row['AD Security Group'] for row in input_rows))
     
-    # Filtern: Nur technische Gruppennamen
+    # Gruppentypen ermitteln (für Logging/Reporting)
     technical_groups = []
-    skipped_groups = []
+    non_technical_groups = []
     
     for group in unique_groups:
         if is_technical_group_name(group):
             technical_groups.append(group)
         else:
-            skipped_groups.append(group)
+            non_technical_groups.append(group)
     
     if not silent:
         print(f"✓ {len(unique_groups)} eindeutige AD Security Groups gefunden")
         print(f"  - Technische Namen: {len(technical_groups)}")
-        print(f"  - Übersprungene 'displayName' Namen: {len(skipped_groups)}")
-        if skipped_groups:
-            print(f"\n⚠ Übersprungene Gruppen (erste 10):")
-            for group in skipped_groups[:10]:
+        print(f"  - Nicht-technische Namen (displayName): {len(non_technical_groups)}")
+        if non_technical_groups:
+            print(f"\nℹ Nicht-technische Gruppen (erste 10, werden via displayName gesucht):")
+            for group in non_technical_groups[:10]:
                 print(f"    - {group}")
-            if len(skipped_groups) > 10:
-                print(f"    ... und {len(skipped_groups) - 10} weitere")
+            if len(non_technical_groups) > 10:
+                print(f"    ... und {len(non_technical_groups) - 10} weitere")
         print()
     
     # Mapping laden
@@ -724,14 +824,14 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
         print(f"Lade Group ID Mapping...")
         print(f"{'='*80}\n")
     
-    cn_map, displayname_map, max_no = load_group_id_mapping(logger=logger)
+    cn_map, displayname_map, max_no, error_entries = load_group_id_mapping(logger=logger)
     next_no = max_no + 1
     mapping_updates = []
     
     # Group IDs auflösen
     if not silent:
         print(f"{'='*80}")
-        print(f"Löse Group IDs für {len(technical_groups)} Gruppen auf...")
+        print(f"Löse Group IDs für {len(unique_groups)} Gruppen auf...")
         print(f"{'='*80}\n")
     
     group_ids_dict = {}
@@ -739,10 +839,10 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     
     batch_start = datetime.now()
     
-    for group_cn in technical_groups:
+    for group_cn in unique_groups:
         group_id, next_no = resolve_group_id(
             group_cn, cn_map, displayname_map, bearer_token, 
-            next_no, mapping_updates, session, logger, obs_logger
+            next_no, mapping_updates, error_entries, session, logger, obs_logger
         )
         
         if group_id:
@@ -797,13 +897,10 @@ def process_csv(input_file, output_file, silent=False, logger=None, obs_logger=N
     output_rows = []
     total_users = 0
     groups_without_members = 0
+    skipped_groups = []
     
     for row in input_rows:
         group_name = row['AD Security Group']
-        
-        # Überspringe "schöne" Namen
-        if not is_technical_group_name(group_name):
-            continue
         
         members = group_members_cache.get(group_name, [])
         
