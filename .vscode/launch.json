@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "MSGraph Single File",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/enrich_csv_with_users_msgraph.py",
+      "args": ["-i", "persona_ad_sg_mapping.csv", "-o", "test_output.csv"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "name": "MSGraph Batch",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/enrich_csv_with_users_msgraph.py",
+      "args": ["--batch"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

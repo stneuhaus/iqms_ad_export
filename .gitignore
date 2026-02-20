@@ -1,0 +1,12 @@
+.env
+enrichment_msgraph_*.log
+observations_*.log
+persona_ad_sg_mapping.csv
+.test/*
+__pycache__/*
+conf/group_id_mapping.csv.old
+exports/*
+logs/*
+mapping_persona_sg/ID now-Personas mapping_updated.xlsx
+mapping_persona_sg/ID now-Personas mapping.xlsx
+reports/*
