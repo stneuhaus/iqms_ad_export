@@ -80,9 +80,9 @@ def setup_logging():
     )
     file_handler.setFormatter(file_formatter)
     
-    # Console Handler - nur Warnings und Errors
+    # Console Handler - Info, Warnings und Errors
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.WARNING)
+    console_handler.setLevel(logging.INFO)
     console_formatter = logging.Formatter('%(levelname)s: %(message)s')
     console_handler.setFormatter(console_formatter)
     
@@ -267,7 +267,7 @@ def append_to_mapping_file(csv_path, entries, logger=None):
     
     Args:
         csv_path: Pfad zur Mapping-Datei
-        entries: Liste von (no, displayName, cn, id) Tupeln
+        entries: Liste von (no, displayName, cn, mailNickname, id) Tupeln
     """
     csv_path = Path(csv_path)
     
@@ -285,7 +285,7 @@ def append_to_mapping_file(csv_path, entries, logger=None):
             logger.error(f"Error appending to mapping file: {e}")
 
 
-def sanitize_cn_for_mailnickname(cn):
+def sanitize_cn_for_mailnickname(cn, logger=None):
     """
     Konvertiert CN zu mailNickname Format (ersetzt Sonderzeichen).
     
@@ -311,7 +311,8 @@ def sanitize_cn_for_mailnickname(cn):
     sanitized = sanitized.replace('&', '_')
     sanitized = sanitized.replace("'", '_')
     sanitized = sanitized.replace(',', '_')
-    logger.info(f"Sanitized CN for mailNickname: '{cn}' -> '{sanitized}'")
+    if logger:
+        logger.info(f"Sanitized CN for mailNickname: '{cn}' -> '{sanitized}'")
     return sanitized
 
 
@@ -324,7 +325,7 @@ def search_group_by_cn(cn, bearer_token, session=None, logger=None):
     2. Fallback: Try onPremisesSamAccountName with beta API (original CN)
     
     Returns:
-        List of (displayName, cn, id) oder []
+        List of (displayName, cn, mailNickname, id) oder []
     """
     if session is None:
         session = requests
@@ -335,7 +336,7 @@ def search_group_by_cn(cn, bearer_token, session=None, logger=None):
     }
     
     # Strategy 1: Try mailNickname with v1.0 (sanitized CN)
-    sanitized_cn = sanitize_cn_for_mailnickname(cn)
+    sanitized_cn = sanitize_cn_for_mailnickname(cn, logger)
     cn_escaped = sanitized_cn.replace("'", "''")
     
     endpoint_v1 = "https://graph.microsoft.com/v1.0/groups"
@@ -346,6 +347,7 @@ def search_group_by_cn(cn, bearer_token, session=None, logger=None):
     
     try:
         if logger:
+            logger.info(f"MS Graph group search -> attribute=mailNickname, value='{sanitized_cn}', endpoint=v1.0/groups")
             logger.debug(f"Searching by mailNickname (v1.0): '{sanitized_cn}' (original: '{cn}')")
         
         response = session.get(endpoint_v1, headers=headers, params=params_v1, timeout=30)
@@ -358,10 +360,11 @@ def search_group_by_cn(cn, bearer_token, session=None, logger=None):
             for group in data['value']:
                 displayName = group.get('displayName', '')
                 # Prefer onPremisesSamAccountName (preserves special chars)
-                group_cn = group.get('onPremisesSamAccountName') or group.get('mailNickname', '')
+                group_cn = group.get('onPremisesSamAccountName') or cn
+                mail_nickname = group.get('mailNickname', '')
                 group_id = group.get('id', '')
                 if group_id:
-                    results.append((displayName, group_cn, group_id))
+                    results.append((displayName, group_cn, mail_nickname, group_id))
                     if logger:
                         logger.info(f"✓ Found via mailNickname (v1.0): {displayName} (ID: {group_id})")
             
@@ -381,6 +384,7 @@ def search_group_by_cn(cn, bearer_token, session=None, logger=None):
     
     try:
         if logger:
+            logger.info(f"MS Graph group search -> attribute=onPremisesSamAccountName, value='{cn}', endpoint=beta/groups")
             logger.debug(f"Searching by onPremisesSamAccountName (beta): '{cn}'")
         
         response = session.get(endpoint_beta, headers=headers, params=params_beta, timeout=30)
@@ -392,10 +396,11 @@ def search_group_by_cn(cn, bearer_token, session=None, logger=None):
         if data.get('value'):
             for group in data['value']:
                 displayName = group.get('displayName', '')
-                group_cn = group.get('onPremisesSamAccountName') or group.get('mailNickname', '')
+                group_cn = group.get('onPremisesSamAccountName') or cn
+                mail_nickname = group.get('mailNickname', '')
                 group_id = group.get('id', '')
                 if group_id:
-                    results.append((displayName, group_cn, group_id))
+                    results.append((displayName, group_cn, mail_nickname, group_id))
                     if logger:
                         logger.info(f"✓ Found via onPremisesSamAccountName (beta): {displayName} (ID: {group_id})")
         
@@ -484,16 +489,19 @@ def resolve_group_id(group_cn, cn_map, displayname_map, bearer_token, next_no, m
     
     if results:
         # Gefunden via CN
-        for displayName, found_cn, group_id in results:
+        for displayName, found_cn, mail_nickname, group_id in results:
+            mapped_cn = found_cn or group_cn
+            mapped_mail_nickname = mail_nickname or sanitize_cn_for_mailnickname(group_cn, logger)
+
             # Update Cache
             cn_map[group_cn] = (displayName, group_id)
             
             # Mark for file update
-            mapping_updates.append((next_no, displayName, group_cn, group_id))
+            mapping_updates.append((next_no, displayName, mapped_cn, mapped_mail_nickname, group_id))
             next_no += 1
         
         # Return first result's ID
-        return results[0][2], next_no
+        return results[0][3], next_no
     
     # 3. Fallback: Suche nach displayName (extrahiere aus CN oder verwende leer)
     # Da wir keinen displayName haben, können wir hier nicht weitersuchen
