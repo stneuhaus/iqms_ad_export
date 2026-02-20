@@ -226,7 +226,7 @@ def find_identifier_pattern(sg_name):
     return None
 
 
-def add_docunit_column(df_mapping, docunit_file):
+def add_docunit_column(df_mapping, docunit_file, global_docunit_file=None):
     """
     Adds the DocUnit column to the mapping DataFrame.
     
@@ -236,7 +236,8 @@ def add_docunit_column(df_mapping, docunit_file):
     
     Args:
         df_mapping: DataFrame containing persona and AD Security Group columns
-        docunit_file: Path to the DocUnit CSV reference file
+        docunit_file: Path to the local DocUnit CSV reference file
+        global_docunit_file: Optional path to global persona->DocUnit fallback CSV
         
     Returns:
         tuple: (DataFrame with added DocUnit column, number of errors/unmatched entries)
@@ -252,6 +253,24 @@ def add_docunit_column(df_mapping, docunit_file):
     print(f"\nLoading DocUnit file: {docunit_file}")
     df_docunit = pd.read_csv(docunit_file)
     print(f"  → {len(df_docunit)} entries loaded")
+
+    # Optional global fallback mapping: persona -> DocUnit
+    persona_to_global_docunit = {}
+    if global_docunit_file and Path(global_docunit_file).exists():
+        print(f"\nLoading global fallback DocUnit file: {global_docunit_file}")
+        df_docunit_global = pd.read_csv(global_docunit_file)
+        print(f"  → {len(df_docunit_global)} global fallback entries loaded")
+
+        for _, fallback_row in df_docunit_global.iterrows():
+            persona_value = str(fallback_row.get('persona', '')).strip()
+            global_docunit_value = str(fallback_row.get('DocUnit', '')).strip()
+            if persona_value and global_docunit_value:
+                persona_to_global_docunit[persona_value] = global_docunit_value
+
+        print(f"  → {len(persona_to_global_docunit)} persona fallback mappings prepared")
+    elif global_docunit_file:
+        print(f"\n⚠ Global fallback file not found: {global_docunit_file}")
+        print("  Continuing without persona-based global fallback.")
     
     # Create distinct list of DocUnits (trim values)
     docunits = df_docunit['docunit'].unique()
@@ -278,10 +297,12 @@ def add_docunit_column(df_mapping, docunit_file):
     errors = 0
     fallback_last4_matches = 0
     fallback_pattern_matches = 0
+    fallback_global_persona_matches = 0
     
     for idx, row in df_mapping.iterrows():
         # Trim the security group name before processing
         sg_name = str(row['AD Security Group']).strip() if row['AD Security Group'] else ''
+        persona_name = str(row['persona']).strip() if row['persona'] else ''
         identifier = extract_identifier_from_sg(sg_name)
         
         # Trim identifier before lookup
@@ -308,18 +329,29 @@ def add_docunit_column(df_mapping, docunit_file):
                         docunit_values.append(identifier_to_docunit[pattern_identifier])
                         fallback_pattern_matches += 1
                     else:
-                        # No match found with any strategy
-                        docunit_values.append("ERROR: Docunit not found")
-                        errors += 1
-                        if errors <= 5:  # Show first 5 errors for debugging
-                            print(f"  No match for: {sg_name}")
-                            print(f"    ID: {identifier}, Last4: {last_four}, Pattern: {pattern_identifier}")
+                        # Strategy 4: Global persona fallback
+                        if persona_name and persona_name in persona_to_global_docunit:
+                            docunit_values.append(persona_to_global_docunit[persona_name])
+                            fallback_global_persona_matches += 1
+                        else:
+                            # No match found with any strategy
+                            docunit_values.append("ERROR: Docunit not found")
+                            errors += 1
+                            if errors <= 5:  # Show first 5 errors for debugging
+                                print(f"  No match for: {sg_name}")
+                                print(
+                                    f"    Persona: {persona_name}, ID: {identifier}, Last4: {last_four}, Pattern: {pattern_identifier}"
+                                )
             else:
                 # Security group name too short to extract identifier
-                docunit_values.append("ERROR: Docunit not found")
-                errors += 1
-                if errors <= 5:
-                    print(f"  No match for: {sg_name} (too short)")
+                if persona_name and persona_name in persona_to_global_docunit:
+                    docunit_values.append(persona_to_global_docunit[persona_name])
+                    fallback_global_persona_matches += 1
+                else:
+                    docunit_values.append("ERROR: Docunit not found")
+                    errors += 1
+                    if errors <= 5:
+                        print(f"  No match for: {sg_name} (too short)")
     
     df_mapping['DocUnit'] = docunit_values
     
@@ -328,6 +360,7 @@ def add_docunit_column(df_mapping, docunit_file):
     print(f"    - Direct matches: {len(df_mapping) - errors - fallback_last4_matches - fallback_pattern_matches}")
     print(f"    - Fallback (last 4 characters): {fallback_last4_matches}")
     print(f"    - Fallback (pattern 2 letters + 2 digits): {fallback_pattern_matches}")
+    print(f"    - Fallback (global persona mapping): {fallback_global_persona_matches}")
     print(f"  Errors (not found): {errors}")
     
     return df_mapping, errors
@@ -340,11 +373,12 @@ def main():
     This function guides the user through an interactive workflow:
     1. Prompts for input Excel file path (with default suggestion)
     2. Prompts for DocUnit reference CSV file path (with default suggestion) 
-    3. Prompts for output CSV file path (with default suggestion)
-    4. Validates that input files exist
-    5. Processes the Excel data and creates relational mappings
-    6. Enriches data with DocUnit information
-    7. Saves the result to the specified output file
+    3. Prompts for global DocUnit fallback CSV file path (with default suggestion)
+    4. Prompts for output CSV file path (with default suggestion)
+    5. Validates that input files exist
+    6. Processes the Excel data and creates relational mappings
+    7. Enriches data with DocUnit information
+    8. Saves the result to the specified output file
     
     The user can press Enter to accept default paths or provide custom full paths.
     """
@@ -352,8 +386,9 @@ def main():
     # Define default paths (relative to project root) to suggest to the user
     project_root = Path(__file__).parent.parent  # One level up from tools/
     default_excel_file = project_root / "mapping_persona_sg" / "ID now-Personas mapping.xlsx"
-    default_docunit_file = project_root / "reports" / "docunit_persona_members_20260131_163801.csv"
-    default_output_file = project_root / "exports" / "persona_ad_sg_mapping.csv"
+    default_docunit_file = project_root / "conf" / "docunits.csv"
+    default_global_docunit_file = project_root / "conf" / "docunits_global.csv"
+    default_output_file = project_root / "exports" / "persona_sg_mapping.csv"
     
     # Display welcome message
     print(f"{'='*80}")
@@ -363,7 +398,8 @@ def main():
     print("You will be prompted to provide file paths for:")
     print("  1. Input Excel file (persona mappings)")
     print("  2. DocUnit reference CSV file")
-    print("  3. Output CSV file location")
+    print("  3. Global DocUnit fallback CSV file")
+    print("  4. Output CSV file location")
     
     # Get user input for file paths
     excel_file = Path(get_user_input(
@@ -372,12 +408,17 @@ def main():
     ))
     
     docunit_file = Path(get_user_input(
-        "\n[2/3] DocUnit reference CSV file:",
+        "\n[2/4] DocUnit reference CSV file:",
         default_docunit_file
+    ))
+
+    global_docunit_file = Path(get_user_input(
+        "\n[3/4] Global DocUnit fallback CSV file:",
+        default_global_docunit_file
     ))
     
     output_file = Path(get_user_input(
-        "\n[3/3] Output CSV file path:",
+        "\n[4/4] Output CSV file path:",
         default_output_file
     ))
     
@@ -388,6 +429,10 @@ def main():
     
     if not docunit_file.exists():
         print(f"\n❌ ERROR: DocUnit file not found: {docunit_file}")
+        return
+
+    if not global_docunit_file.exists():
+        print(f"\n❌ ERROR: Global DocUnit fallback file not found: {global_docunit_file}")
         return
     
     # Create output directory if it doesn't exist (based on user-specified output path)
@@ -400,6 +445,7 @@ def main():
     print(f"{'='*80}")
     print(f"Excel file:   {excel_file}")
     print(f"DocUnit file: {docunit_file}")
+    print(f"Global fallback file: {global_docunit_file}")
     print(f"Output file:  {output_file}")
     
     print(f"\n{'='*80}")
@@ -439,7 +485,7 @@ def main():
     print(f"\nTotal: {len(all_records)} entries created")
     
     # Add DocUnit column using user-specified reference file
-    result_df, errors = add_docunit_column(result_df, docunit_file)
+    result_df, errors = add_docunit_column(result_df, docunit_file, global_docunit_file)
     
     # Save enriched data as CSV to user-specified location
     print(f"\n{'='*80}")
