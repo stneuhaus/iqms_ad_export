@@ -32,6 +32,14 @@ load_dotenv()
 ERROR_GROUP_TEXT = "ERROR: Could not find group"
 NEAR_EXPIRY_THRESHOLD_SECONDS = 10 * 60
 _near_expiry_user_decision = None
+OBSERVATION_COLUMNS = [
+    "TIME_STAMP",
+    "SCRIPT_NAME",
+    "OBSERVATION_TYPE",
+    "OBSERVATION",
+    "ADD_INFO1",
+    "ADD_INFO2",
+]
 
 
 def log_rest_call(logger, method, endpoint, params=None):
@@ -167,40 +175,101 @@ def setup_logging():
 
 def setup_observations_log():
     """
-    Configures observations log for warnings and notable events.
+    Configures observations CSV output for warnings and notable events.
     """
     project_root = Path(__file__).parent
     reports_dir = project_root / "reports"
     reports_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    obs_file = reports_dir / f"observations_from_get_users_and_groups_{timestamp}.md"
+    obs_file = reports_dir / f"observations_{timestamp}.csv"
     
     # Observations Logger
     obs_logger = logging.getLogger('observations')
     obs_logger.setLevel(logging.INFO)
     obs_logger.propagate = False  # Do not propagate to parent logger
     
-    # Prevent duplicate handlers
+    # Reset handlers to ensure file path is always current for this run
     if obs_logger.handlers:
-        return obs_logger, obs_file
+        for existing_handler in list(obs_logger.handlers):
+            obs_logger.removeHandler(existing_handler)
+            existing_handler.close()
     
-    # File Handler
+    # File handler (kept for simple logging compatibility)
     obs_handler = logging.FileHandler(obs_file, encoding='utf-8', mode='w')
     obs_handler.setLevel(logging.INFO)
     obs_formatter = logging.Formatter('%(message)s')
     obs_handler.setFormatter(obs_formatter)
     
     obs_logger.addHandler(obs_handler)
-    
-    # Write header
-    obs_logger.info("="*100)
-    obs_logger.info(f"OBSERVATIONS LOG - get_users_and_groups_from_ad.py")
-    obs_logger.info(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    obs_logger.info("="*100)
-    obs_logger.info(f"{'Observation Description':<60} | {'userPrincipalName/Details'}")
-    obs_logger.info("-"*100)
+
+    # Attach metadata for structured CSV writer
+    setattr(obs_logger, "observation_file", obs_file)
+    setattr(obs_logger, "script_name", Path(__file__).name)
+    setattr(obs_logger, "observation_counts", {})
+
+    # Write CSV header
+    with open(obs_file, 'w', newline='', encoding='utf-8-sig') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(OBSERVATION_COLUMNS)
     
     return obs_logger, obs_file
+
+
+def write_observation(obs_logger, observation_type, observation, add_info1="", add_info2=""):
+    """Writes one structured observation row to observations CSV."""
+    if not obs_logger:
+        return
+
+    obs_file = getattr(obs_logger, "observation_file", None)
+    script_name = getattr(obs_logger, "script_name", Path(__file__).name)
+    if not obs_file:
+        return
+
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+    with open(obs_file, 'a', newline='', encoding='utf-8-sig') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow([
+            timestamp,
+            script_name,
+            observation_type,
+            observation,
+            add_info1,
+            add_info2,
+        ])
+
+    counts = getattr(obs_logger, "observation_counts", None)
+    if isinstance(counts, dict):
+        counts[observation_type] = counts.get(observation_type, 0) + 1
+
+
+def print_observation_summary(obs_logger, obs_file):
+    """Prints a short, highlighted summary of observation types and counts."""
+    counts = getattr(obs_logger, "observation_counts", {}) if obs_logger else {}
+    no_color = os.getenv("NO_COLOR", "").lower() in ("1", "true", "yes")
+    use_color = sys.stdout.isatty() and not no_color
+
+    if use_color:
+        magenta = "\033[95m"
+        cyan = "\033[96m"
+        bold = "\033[1m"
+        reset = "\033[0m"
+    else:
+        magenta = cyan = bold = reset = ""
+
+    border = f"{magenta}{bold}{'=' * 90}{reset}"
+    print(f"\n{border}")
+    print(f"{magenta}{bold}🔎 OBSERVATION SUMMARY{reset}")
+
+    if counts:
+        print(f"Total observations: {sum(counts.values())}")
+        print(f"Different observation types: {len(counts)}")
+        for observation_type, count in sorted(counts.items(), key=lambda item: item[0].lower()):
+            print(f"  - {observation_type}: {count}")
+    else:
+        print("No observations recorded.")
+
+    print(f"{cyan}Details: {obs_file}{reset}")
+    print(border)
 
 
 def format_duration(delta) -> str:
@@ -666,7 +735,13 @@ def search_group_by_displayname(displayName, bearer_token, session=None, logger=
             
             # Observation: Multiple groups found
             if len(results) > 1 and obs_logger:
-                obs_logger.info(f"{'Multiple groups found for displayName':<60} | {displayName} (Found: {len(results)})")
+                write_observation(
+                    obs_logger,
+                    "Multiple groups found for displayName",
+                    displayName,
+                    f"Found: {len(results)}",
+                    "",
+                )
         
         return results
     
@@ -751,7 +826,7 @@ def resolve_group_id(group_cn, cn_map, displayname_map, bearer_token, next_no, m
         logger.info(f"Skip duplicate error mapping entry for group: {group_cn}")
 
     if obs_logger:
-        obs_logger.info(f"Group Not Found: {group_cn}")
+        write_observation(obs_logger, "Group Not Found", group_cn, "", "")
 
     if logger:
         logger.warning(f"Group not found in MS Graph: {group_cn}")
@@ -858,7 +933,7 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
 
                             # Observation: no alias found
                             if upn and not alias and obs_logger:
-                                obs_logger.info(f"{'No Alias found for user':<60} | {upn}")
+                                write_observation(obs_logger, "No Alias found for user", upn, "", "")
 
                             # Map user status
                             if account_enabled is True:
@@ -895,7 +970,7 @@ def get_group_members_batch(group_ids_dict, bearer_token, session=None, logger=N
                             break
 
                     if len(members) == 0 and obs_logger:
-                        obs_logger.info(f"Group with 0 members: {group_cn},{group_id}")
+                        write_observation(obs_logger, "Group with 0 members", group_cn, group_id, "")
                     
                     results[group_cn] = members
                 else:
@@ -1368,6 +1443,8 @@ def batch_process(input_dir, output_dir, report_file):
     logger.info(f"Total runtime: {total_minutes} min {total_seconds} sec")
     logger.info("="*80)
 
+    print_observation_summary(obs_logger, obs_file)
+
 
 def main():
     """Main entry point."""
@@ -1467,6 +1544,7 @@ Examples:
     process_csv(str(input_path), str(output_path), logger=logger, obs_logger=obs_logger)
     print(f"✓ Done! Enriched CSV: {output_path}")
     print(f"✓ Observations Log: {obs_file}\n")
+    print_observation_summary(obs_logger, obs_file)
 
 
 if __name__ == "__main__":

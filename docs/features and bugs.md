@@ -22,3 +22,16 @@ Code Changes
 * When starting the program an explanation should show which option exist to start the programm
 
 Status: Solved
+
+## feature: change report type to csv format
+
+Exprected Result: The current md file format observations_from_get_users_and_groups_20260220_181359.md does it make difficult to search and filter for observations. Therefore the fileformat must be changed to csv. The existing md file should not be produced anymore and will be replaced. The file name should be observations_{TIME_STAMP}.csv
+
+The new csv file format should contain following columns. These columns should be filled in case an observation was made.
+
+* TIME_STAMP	-> date and time of occurence,  YYYY-MM-DD HH:MM e.g. 2026-12-31 14:35
+* SCRIPT_NAME	-> the script name that produced this entry
+* OBSERVATION_TYPE	-> Made observation. Please add here `Group with 0 members`  or  `Group Not Found`
+* OBSERVATION	-> for both observation types add the group name
+* ADD_INFO1	-> for observation type `Group with 0 members`  add group ID for `Group Not Found` leave it empty
+* ADD_INFO2	-> For future use, keep it empty.

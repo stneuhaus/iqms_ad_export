@@ -16,11 +16,11 @@ Transform it first with [tools/02_process_persona_mapping.py](tools/02_process_p
 The script has two main purposes:
 
 1. Create relational output with the following columns:
-  1. persona (IQMS persona)
-  2. AD Security Group (related security group for this persona and DocUnit)
-  3. DocUnit (DocUnit where this persona is used)
+   1. persona (IQMS persona)
+   2. AD Security Group (related security group for this persona and DocUnit)
+   3. DocUnit (DocUnit where this persona is used)
 2. Extract the DocUnit identifier from the AD Security Group name (last segment) and match it to the real IQMS DocUnit name, for example:
-  `ef.u.iqms_qms_internal_task_owner_bcc_ag_basel_ch01  -->  BCC AG Basel (CH01)`
+   `ef.u.iqms_qms_internal_task_owner_bcc_ag_basel_ch01  -->  BCC AG Basel (CH01)`
 
 To do this, the script expects three input files:
 
@@ -31,7 +31,7 @@ To do this, the script expects three input files:
 The output file becomes the input for [get_users_and_groups_from_ad.py](get_users_and_groups_from_ad.py), which retrieves IQMS users for each persona and DocUnit.
 The default output file name is [exports/persona_sg_mapping.csv](exports/persona_sg_mapping.csv).
 
-Please validate the generated file before continuing.
+**Please validate the generated file before continuing.**
 Not every persona is mapped to a specific DocUnit (for example, global roles). These DocUnits are named `Global_...`.
 If a DocUnit cannot be found (for example, a new DocUnit was created in IQMS), the value `ERROR: Docunit not found` is written.
 In that case, update [conf/docunits_global.csv](conf/docunits_global.csv) and/or [conf/docunits.csv](conf/docunits.csv).
@@ -127,7 +127,7 @@ iqms_ad_export/
 ├─ logs/
 │  └─ get_users_and_groups_from_ad_*.log        # Timestamped execution logs per run
 └─ reports/
-	 └─ observations_from_get_users_and_groups_*.md  # Timestamped observations per run
+   └─ observations_*.csv                         # Timestamped structured observations per run
 ```
 
 ## How to Run
